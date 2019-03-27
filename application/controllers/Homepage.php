@@ -10,7 +10,7 @@ class Homepage extends CI_Controller {
     }
 
     public function index() {
-
+       
         $data['page'] = "front/home/index";
         $data['var_meta_title'] = 'login';
         $data['var_meta_description'] = 'login';
@@ -87,6 +87,7 @@ class Homepage extends CI_Controller {
     
     public function getVehical() {
         $token = $this->session->userdata('token');
+       
         $data = "token=NgKsXWk2HHwZsOUvAeClfJGVrISyN2Ss";
         $url = "http://test.indigoseaways.com/api/api/GetVehicles";
         $header = array('authorization: ' . $token);

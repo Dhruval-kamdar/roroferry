@@ -54,14 +54,7 @@ var Home = function() {
 
 
         });
-//        var form = $('#bookticket');
-//        var rules = {
-//            fromstaton: {required: true}
-//            
-//        };
-//        handleFormValidate(form, rules, function(form) {
-//            handleAjaxFormSubmit(form,true);
-//        });
+
 
         $('body').on('click', '.nextbtn', function(form) {
             var nextForm = $(this).attr('data-next-form');
@@ -169,7 +162,31 @@ var Home = function() {
             $('.submit-form').addClass('hidden');
             $('.form' + nextForm).removeClass('hidden');
         });
-    }
+        
+        $('body').on('change','.busservices',function(){
+            var services=$(this).val();
+            if(services == 'busservices'){
+                $('.pickpoint').removeAttr('disabled');
+                $('.droppoint').removeAttr('disabled');
+            }else{
+                $('.pickpoint').attr( "disabled", "disabled" );  
+                $('.droppoint').attr( "disabled", "disabled" );  
+            }
+        });
+        $('body').on('change','.tripFerrySelection',function(){
+            $feeryType=$(this).val();
+            if($feeryType == 'cargo-ferry'){
+                $('.vehical').removeAttr('disabled'); 
+                $('.vehicalmore2years').removeAttr('disabled');
+                $('.more2years').attr( "disabled", "disabled" ); 
+            }else{
+              $('.vehical').attr( "disabled", "disabled" ); 
+              $('.vehicalmore2years').attr( "disabled", "disabled" ); 
+              $('.more2years').removeAttr('disabled'); 
+            }
+        });
+    }   
+    
 
 // call when all validate is true
     function checkCustom() {
@@ -244,6 +261,7 @@ var Home = function() {
 
         $('#deparure').datepicker({
             startDate: date,
+            autoclose:true,
         }).on('changeDate', function(e) {
             var fromDate = $(this).val();
             var fromstaton = $('.fromstaton').val();
@@ -263,7 +281,8 @@ var Home = function() {
             }
         });
         $('#return').datepicker({
-            startDate: date,
+            startDate: date,            
+            autoclose:true,
         }).on('changeDate', function(e) {
             var fromDate = $(this).val();
             var fromstaton = $('.fromstaton').val();
@@ -313,20 +332,6 @@ var Home = function() {
         })
     }
 
-//    function ticketSelection(selectDate){
-//        var d = new Date();
-//        var todayDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
-//        
-//        var selectedDate = selectDate.getFullYear() + "-" + (selectDate.getMonth()+1) + "-" + selectDate.getDate();
-//        
-//        var html = '';
-//        if(todayDate == selectedDate){
-//            html = "<button type='button' class='btn btn-default cusClass' disabled>09:30 AM<span class='price'><i class='fa fa-rupee'></i>500</span></button><button type='button' class='btn btn-default cusClass' disabled>02:30 PM<span class='price'><i class='fa fa-rupee'></i>500</span></button>";
-//        }else{
-//            html = "<button type='button' class='btn btn-default cusClass selectTrip' data-time='09:30 AM' data-price='500'>09:30 AM<span class='price'><i class='fa fa-rupee'></i>500</span></button><button type='button' class='btn btn-default cusClass selectTrip' data-time='02:30 PM' data-price='500'>02:30 PM<span class='price'><i class='fa fa-rupee'></i>500</span></button>";
-//        }
-//        return html;
-//    }
 
     return{
         init: function() {

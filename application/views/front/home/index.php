@@ -51,13 +51,28 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6">
+                                            <div class="radio-select">
+                                                <div class="row">
+                                                    <div class="col-md-7 col-sm-7 col-xs-7">
+                                                        <label for="oneway">Without Cargo Ferry</label>
+                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="withoutcargo" value="without-cargo-ferry" checked='checked'>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-5 col-sm-5 col-xs-5">
+                                                        <label for="round">Cargo Ferry</label>
+                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="cargo" value="cargo-ferry" >
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <label for="from">From:</label>
+                                                <label for="from">From :</label>
                                                 <select name="fromstaton" class="tripFrom fromstaton">
                                                     <option value="">Select a location...</option>
                                                     <?php for($i=0;$i<count($getStop);$i++){ ?>
@@ -70,7 +85,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <label for="to">To:</label>
+                                                <label for="to">To :</label>
                                                 <select name="tostation" class="tripTo tostation">
                                                     <option value="">Select a location...</option>
                                                     
@@ -82,15 +97,15 @@
                                     <div class="col-md-12">
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <label for="departure">Out Bound:</label>
-                                                <input name="depature" type="text" class="form-control date onewayTrip" id="deparure" placeholder="Select date...">
+                                                <label for="departure">Trip Date :</label>
+                                                <input name="depature" type="text" class="form-control date onewayTrip" id="deparure" placeholder="Select date..." autocomplete="off">
                                                 <label for="depature" class="error"></label>
                                             </fieldset>
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <label for="return">Return:</label>
-                                                <input name="returntrip" type="text" class="form-control date roundTrip" id="return" placeholder="Select date...">
+                                                <label for="return">Return Trip Date :</label>
+                                                <input name="returntrip" type="text" class="form-control date roundTrip" id="return" placeholder="Select date..." autocomplete="off">
                                                 <label for="return" class="error"></label>
                                             </fieldset>
                                         </div>
@@ -154,7 +169,7 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label for="vehical">Vehicle:</label>
-                                                <select class="vehical" name="vehical">
+                                                <select class="vehical"  name="vehical" disabled>
                                                     <option value="">Select a Vehicle...</option>
                                                     <?php for ($i = 0; $i <count($getVehical); $i++) { ?>
                                                         <option value="<?= $getVehical[$i]['vehicleCategoryID']; ?>"><?= $getVehical[$i]['vehicleCategoryName']; ?></option>
@@ -165,8 +180,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <label for=">2 Years">Passengers (>2 Years):</label>
-                                                <select name="more2years" class="more2years">
+                                                <label for=">2 Years">Passengers (&gt;2 Years):</label>
+                                                <select name="vehicalmore2years" class="vehicalmore2years" disabled>
                                                     <option value="">Select a Passengers...</option>
                                                     <?php for ($i = 1; $i <= 10; $i++) { ?>
                                                         <option value="<?= $i; ?>"><?= $i; ?></option>
@@ -227,11 +242,11 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="busservices">Avail Bus Services</label>
-                                                    <input type="radio" name="pickupservices" id="busservices" value="busservices"  checked="checked">
+                                                    <input type="radio" class="busservices" name="pickupservices" id="busservices" value="busservices"  checked="checked">
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <label for="transportation">Self-Transportation</label>
-                                                    <input type="radio" name="pickupservices" id="transportation" value="selfservices"  >
+                                                    <input type="radio" class="busservices" name="pickupservices" id="transportation" value="selfservices"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -241,18 +256,20 @@
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="pickpoint">Pick Point:</label>
-                                            <select required="" name="pickpoint" class="pickpoint">
+                                            <select  class="pickpoint" name="pickpoint" class="pickpoint" >
                                                 <option value="">Select a Pick Point...</option>
-                                                
+                                                <option value="abc">ABC</option>
+                                                <option value="xyz">XYZ</option>
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset>
                                             <label for="droppoint">Drop Point:</label>
-                                            <select required="" name="droppoint" class="droppoint">
+                                            <select  class="droppoint"  name="droppoint" class="droppoint" >
                                                 <option value="">Select a Drop Point...</option>
-                                               
+                                               <option value="pqr">PQR</option>
+                                               <option value="mno">MNO</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -408,12 +425,12 @@
                                             <fieldset>
                                                 <label for="email">Have a Promo Code?</label>
                                                 <br/><br/>
-                                                <div class="col-md-6" style="margin-top:3px">
+<!--                                                <div class="col-md-6" style="margin-top:3px">
                                                     <input name="promocode" type="text" class="form-control" id="deparure" placeholder="Enetr name..." required="">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <button class="btn btn-primary">APPLY</button>
-                                                </div>
+                                                </div>-->
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <label for="gender1">Personal Booking</label>
