@@ -99,6 +99,24 @@ class Homepage extends CI_Controller {
             return $result;
         }
     }
+    public function GetCargoTrips(){
+        
+         $fields = array(
+            'departureDate' => date('d/m/Y', strtotime($this->input->post('departureDate'))),
+            'destinationID' => $this->input->post('destinationID'),
+            'sourceID' => $this->input->post('sourceID'),
+            'vehicleTypeID' => $this->input->post('vehicleTypeID'),
+            'vehicleCategoryID' => $this->input->post('vehicleCategoryID'),
+        );
+
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.indigoseaways.com/api/api/A_GetCargoTrips";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+    }
 
     public function getTrips() {
 

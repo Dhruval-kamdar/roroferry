@@ -60,6 +60,7 @@ $route['login'] = 'account/login';
 $route['home'] = 'account/home';
 $route['dashboard'] = 'account/dashboard';
 $route['trip-detail'] = 'homepage/getTrips';
+$route['get-cargo-trips'] = 'homepage/GetCargoTrips';
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
 /* END BY JIGNESH */
