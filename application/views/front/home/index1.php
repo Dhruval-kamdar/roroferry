@@ -269,7 +269,7 @@
                                             <label for="from">Trip ID :&nbsp;<span class="TRIPID"></span></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="from">Trip Date  :&nbsp;<span class="TRIPDATE"></span></label>
+                                            <label for="from">Trip Date  :&nbsp;<span class="TRIP_DATE"></span></label>
                                         </div>
                                     </div>
 
@@ -322,16 +322,63 @@
 
                             <div class="submit-form form6 hidden">
                                 <center>
-                                    <h4>Booking Details</h4>
+                                    <h4>Select Class</h4>
                                 </center>
-
                                 <div class="row">
+
                                     <div class="col-md-12">
                                         <div class="col-md-6">
+                                            <label for="from">Trip ID :&nbsp;<span class="TRIPID" id="TRIPID"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Trip Date  :&nbsp;<span class="TRIP_DATE"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">Ferry ID :&nbsp;<span class="FERRYID"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Ferry Name :&nbsp;<span class="FERRYNAME"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">Departure Time" :&nbsp;<span class="DEPARTURETIME"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Arrival Time" :&nbsp;<span class="ARRIVALTIME"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">From Station Name :&nbsp;<span class="FROMSTATION"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">To Station Name :&nbsp;<span class="TOSTATION"></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
                                             
                                         </div>
                                         <div class="col-md-6">
-                                           
+                                           <fieldset>
+                                                <label for="to">Select Class :</label>
+                                                <select name="selectClass" class="selectClassdiv">
+                                                    <option value="">Select a class...</option>
+                                                    
+                                                </select>
+                                                <label for="selectClass" class="error"></label>
+                                            </fieldset>
+                                        </div>
+                                         <div class="col-md-3">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -362,6 +409,42 @@
                                 </center>
 
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">Trip ID :&nbsp;<span class="TRIPID" id="TRIPID"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Trip Date  :&nbsp;<span class="TRIP_DATE"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">Ferry ID :&nbsp;<span class="FERRYID"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Ferry Name :&nbsp;<span class="FERRYNAME"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">Departure Time" :&nbsp;<span class="DEPARTURETIME"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">Arrival Time" :&nbsp;<span class="ARRIVALTIME"></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="from">From Station Name :&nbsp;<span class="FROMSTATION"></span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="from">To Station Name :&nbsp;<span class="TOSTATION"></span></label>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="col-md-6">
                                             

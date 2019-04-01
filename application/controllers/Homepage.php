@@ -178,6 +178,19 @@ class Homepage extends CI_Controller {
         exit;
     }
 
+
+    public function GetClass(){
+        $tripID= $this->input->post('tripId');
+        $data = "";
+        $token = $this->session->userdata('token');
+        $url = "http://test.indigoseaways.com/api/api/A_GetClasses?tripID=".$tripID;
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
+        
+        echo json_encode($result);
+        exit;
+    }
+
 }
 
 ?>

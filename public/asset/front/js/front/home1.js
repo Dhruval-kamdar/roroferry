@@ -11,8 +11,12 @@ var Home = function() {
                 tostation: {required: true},
                 vehical: {required: true},
                 depature: {required: true},
+                selectClass: {required: true},
             },
             messages: {
+                selectClass: {
+                    required: "Please select trip class"
+                },
                 trip_type: {
                     required: "Please select trip type"
                 },
@@ -158,7 +162,7 @@ var Home = function() {
                     ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
                             var output = JSON.parse(data);
                             $(".TRIPID").text(output['data'][0].tripID);
-                            $(".TRIPDATE").text(output['data'][0].tripDate);
+                            $(".TRIP_DATE").text(output['data'][0].tripDate);
                             $(".FERRYID").text(output['data'][0].ferryID);                            
                             $(".FERRYNAME").text(output['data'][0].ferryName);
 
@@ -166,12 +170,46 @@ var Home = function() {
                             $(".ARRIVALTIME").text(output['data'][0].departureTime);
                             $(".FROMSTATION").text(output['data'][0].fromStationName);
                             $(".TOSTATION").text(output['data'][0].toStationName);
+
+                            $('.submit-form').addClass('hidden'); 
+                            $('.form' + nextForm).removeClass('hidden');
                     });
-                        $('.submit-form').addClass('hidden'); 
-                        $('.form' + nextForm).removeClass('hidden');
+   
+                }
+            }   
+                if (nextForm == 6)
+                {
+                    var tripId= $("#TRIPID").text();
+                    var postData = {tripId: tripId};
+                    ajaxcall(baseurl + 'get-class', postData, function(data) {
+                         var output = JSON.parse(data);
+                         var markup='<option value="">Select Class</option>';
+                         //console.log((output.data)[0].classID);
+                         for(var i =0; i < (output.data).length ; i++){
+                                var temp="";
+                                temp='<option value="'+(output.data)[i].classID+'">'+(output.data)[i].className+'</option>';
+
+                                markup=markup+temp;
+                         }
+                            $(".selectClassdiv").html(markup);
+                            $('#bookticket').submit();
+                            $('.submit-form').addClass('hidden'); 
+                            $('.form' + nextForm).removeClass('hidden');
+                    });
+                    
                 }
 
-            }   
+                if (nextForm == 7)
+                {
+                            $('#bookticket').submit();
+                            if (validateTrip)
+                            {
+                                $('.submit-form').addClass('hidden'); 
+                                $('.form' + nextForm).removeClass('hidden');
+                            }  
+                            
+                    
+                }
          });
 
 
