@@ -12,10 +12,22 @@ var Home = function() {
                             return ($('input[name="trip"]').val() == 'round');
                         }}},
                 vehical: {required: true}, 
+                tripTime: {required: true}, 
+                tripTimeReturn: {required: {depends: function(e) {  
+                            return ($('input[name="trip"]').val() == 'round');
+                        }}},
             },
             messages: {
                 fromstaton: {
                     required: "please select from station"
+                },
+
+                tripTime: {
+                    required: "please select from trip (Out Bound) Time"
+                },
+
+                tripTimeReturn: {
+                    required: "please select from trip (Return) Time"
                 },
 
                 vehical: {
@@ -90,29 +102,75 @@ var Home = function() {
             if (nextForm == 4)
             {
                 $('#bookticket').submit();
+                var trip=$("input[name='trip']:checked").val();
+
                 var trip_type = $("input[name='trip_type']:checked").val();
                 var fromId = $('.fromstaton').val();
                 var toId = $('.tostation').val();
                 var vehicalId = $('.vehical').val();
                 var vehicleCategoryID = $('.vehical option:selected').attr('data-vehicleCategoryID');
                 var tripdate = $('#deparure').val();
+                var fromstaton = $('.fromstaton option:selected').text();
+                var tostation = $('.tostation option:selected').text();
                 if (validateTrip)
                 {   
                     if( trip_type == 'With vehicle'){
                         var vehicleName = $('.vehical option:selected').text();                        
                         $(".vehicleName").text('Vehicle Name : '+ vehicleName +'');
+                        
+                    if(trip == 'round'){
+
+                        var tripReturndate = $('#return').val();
+                        $('.returnTripDiv').removeClass('hidden');
+                        $(".returnTripDate").text('Return Trip Route : '+ tostation + ' to ' + fromstaton +'');
+                        var postData = {sourceID: toId , destinationID: fromId , vehicleTypeID: vehicalId ,vehicleCategoryID:vehicleCategoryID,departureDate:tripReturndate };
+                        ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
+                            var outputround = JSON.parse(data);
+                            
+                            var htmlround = " <option value=''>Select Trip(Return) Time</option>";
+                            for (var i = 0; i < outputround.data.length; i++) {
+                                var markupround="";
+                                markupround='<option value="'+ outputround.data[i].departureTime +'">'+ outputround.data[i].departureTime +'</option>';
+                                htmlround=htmlround+markupround;
+                            }
+                            $('.tripTimeReturn').html(htmlround);
+                        });
+                    }else{
+                        $('.returnTripDiv').addClass('hidden');  
+                        $(".returnTripDate").text('');
+                        // $('.returnTripDiv').html('');
+                    }
+
+                        var postData = {sourceID: fromId, destinationID: toId, vehicleTypeID: vehicalId ,vehicleCategoryID:vehicleCategoryID,departureDate:tripdate };
+                        ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
+                                var output = JSON.parse(data);
+                                // console.log(output.data[0].departureTime);
+                                
+                                var html = "<option value=''>Select Trip(Out Bound) Time...</option>";
+                                for (var i = 0; i < output.data.length; i++) {
+                                    var markup="";
+                                    markup='<option value="'+ output.data[i].departureTime +'">'+ output.data[i].departureTime +'</option>';
+                                    html=html+markup;
+                                }
+                                $('.tripTime').html(html);
+                        });
                     }else{
                         $(".vehicleName").text('');;
                     }
 
-                    var postData = {sourceID: fromId, destinationID: toId, vehicleTypeID: vehicalId ,vehicleCategoryID:vehicleCategoryID,departureDate:tripdate };
-
-                    ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
-                            var output = JSON.parse(data);
-                            console.log(output);
-                        });
+                   
                     $('.submit-form').addClass('hidden');
                     $('.form' + nextForm).removeClass('hidden');
+                }
+            }
+
+
+            if (nextForm == 5)
+            {
+                $('#bookticket').submit();
+                if (validateTrip)
+                {
+                    alert(":HELLO");
                 }
             }
             
@@ -138,7 +196,7 @@ var Home = function() {
                     }
                 }else{
                     $('.submit-form').addClass('hidden');
-                        $('.form' + nextForm).removeClass('hidden');
+                    $('.form' + nextForm).removeClass('hidden');
                 }
            
         });
@@ -149,18 +207,7 @@ var Home = function() {
 
 
     var handleGenral = function() {
-        $('body').on('click', '.tripSelection', function() {
-            var value = $(this).val();
-            if (value == 'one-way') {
-                $('.roundTrip').attr('disabled', true);
-                $('.roundTicket').attr('disabled', true);
-
-            } else {
-                $('.roundTrip').attr('disabled', false);
-                $('.roundTicket').attr('disabled', false);
-
-            }
-        });
+        
 
         $('body').on('change', '.tripFrom', function() {
             var selectedValue = $(this).val();
