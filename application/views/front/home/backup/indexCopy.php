@@ -40,15 +40,13 @@
                                         <div class="col-md-6">
                                             <div class="radio-select">
                                                 <div class="row">
-                                                    
-                                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                                        <label for="oneway">Oneway</label>
-                                                        <input type="radio" class="tripSelection" name="trip" id="oneway" value="one-way" checked='checked'>
-                                                    </div>
-                                                    
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="round">Round</label>
-                                                        <input type="radio" class="tripSelection" name="trip" id="round" value="round" >
+                                                        <input type="radio" class="tripSelection" name="trip" id="round" value="round" checked='checked'>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <label for="oneway">Oneway</label>
+                                                        <input type="radio" class="tripSelection" name="trip" id="oneway" value="one-way">
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,13 +55,13 @@
                                             <div class="radio-select">
                                                 <div class="row">
                                                     <div class="col-md-7 col-sm-7 col-xs-7">
-                                                        <label for="oneway">Without vehicle</label>
-                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="withoutcargo" value="Without vehicle" checked='checked'>
+                                                        <label for="oneway">Without Cargo Ferry</label>
+                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="withoutcargo" value="without-cargo-ferry" checked='checked'>
                                                     </div>
                                                     
                                                     <div class="col-md-5 col-sm-5 col-xs-5">
-                                                        <label for="round">With vehicle</label>
-                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="cargo" value="With vehicle" >
+                                                        <label for="round">Cargo Ferry</label>
+                                                        <input type="radio" class="tripFerrySelection" name="trip_type" id="cargo" value="cargo-ferry" >
                                                     </div>
                                                     
                                                 </div>
@@ -104,16 +102,94 @@
                                                 <label for="depature" class="error"></label>
                                             </fieldset>
                                         </div>
-                                        <div class="col-md-6 returnTripDate hidden" id="returnTripDate">
+                                        <div class="col-md-6">
                                             <fieldset>
                                                 <label for="return">Return Trip Date :</label>
                                                 <input name="returntrip" type="text" class="form-control date roundTrip" id="return" placeholder="Select date..." autocomplete="off">
-                                                <label for="returntrip" class="error"></label>
+                                                <label for="return" class="error"></label>
                                             </fieldset>
                                         </div>
                                     </div>
-                                    
-                                    
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Trip (Out Bound):</label>
+                                                <br/><br/>
+                                                <input type="hidden" name="one_way_time" class="tripTime">
+                                                <input type="hidden" name="one_way_price" class="tripPrice">
+                                                <div class="ticketOneway">
+                                                    <button class="btn btn-default cusClass">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                    <button class="btn btn-default cusClass">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                    <button class="btn btn-default cusClass">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                </div>
+                                                <label class="error one_way_trip"></label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label>Trip (Return):</label>
+                                                <br/><br/>
+                                                <input type="hidden" name="round_way_time" class="tripTime">
+                                                <input type="hidden" name="round_way_price" class="tripPrice">
+                                                <div class="ticketRound">
+                                                    <button class="btn btn-default cusClass roundTicket">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                    <button class="btn btn-default cusClass roundTicket">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                    <button class="btn btn-default cusClass roundTicket">00:00:00<span class="price"><i class="fa fa-rupee"></i>0</span></button>
+                                                </div>
+                                                <label class="error round_way_trip"></label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="0-2 Years">Passengers (0-2 Years):</label>
+                                                <select class="less2years" name="less2years">
+                                                    <option value="">Select a Passengers...</option>
+                                                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php } ?>
+
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for=">2 Years">Passengers (>2 Years):</label>
+                                                <select name="more2years" class="more2years">
+                                                    <option value="">Select a Passengers...</option>
+                                                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="vehical">Vehicle:</label>
+                                                <select class="vehical"  name="vehical" disabled>
+                                                    <option value="">Select a Vehicle...</option>
+                                                    <?php for ($i = 0; $i <count($getVehical); $i++) { ?>
+                                                        <option value="<?= $getVehical[$i]['vehicleCategoryID']; ?>"><?= $getVehical[$i]['vehicleCategoryName']; ?></option>
+                                                    <?php } ?>
+
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for=">2 Years">Passengers (&gt;2 Years):</label>
+                                                <select name="vehicalmore2years" class="vehicalmore2years" disabled>
+                                                    <option value="">Select a Passengers...</option>
+                                                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-6">
                                         <fieldset>
@@ -122,59 +198,277 @@
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset>
-                                            <button type="button" data-next-form='3' id="pageOne form-submit" class="pageOne btn nextbtn">Next</button>
+                                            <button type="button" data-next-form='2' id="form-submit" class="btn nextbtn">Next</button>
                                         </fieldset>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <!--Step 2 With vehicle-->
+                            <!--Step 2-->
+
                             <div class="submit-form form2 hidden">
-                                <center>
-                                    <h4>With Vehicle trip Details</h4>
-                                </center>
-                                
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <button type="button" id="form-submit" data-prev-form='1' class="btn prevbtn">Prev</button>
-                                            </fieldset>
-                                        </div>
+                                <h4>Bus Selection:</h4>
 
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <button type="button" id="form-submit" data-next-form='4' class="btn nextbtn">Next</button>
-                                            </fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="from">Date : <span class="fromDate">18/05/2018</span></label>
+                                            <br/><br/>
+                                            <label for="from">Route : <span class="route">Dahej-Ghogha</span></label>
+
+                                        </fieldset>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="to">Trip Time : <span class="tripstartTime">02:30 PM</span></label>
+                                            <br/><br/>
+                                            <label for="to">Passengers : <span class="passengers">13</span></label>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <hr style="border-top: 1px solid #dbdada;">
+                                        <p>
+                                            Note: Bus service is additional service for our valued customers. Bus fare is not included in the ferry ticket booking and the same has to be paid during bus journey. To know more information about bus schedule and pricing, Click Here.
+                                        </p> 
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!--<div class="col-md-9">-->
+                                        <div class="radio-select">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="busservices">Avail Bus Services</label>
+                                                    <input type="radio" class="busservices" name="pickupservices" id="busservices" value="busservices"  checked="checked">
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <label for="transportation">Self-Transportation</label>
+                                                    <input type="radio" class="busservices" name="pickupservices" id="transportation" value="selfservices"  >
+                                                </div>
+                                            </div>
                                         </div>
+                                        <!--</div>-->
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="pickpoint">Pick Point:</label>
+                                            <select  class="pickpoint" name="pickpoint" class="pickpoint" >
+                                                <option value="">Select a Pick Point...</option>
+                                                <option value="abc">ABC</option>
+                                                <option value="xyz">XYZ</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="droppoint">Drop Point:</label>
+                                            <select  class="droppoint"  name="droppoint" class="droppoint" >
+                                                <option value="">Select a Drop Point...</option>
+                                               <option value="pqr">PQR</option>
+                                               <option value="mno">MNO</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <hr style="border-top: 1px solid #dbdada;">
+                                        <p>
+                                            Please note you have not avail bus service. ISPL is not responsible for your transportation arrangements from/to terminals.
+                                        </p> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="button" id="form-submit" data-prev-form='1' class="btn prevbtn">Prev</button>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="button" id="form-submit" data-next-form='3' class="btn nextbtn">Next</button>
+                                        </fieldset>
                                     </div>
                                 </div>
+
                             </div>
-                            
-                            <!--Step 3 Without vehicle-->
+
+                            <!--Step 3-->
+
                             <div class="submit-form form3 hidden">
-                                <center>
-                                    <h4>Without Vehicle trip Details</h4>
-                                </center>
-                                
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <button type="button" id="form-submit" data-prev-form='1' class="btn prevbtn">Prev</button>
-                                            </fieldset>
-                                        </div>
+                                <h4>Bus OutBound:</h4>
 
-                                        <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="from">Date : <span class="fromDate">18/05/2018</span></label>
+                                            <br/><br/>
+                                            <label for="from">Route : <span class="route">Dahej-Ghogha</span></label>
+
+                                        </fieldset>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="to">Trip Time : <span class="tripstartTime">02:30 PM</span></label>
+                                            <br/><br/>
+                                            <label for="to">Passengers : <span class="passengers">13</span></label>
+                                        </fieldset>
+                                    </div>
+                                    
+                                    <div class="passangerDetail"></div>
+                                    
+                                    <div class="pessngerSample" style="display: none;">
+                                        <div class="col-md-12 main-div-@">
+                                        <hr style="border-top: 1px solid #dbdada;">
+                                        <label for="primary_passanger"> Passenger Detail :</label>
+                                        <br/><br/>
+                                        <div class="col-md-2">
                                             <fieldset>
-                                                <button type="button" id="form-submit" data-next-form='4' class="btn nextbtn">Next</button>
+
+                                                <select required="" name="passanger_title_@" style="margin-top: 12px;">
+                                                    <option value="Mr.">Mr.</option>
+                                                    <option value="Ms.">Ms.</option>
+                                                    <option value="Mrs.">Mrs.</option>
+                                                </select>
                                             </fieldset>
                                         </div>
+                                        <div class="col-md-4">
+                                            <fieldset>
+                                                <input name="pasanger_name_@" type="text" class="form-control pasanger_name_@"  placeholder="Enetr name...">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <fieldset>
+
+                                                <select required="" name="pasanger_age_@" style="margin-top: 12px;">
+                                                    <?php for ($i = 3; $i <= 100; $i++) { ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="radio-select">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6" style="width:46%">
+                                                        <label for="gender@">Male</label>
+                                                        <input type="radio" name="pasanger_gender_@" id="gender@" checked="checked" value="male">
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6" style="width:51%">
+                                                        <label for="oneway@">Female</label>
+                                                        <input type="radio" name="pasanger_gender_@" id="oneway@" value="female">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div></div>
+                                    
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="button" id="form-submit" data-prev-form='2' class="btn prevbtn">Prev</button>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="button" id="form-submit" data-next-form='4' class="btn nextbtn">Next</button>
+                                        </fieldset>
                                     </div>
                                 </div>
+
                             </div>
 
+                            <!--Step 4-->
+
+                            <div class="submit-form form4 hidden">
+                                <h4>Confirmation:</h4>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="from">Date : <span class="fromDate">18/05/2018</span></label>
+                                            <br/><br/>
+                                            <label for="from">Route : <span class="route">Dahej-Ghogha</span></label>
+
+                                        </fieldset>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <label for="to">Trip Time : <span class="tripstartTime">02:30 PM</span></label>
+                                            <br/><br/>
+                                            <label for="to">Passengers : <span class="passengers">13</span></label>
+                                        </fieldset>
+                                    </div>
+
+                                    
+
+                                    <div class="col-md-12">
+                                        <hr style="border-top: 1px solid #dbdada;">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="email">Email</label>
+                                                <br/><br/>
+                                                <input name="email" type="text" class="form-control emailadd"  placeholder="Enetr name..." >
+
+                                            </fieldset>
+                                            <fieldset>
+                                                <label for="email">Mobile</label>
+                                                <br/><br/>
+                                                <input name="mobile" type="text" class="form-control mobile-no"  placeholder="Enetr name...">
+
+                                            </fieldset>
+                                            <fieldset>
+                                                <label for="email">Have a Promo Code?</label>
+                                                <br/><br/>
+<!--                                                <div class="col-md-6" style="margin-top:3px">
+                                                    <input name="promocode" type="text" class="form-control" id="deparure" placeholder="Enetr name..." required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-primary">APPLY</button>
+                                                </div>-->
+
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <label for="gender1">Personal Booking</label>
+                                                    <input type="radio" name="trip" id="gender1" value="round" required="required">
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <label for="oneway1">Corporate Booking</label>
+                                                    <input type="radio" name="trip" id="oneway1" value="one-way" required="required">
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="to">Total (Ferry Booking) : <i class="fa fa-rupee"></i> 1000.00</label>
+                                            <br/><br/>
+                                            <label for="to">Bus Pick Location : Valiya Chowkdi</label>
+                                            <br/><br/>
+                                            <label for="to">Internet Charges : <i class="fa fa-rupee"></i> 20.00</label>
+                                            <br/><br/>
+                                            <label for="to">Integrated GST (18 %): <i class="fa fa-rupee"></i> 3.60</label>
+                                            <br/><br/>
+                                            <hr style="border-top: 2px solid #dbdada;">
+                                            <label for="to">Sub Total : <i class="fa fa-rupee"></i> 1023.60</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" data-prev-form='3' class="btn prevbtn">Prev</button>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" data-next-form='5' class="btn nextbtn">Finish</button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </form>
                 </section>
