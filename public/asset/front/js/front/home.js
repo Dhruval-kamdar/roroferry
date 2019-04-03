@@ -13,6 +13,17 @@ var Home = function() {
                 returntrip: {required: {depends: function(e) {  
                     return ($('input[name="trip"]:checked').val() == 'round');
                 }}},
+        
+                pickpoint: {required: {depends: function(e) {  
+                    return ($('input[name="pickupservices"]:checked').val() == 'busservices');
+                }}},
+                
+                droppoint: {required: {depends: function(e) {  
+                    return ($('input[name="pickupservices"]:checked').val() == 'busservices');
+                }}},
+        
+                vehical: {required: true},
+        
             },
             messages: {
                 trip_type: {
@@ -25,9 +36,7 @@ var Home = function() {
 
                 fromstaton: {
                     required: "please select depature station"
-                },
-
-                
+                },                
                 
                 tostation: {
                     required: "please select destination station "
@@ -40,6 +49,20 @@ var Home = function() {
                 returntrip : {
                     required: "please select return trip  date "
                 },
+                
+                pickpoint: {
+                    required: "please select pickup point "
+                },
+                
+                droppoint : {
+                    required: "please select drop point "
+                },
+                
+                vehical : {
+                    required: "please select vehicle "
+                },
+                
+                
 
                 
             },
@@ -59,8 +82,10 @@ var Home = function() {
             var tripType=$(".tripSelection:checked").val();
             if(tripType == 'round'){
                 $('#returnTripDate').removeClass("hidden");
+                $('.returnTripTextDiv').removeClass("hidden");
             }else{
                 $('#returnTripDate').addClass("hidden");
+                $('.returnTripTextDiv').addClass("hidden");
             }
         });
         
@@ -70,12 +95,26 @@ var Home = function() {
                 if(tripFerrySelection == 'With vehicle'){
                     $('.pageOne').removeAttr("data-next-form");
                     $('.pageOne').attr("data-next-form","2");
+                    $('.pagefour').removeAttr("data-prev-form");
+                    $('.pagefour').attr("data-prev-form","2");
                 }else{
                     $('.pageOne').removeAttr("data-next-form");
                     $('.pageOne').attr("data-next-form","3");
+                    $('.pagefour').removeAttr("data-prev-form");
+                    $('.pagefour').attr("data-prev-form","3");
                 }
         });
         
+        $('.busservices').change(function () {
+            var busservices=$(".busservices:checked").val();
+//            alert(busservices);
+//            exit;
+            if(busservices == 'selfservices'){
+                $('.bussationDiv').addClass("hidden");
+            }else{
+                $('.bussationDiv').removeClass("hidden");
+            }
+        });
         
         $('body').on('click', '.nextbtn', function(form) {
             var nextForm = $(this).attr('data-next-form');
@@ -84,7 +123,21 @@ var Home = function() {
                 validateTrip = true;
                 $('#bookticket').submit();
                 if (validateTrip)
-                {
+                {   
+                    var trip = $("input[name='trip']:checked").val();
+                    var trip_type = $("input[name='trip_type']:checked").val();
+                    var fromstaton = $('.fromstaton option:selected').text();
+                    var tostation = $('.tostation option:selected').text();
+                    var tripdate = $('#deparure').val();
+                    var returntripdate = $('#return').val();
+                    
+                    $('.ferryText').text(trip);
+                    $('.ferryTypeText').text(trip_type);
+                    $('.ferryRouteText').text(fromstaton + ' To ' + tostation );
+                    $('.ferryDateText').text(tripdate);
+                    $('.returnferryRouteText').text(tostation + ' To ' + fromstaton  );
+                    $('.returnferryTypeDateText').text(returntripdate);
+                    
                     $('.submit-form').addClass('hidden');
                     $('.form' + nextForm).removeClass('hidden');
                 } 
@@ -96,10 +149,34 @@ var Home = function() {
                 $('#bookticket').submit();
                 
                 if (validateTrip)
-                {
+                {   
+                    var trip = $("input[name='trip']:checked").val();
+                    var trip_type = $("input[name='trip_type']:checked").val();
+                    var fromstaton = $('.fromstaton option:selected').text();
+                    var tostation = $('.tostation option:selected').text();
+                    var tripdate = $('#deparure').val();
+                    var returntripdate = $('#return').val();
+                    
+                    $('.ferryText').text(trip);
+                    $('.ferryTypeText').text(trip_type);
+                    $('.ferryRouteText').text(fromstaton + ' To ' + tostation );
+                    $('.ferryDateText').text(tripdate);
+                    $('.returnferryRouteText').text(tostation + ' To ' + fromstaton  );
+                    $('.returnferryTypeDateText').text(returntripdate);
+                    
                     $('.submit-form').addClass('hidden');
                     $('.form' + nextForm).removeClass('hidden');
                 }      
+            }
+            
+            if(nextForm == 4){
+                validateTrip = true;
+                $('#bookticket').submit();
+                if (validateTrip)
+                { 
+                    $('.submit-form').addClass('hidden');
+                    $('.form' + nextForm).removeClass('hidden');
+                }   
             }
         });
         
