@@ -189,7 +189,7 @@
                                                     <select class="vehical"  name="vehical" >
                                                         <option value="">Select a Vehicle...</option>
                                                         <?php for ($i = 0; $i <count($getVehical); $i++) { ?>
-                                                             <option data-vehicleCategoryID="<?= $getVehical[$i]['vehicleCategoryID']; ?>"data-passanger="<?= $getVehical[$i]['maximumPassenger']; ?>" value="<?= $getVehical[$i]['vehicleCategoryID']; ?>"><?= $getVehical[$i]['vehicleCategoryName']; ?></option>
+                                                             <option data-vehicleCategoryID="<?= $getVehical[$i]['vehicleCategoryID']; ?>" data-passanger="<?= $getVehical[$i]['maximumPassenger']; ?>" value="<?= $getVehical[$i]['vehicleTypeID']; ?>"><?= $getVehical[$i]['vehicleCategoryName']; ?></option>
                                                         <?php } ?>
                                                     </select>
                                                     <label for="vehical" class="error"></label>
@@ -303,7 +303,11 @@
                                                             <option value="abc">ABC</option>
                                                             <option value="xyz">XYZ</option>
                                                         </select>
+
+                                                        <label for="pickpoint" class="error"></label>
                                                     </fieldset>
+                                                    
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     <fieldset>
@@ -313,7 +317,11 @@
                                                            <option value="pqr">PQR</option>
                                                            <option value="mno">MNO</option>
                                                         </select>
+
+                                                        <label for="droppoint" class="error"></label>
                                                     </fieldset>
+
+                                                    
                                                 </div>
                                             </div>
                                             
@@ -397,7 +405,67 @@
                                     </div>
                                     
                                     <!-- Input Div -->
-                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="ferryTime">Ferry time :</label>
+                                                    <select class="ferryTime"  name="ferryTime" >
+                                                        <option tripid=""  value="">Select a ferry time...</option>
+                                                        
+                                                    </select>
+                                                    <label for="ferryTime" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="ferryClass">Ferry Class :</label>
+                                                    <select class="ferryClass"  name="ferryClass" >
+                                                        <option value="">Select a ferry class...</option>
+                                                        
+                                                    </select>
+                                                    <label for="ferryClass" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="noPassanger">Number of passenger :</label>
+                                                    <select class="noPassanger"  name="noPassanger" >
+                                                        <option value="">Select a number of passenger...</option>
+                                                        
+                                                    </select>
+                                                    <label for="noPassanger" class="error"></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6 hidden returnFerryTime" >
+                                                <fieldset>
+                                                    <label for="ferryTimeReturn">Return Ferry time :</label>
+                                                    <select class="ferryTimeReturn"  name="ferryTimeReturn" >
+                                                        <option tripid="" value="">Select a ferry time...</option>
+                                                        
+                                                    </select>
+                                                    <label for="ferryTimeReturn" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="ferryClassReturn">Return Ferry Class :</label>
+                                                    <select class="ferryClassReturn"  name="ferryClassReturn" >
+                                                        <option value="">Select a ferry class...</option>
+                                                        
+                                                    </select>
+                                                    <label for="ferryClassReturn" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="noPassangerReturn">Return ferry's Number of passenger :</label>
+                                                    <select class="noPassangerReturn"  name="noPassangerReturn" >
+                                                        <option value="">Select a number of passenger...</option>
+                                                        
+                                                    </select>
+                                                    <label for="noPassangerReturn" class="error"></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Button Div -->
 
                                     <div class="row">
@@ -417,12 +485,12 @@
                                     </div>
                                 </div>
 
-                                <!--Step 5-->
+<!--                                Step 5
                                 <div class="submit-form formWitoutVechicle4 hidden">
                                     <center>
                                         <h4>Without Trip Details</h4>
                                     </center>
-                                    <!-- Label Div -->
+                                     Label Div 
 
                                     <div class="row">
                                           <div class="col-md-12">
@@ -472,9 +540,9 @@
 
                                     </div>
                                     
-                                    <!-- Input Div -->
+                                     Input Div 
                                     
-                                    <!-- Button Div -->
+                                     Button Div 
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -491,7 +559,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </form>
                     </section>

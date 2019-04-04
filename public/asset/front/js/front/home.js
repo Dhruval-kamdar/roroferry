@@ -83,11 +83,46 @@ var Home = function() {
             if(tripType == 'round'){
                 $('#returnTripDate').removeClass("hidden");
                 $('.returnTripTextDiv').removeClass("hidden");
+                $('.returnFerryTime').removeClass("hidden");
             }else{
                 $('#returnTripDate').addClass("hidden");
                 $('.returnTripTextDiv').addClass("hidden");
+                $('.returnFerryTime').addClass("hidden");
             }
         });
+        
+        $('.ferryTime').change(function(){
+            var tripId=$('.ferryTime option:selected').attr('tripid'); 
+            var postTripId={ tripId:tripId};
+            ajaxcall(baseurl + 'get-class', postTripId, function(data) {
+                var returnClass=JSON.parse(data);
+                
+                var htmlClass = "<option value=''>Select a ferry class...</option>";
+                for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
+                    var temhtmlclass='';
+                    temhtmlclass="<option  value="+ returnClass['data'][lenclass].id +">"+ returnClass['data'][lenclass].className +"</option>";
+                    htmlClass=htmlClass+temhtmlclass;
+                }
+                $(".ferryClass").html(htmlClass);
+            });
+        });
+        
+        $('.ferryTimeReturn').change(function(){
+            var tripId=$('.ferryTimeReturn option:selected').attr('tripid'); 
+            var postTripId={ tripId:tripId};
+            ajaxcall(baseurl + 'get-class', postTripId, function(data) {
+                var returnClass=JSON.parse(data);
+                
+                var htmlClass = "<option value=''>Select a ferry class...</option>";
+                for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
+                    var temhtmlclass='';
+                    temhtmlclass="<option  value="+ returnClass['data'][lenclass].id +">"+ returnClass['data'][lenclass].className +"</option>";
+                    htmlClass=htmlClass+temhtmlclass;
+                }
+                $(".ferryClassReturn").html(htmlClass);
+            });
+        });
+        
         
         $('.tripFerrySelection').change(function () {
             var tripFerrySelection=$(".tripFerrySelection:checked").val();
@@ -173,13 +208,71 @@ var Home = function() {
                 validateTrip = true;
                 var trip_type = $("input[name='trip_type']:checked").val();
                 if(trip_type ==  'Without vehicle'){
-                    $('.submit-form').addClass('hidden');
-                    $('.formWitoutVechicle' + nextForm).removeClass('hidden');
+                    
                 }else{
                     $('#bookticket').submit();
-                    if (validateTrip){ 
-                        $('.submit-form').addClass('hidden');
-                        $('.form' + nextForm).removeClass('hidden');
+                    if (validateTrip){
+                        var tripType=$(".tripSelection:checked").val();
+                        var tripdate = $('#deparure').val();
+                        var fromstatonId = $('.fromstaton option:selected').val();
+                        var tostationId = $('.tostation option:selected').val();
+                        var vehicalId = $('.vehical').val();
+                        var vehicleCategoryID = $('.vehical option:selected').attr('data-vehiclecategoryid');
+                        var passanger = $('.vehical option:selected').attr('data-passanger');
+                        
+                        if(tripType == "round"){
+                            var returntripdate = $('#return').val();
+                            var postDataRound = {sourceID: tostationId, 
+                                            destinationID: fromstatonId,
+                                            vehicleTypeID: vehicalId ,
+                                            vehicleCategoryID:vehicleCategoryID,
+                                            departureDate:returntripdate };
+                                            ajaxcall(baseurl + 'get-cargo-trips', postDataRound, function(data) {
+                                            var returnOutput=JSON.parse(data);
+                                            
+                                            var htmlTime = "<option value=''>Select a ferry time...</option>";
+                                            for(var len = 0; len < returnOutput['data'].length ; len++){
+                                                var tem='';
+                                                tem="<option tripId='"+ returnOutput['data'][len].tripID +"' value="+ returnOutput['data'][len].departureTime +">"+ returnOutput['data'][len].departureTime +"</option>";
+                                                htmlTime=htmlTime+tem;
+                                            }
+                                            $(".ferryTimeReturn").html(htmlTime);
+
+                                            var htmlpassanger = "<option value=''>Select a number of passenger...</option>";
+                                            for(var lenpassanger = 1; lenpassanger <= passanger ; lenpassanger++){
+                                                var temhtmlpassanger='';
+                                                temhtmlpassanger="<option  value="+ lenpassanger +">"+ lenpassanger +"</option>";
+                                                htmlpassanger=htmlpassanger+temhtmlpassanger;
+                                            }
+                                            $(".noPassangerReturn").html(htmlpassanger);
+                                        });
+                        }
+                        var postData = {sourceID: fromstatonId, 
+                                        destinationID: tostationId,
+                                        vehicleTypeID: vehicalId ,
+                                        vehicleCategoryID:vehicleCategoryID,
+                                        departureDate:tripdate };
+                                    
+                                    ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
+                                        var output=JSON.parse(data);
+                                        var htmlTime = "<option value=''>Select a ferry time...</option>";
+                                        for(var len = 0; len < output['data'].length ; len++){
+                                            var tem='';
+                                            tem="<option tripId='"+ output['data'][len].tripID +"' value="+ output['data'][len].departureTime +">"+ output['data'][len].departureTime +"</option>";
+                                            htmlTime=htmlTime+tem;
+                                        }
+                                        $(".ferryTime").html(htmlTime);
+                                        
+                                        var htmlpassanger = "<option value=''>Select a number of passenger...</option>";
+                                        for(var lenpassanger = 1; lenpassanger <= passanger ; lenpassanger++){
+                                            var temhtmlpassanger='';
+                                            temhtmlpassanger="<option  value="+ lenpassanger +">"+ lenpassanger +"</option>";
+                                            htmlpassanger=htmlpassanger+temhtmlpassanger;
+                                        }
+                                        $(".noPassanger").html(htmlpassanger);
+                                    });
+                                    $('.submit-form').addClass('hidden');
+                                    $('.form' + nextForm).removeClass('hidden');
                     }
                 }
             }

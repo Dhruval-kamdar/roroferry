@@ -4,6 +4,7 @@ class Homepage extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('Booking_model','this_model');
         $this->load->model('Api_model');
         $this->load->model('Account_model');
         $this->load->helper('cookie');
@@ -17,6 +18,7 @@ class Homepage extends CI_Controller {
         $data['var_meta_keyword'] = 'login';
         
         $getToken = $this->getToken();
+        $data['route'] = $this->this_model->route();
         
         $getStop = array();
         if ($getToken) {
@@ -54,6 +56,8 @@ class Homepage extends CI_Controller {
         redirect("/");
         exit;
     }
+
+    
 
     public function getToken() {
         
