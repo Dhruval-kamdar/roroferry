@@ -415,7 +415,82 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <!--Step 5-->
+                                <div class="submit-form formWitoutVechicle4 hidden">
+                                    <center>
+                                        <h4>Without Trip Details</h4>
+                                    </center>
+                                    <!-- Label Div -->
+
+                                    <div class="row">
+                                          <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="departure">Trip Date :</label>
+                                                    <input name="depature" type="text" class="form-control date onewayTrip" id="deparure" placeholder="Select date..." autocomplete="off">
+                                                    <label for="depature" class="error"></label>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-6 ifRoundReturnDate " id="ifRoundReturnDate">
+                                                <fieldset>
+                                                    <label for="return">Return Trip Date :</label>
+                                                    <input name="ifRoundReturnDate" type="text" class="form-control date ifRoundReturnDate" id="ifRoundReturnDate" placeholder="Select date..." autocomplete="off">
+                                                    <label for="ifRoundReturnDate" class="error"></label>
+                                                </fieldset>
+                                            </div>
+
+                                               <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="pickpoint">Selecy Class:</label>
+                                                <select  class="pickpoint" name="pickpoint" class="pickpoint" >
+                                                <option value="">Select a Pick Point...</option>
+                                                <option value="abc">ABC</option>
+                                                <option value="xyz">XYZ</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="pickpoint">No Off Passanger:</label>
+                                                <select  class="noOfPassanger" name="noOfPassanger" class="noOfPassanger" >
+                                                <option value="">Select a No. of Passanger</option>
+                                                <?php for ($i=1; $i < 20; $i++) {  ?>
+                                                    <option value="<?= $i ?>"><?= $i ?></option>        
+                                                <?php  } ?>
+                                                </select>
+
+                                                
+                                                </select>
+                                            </fieldset>
+                                        </div>
+
+                                        </div>
+
+
+
+                                    </div>
                                     
+                                    <!-- Input Div -->
+                                    
+                                    <!-- Button Div -->
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-prev-form='4' class="pagefour btn prevbtn">Prev</button>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-next-form='5' class="btn nextbtn">Next</button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

@@ -171,12 +171,17 @@ var Home = function() {
             
             if(nextForm == 4){
                 validateTrip = true;
-                $('#bookticket').submit();
-                if (validateTrip)
-                { 
+                var trip_type = $("input[name='trip_type']:checked").val();
+                if(trip_type ==  'Without vehicle'){
                     $('.submit-form').addClass('hidden');
-                    $('.form' + nextForm).removeClass('hidden');
-                }   
+                    $('.formWitoutVechicle' + nextForm).removeClass('hidden');
+                }else{
+                    $('#bookticket').submit();
+                    if (validateTrip){ 
+                        $('.submit-form').addClass('hidden');
+                        $('.form' + nextForm).removeClass('hidden');
+                    }
+                }
             }
         });
         
