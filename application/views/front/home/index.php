@@ -294,34 +294,48 @@
                                             <!--</div>-->
 
                                         </div>
-                                            <div class="col-md-12 bussationDiv">
-                                                <div class="col-md-6">
+                                            <div class="bussationDiv">
+                                                <div class="col-md-6 ">
                                                     <fieldset>
-                                                        <label for="pickpoint">Pick Point:</label>
-                                                        <select  class="pickpoint" name="pickpoint" class="pickpoint" >
-                                                            <option value="">Select a Pick Point...</option>
-                                                            <option value="abc">ABC</option>
-                                                            <option value="xyz">XYZ</option>
+                                                        <label for="pickpoint">Bus Route:</label>
+                                                        <select  class="busRoute" name="busRoute" class="busRoute" >
+                                                            <option value="">Select Bus Route...</option>
+                                                            <?php
+                                                            for($i=0 ; $i < count($route) ; $i++ ){?>
+                                                            <option value="<?= $route[$i]->id ;?>"><?= $route[$i]->route ; ?></option>
+                                                           <?php } ?>
                                                         </select>
-
-                                                        <label for="pickpoint" class="error"></label>
+                                                        <label for="busRoute" class="error"></label>
                                                     </fieldset>
-                                                    
-
                                                 </div>
                                                 <div class="col-md-6">
                                                     <fieldset>
-                                                        <label for="droppoint">Drop Point:</label>
-                                                        <select  class="droppoint"  name="droppoint" class="droppoint" >
-                                                            <option value="">Select a Drop Point...</option>
-                                                           <option value="pqr">PQR</option>
-                                                           <option value="mno">MNO</option>
+                                                        <label for="tripTime">Trip Time:</label>
+                                                        <select  class="tripTime"  name="tripTime"  >
+                                                            <option value="">Select a trip time...</option>
                                                         </select>
-
-                                                        <label for="droppoint" class="error"></label>
+                                                        <label for="tripTime" class="error"></label>
                                                     </fieldset>
-
-                                                    
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <fieldset>
+                                                        <label for="tripPickUpTime">Trip PickUp station name - Time:</label>
+                                                        <select  class="tripPickUpTime"  name="tripPickUpTime" class="tripPickUpTime" >
+                                                            <option value="">Select a trip pickup station name - Time...</option>
+                                                        </select>
+                                                        <label for="tripPickUpTime" class="error"></label>
+                                                    </fieldset>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <fieldset>
+                                                        <label for="tripDropTime">Trip drop station name - Time:</label>
+                                                        <select  class="tripDropTime"  name="tripDropTime"  >
+                                                            <option value="">Select a trip drop station name - Time...</option>
+                                                        </select>
+                                                        <label for="tripDropTime" class="error"></label>
+                                                    </fieldset>
                                                 </div>
                                             </div>
                                             
@@ -426,14 +440,39 @@
                                                     <label for="ferryClass" class="error"></label>
                                                 </fieldset>
                                                 
-                                                <fieldset>
+                                                <fieldset class="noPassangerDiv hidden">
                                                     <label for="noPassanger">Number of passenger :</label>
                                                     <select class="noPassanger"  name="noPassanger" >
                                                         <option value="">Select a number of passenger...</option>
-                                                        
                                                     </select>
                                                     <label for="noPassanger" class="error"></label>
                                                 </fieldset>
+                                                <div class="nonVehiclePassanger">
+                                                <fieldset>
+                                                    <label for="noPassangerlesstwo">Number of passenger(age < 2) :</label>
+                                                    <select class="noPassangerlesstwo"  name="noPassangerlesstwo" >
+                                                        <option value="">Select a number of passenger(age < 2)...</option>
+                                                    </select>
+                                                    <label for="noPassangerlesstwo" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="noPassangerequal">Number of passenger(age >= 2 and age <= 12) :</label>
+                                                    <select class="noPassangerequal"  name="noPassangerequal" >
+                                                        <option value="">Select a number of passenger(age >= 2 and age <= 12)...</option>
+                                                    </select>
+                                                    <label for="noPassangerequal" class="error"></label>
+                                                </fieldset>
+                                                
+                                                <fieldset>
+                                                    <label for="noPassangerharter">Number of passenger(age > 12) :</label>
+                                                    <select class="noPassangerharter"  name="noPassangerharter" >
+                                                        <option value="">Select a number of passenger(age > 12)...</option>
+                                                    </select>
+                                                    <label for="noPassangerharter" class="error"></label>
+                                                </fieldset>
+                                                
+                                                </div>
                                             </div>
 
                                             <div class="col-md-6 hidden returnFerryTime" >

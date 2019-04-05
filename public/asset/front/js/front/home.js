@@ -14,11 +14,20 @@ var Home = function() {
                     return ($('input[name="trip"]:checked').val() == 'round');
                 }}},
         
-                pickpoint: {required: {depends: function(e) {  
+                busRoute: {required: {depends: function(e) {  
                     return ($('input[name="pickupservices"]:checked').val() == 'busservices');
                 }}},
                 
-                droppoint: {required: {depends: function(e) {  
+                tripTime: {required: {depends: function(e) {  
+                    return ($('input[name="pickupservices"]:checked').val() == 'busservices');
+                }}},
+        
+        
+                tripPickUpTime: {required: {depends: function(e) {  
+                    return ($('input[name="pickupservices"]:checked').val() == 'busservices');
+                }}},
+                
+                tripDropTime: {required: {depends: function(e) {  
                     return ($('input[name="pickupservices"]:checked').val() == 'busservices');
                 }}},
         
@@ -49,21 +58,25 @@ var Home = function() {
                 returntrip : {
                     required: "please select return trip  date "
                 },
-                
-                pickpoint: {
-                    required: "please select pickup point "
-                },
-                
-                droppoint : {
-                    required: "please select drop point "
-                },
-                
                 vehical : {
                     required: "please select vehicle "
                 },
                 
+                busRoute : {
+                    required: "please select bus route "
+                },
                 
-
+                tripTime : {
+                    required: "please select trip time "
+                },
+                
+                tripPickUpTime : {
+                    required: "please select bus pick up time and station"
+                },
+                
+                tripDropTime : {
+                    required: "please select bus drop time and station "
+                },
                 
             },
             invalidHandler: function(event, validator) {
@@ -92,19 +105,26 @@ var Home = function() {
         });
         
         $('.ferryTime').change(function(){
-            var tripId=$('.ferryTime option:selected').attr('tripid'); 
-            var postTripId={ tripId:tripId};
-            ajaxcall(baseurl + 'get-class', postTripId, function(data) {
-                var returnClass=JSON.parse(data);
+            
+            var trip_type = $("input[name='trip_type']:checked").val();
+            if(trip_type ==  'Without vehicle'){
                 
-                var htmlClass = "<option value=''>Select a ferry class...</option>";
-                for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
-                    var temhtmlclass='';
-                    temhtmlclass="<option  value="+ returnClass['data'][lenclass].id +">"+ returnClass['data'][lenclass].className +"</option>";
-                    htmlClass=htmlClass+temhtmlclass;
-                }
-                $(".ferryClass").html(htmlClass);
-            });
+            }else{
+                var tripId=$('.ferryTime option:selected').attr('tripid');
+                var postTripId={ tripId:tripId};
+                ajaxcall(baseurl + 'get-class', postTripId, function(data) {
+                    var returnClass=JSON.parse(data);
+
+                    var htmlClass = "<option value=''>Select a ferry class...</option>";
+                    for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
+                        var temhtmlclass='';
+                        temhtmlclass="<option  value="+ returnClass['data'][lenclass].id +">"+ returnClass['data'][lenclass].className +"</option>";
+                        htmlClass=htmlClass+temhtmlclass;
+                    }
+                    $(".ferryClass").html(htmlClass);
+                });
+            }
+            
         });
         
         $('.ferryTimeReturn').change(function(){
@@ -123,7 +143,6 @@ var Home = function() {
             });
         });
         
-        
         $('.tripFerrySelection').change(function () {
             var tripFerrySelection=$(".tripFerrySelection:checked").val();
 
@@ -132,23 +151,70 @@ var Home = function() {
                     $('.pageOne').attr("data-next-form","2");
                     $('.pagefour').removeAttr("data-prev-form");
                     $('.pagefour').attr("data-prev-form","2");
+                    $('.noPassangerDiv').removeClass("hidden");
+                    $('.nonVehiclePassanger').addClass("hidden");
                 }else{
                     $('.pageOne').removeAttr("data-next-form");
                     $('.pageOne').attr("data-next-form","3");
                     $('.pagefour').removeAttr("data-prev-form");
                     $('.pagefour').attr("data-prev-form","3");
+                    $('.noPassangerDiv').addClass("hidden");
+                    $('.nonVehiclePassanger').removeClass("hidden");
                 }
         });
         
         $('.busservices').change(function () {
             var busservices=$(".busservices:checked").val();
-//            alert(busservices);
-//            exit;
             if(busservices == 'selfservices'){
                 $('.bussationDiv').addClass("hidden");
             }else{
                 $('.bussationDiv').removeClass("hidden");
             }
+        });
+        
+        $('.busRoute').change(function () {
+            var routeId=$(".busRoute option:selected").val();
+            var postData={routeId:routeId};
+            ajaxcall(baseurl + 'get-trip-time', postData, function(data) {
+                var output=JSON.parse(data);
+                
+                var htmlTripTime='<option value="">Select a trip time...</option>';
+                for(var i = 0 ; i < output.length ; i++){
+                    var tempHtml='';
+                    tempHtml='<option  value="'+ output[i].id +'">'+ output[i].time +'</option>';
+                    htmlTripTime = htmlTripTime + tempHtml;
+                }
+                $('.tripTime').html(htmlTripTime);
+            });
+        });
+        
+        $('.tripTime').change(function () {
+            var routeId=$(".busRoute option:selected").val();
+            var tripTimeId = $('.tripTime option:selected').text();
+            
+            var postData={tripTimeId:tripTimeId,routeId:routeId};
+            ajaxcall(baseurl + 'get-trip-pickUp', postData, function(data) {
+                var output=JSON.parse(data);
+                var htmlPickUp='<option value="">Select a trip pickup station name - Time...</option>';
+                for(var i = 0 ; i < output.length ; i++){
+                    var tempHtml='';
+                    tempHtml='<option  value="'+ output[i].id +'">'+ output[i].stationName + ' - ' + output[i].time + '</option>';
+                    htmlPickUp = htmlPickUp + tempHtml;
+                }
+                $('.tripPickUpTime').html(htmlPickUp);
+            });
+            
+            ajaxcall(baseurl + 'get-trip-drop', postData, function(data) {
+                var output=JSON.parse(data);
+                
+                var htmldrop='<option value="">Select a trip drop station name - Time...</option>';
+                for(var i = 0 ; i < output.length ; i++){
+                    var tempHtml='';
+                    tempHtml='<option  value="'+ output[i].id +'">'+ output[i].stationName + ' - ' + output[i].time + '</option>';
+                    htmldrop = htmldrop + tempHtml;
+                }
+                $('.tripDropTime').html(htmldrop);
+            });
         });
         
         $('body').on('click', '.nextbtn', function(form) {
@@ -208,7 +274,35 @@ var Home = function() {
                 validateTrip = true;
                 var trip_type = $("input[name='trip_type']:checked").val();
                 if(trip_type ==  'Without vehicle'){
-                    
+                    $('#bookticket').submit();
+                    if (validateTrip){
+                        var tripType=$(".tripSelection:checked").val();
+                        var tripdate = $('#deparure').val();
+                        var fromstatonId = $('.fromstaton option:selected').val();
+                        var tostationId = $('.tostation option:selected').val();
+                        if(tripType == "round"){
+                            
+                        }
+                        var postData={departureDate:tripdate,
+                                      destinationID:tostationId,
+                                      sourceID:fromstatonId};
+                            ajaxcall(baseurl + 'get-without-cargo-trips', postData, function(data) {
+                             var output=JSON.parse(data);
+                             var htmlFerryTime="<option value=''>Select a ferry time...</option>";
+                             for(var j = 0;j < output['data'].length;j++){
+                                 var tempHtml="";
+                                 tempHtml="<option tripId='"+ output['data'][j].tripID +"' value='"+ output['data'][j].departureTime +"'>"+ output['data'][j].departureTime +"</option>";
+                                 htmlFerryTime= htmlFerryTime + tempHtml;
+                             }
+                             $(".ferryTime").html(htmlFerryTime);
+                             
+                            
+                        });
+                        
+                        
+                        $('.submit-form').addClass('hidden');
+                        $('.form' + nextForm).removeClass('hidden');
+                    }
                 }else{
                     $('#bookticket').submit();
                     if (validateTrip){
@@ -238,13 +332,6 @@ var Home = function() {
                                             }
                                             $(".ferryTimeReturn").html(htmlTime);
 
-                                            var htmlpassanger = "<option value=''>Select a number of passenger...</option>";
-                                            for(var lenpassanger = 1; lenpassanger <= passanger ; lenpassanger++){
-                                                var temhtmlpassanger='';
-                                                temhtmlpassanger="<option  value="+ lenpassanger +">"+ lenpassanger +"</option>";
-                                                htmlpassanger=htmlpassanger+temhtmlpassanger;
-                                            }
-                                            $(".noPassangerReturn").html(htmlpassanger);
                                         });
                         }
                         var postData = {sourceID: fromstatonId, 
@@ -286,14 +373,12 @@ var Home = function() {
         
         $('body').on('change', '.tripFrom', function() {
             var selectedValue = $(this).val();
-
             $(".tripTo option").remove();
             $(".tripFrom option").each(function() {
                 if ($(this).val() != '' && $(this).val() != selectedValue) {
                     $('.tripTo').append($('<option>', {value: $(this).val(), text: $(this).text()}));
                 }
             });
-
         });
         
         var date = new Date();

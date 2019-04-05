@@ -23,7 +23,6 @@ class Homepage extends CI_Controller {
         $getStop = array();
         if ($getToken) {
             $getVehical = $this->getVehical();
-//            print_r($getVehical); exit();
             $getStop = $this->getStop();
             if ($getStop['message'] == 'Success') {
                 $getStop = $getStop['data'];
@@ -56,8 +55,6 @@ class Homepage extends CI_Controller {
         redirect("/");
         exit;
     }
-
-    
 
     public function getToken() {
         
@@ -191,6 +188,40 @@ class Homepage extends CI_Controller {
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
         
+        echo json_encode($result);
+        exit;
+    }
+    
+    public function GetTripTime(){
+//        print_r($this->input->post('routeId'));
+        $result= $this->this_model->GetTripTime($this->input->post('routeId'));
+        echo json_encode($result);
+        exit;
+    }
+    
+    public function GetTripPickUpStaion(){
+        $result= $this->this_model->GetTripPickUpStaion($this->input->post());
+        echo json_encode($result);
+        exit;
+    }
+    
+    public function GetTripDropStaion(){
+        $result= $this->this_model->GetTripDropStaion($this->input->post());
+        echo json_encode($result);
+        exit;
+    }
+    
+    
+    public function GetWithoutCargoTrips(){
+        $departureDate= $this->input->post('departureDate');
+        $destinationID= $this->input->post('destinationID');
+        $sourceID= $this->input->post('sourceID');
+        $data = "";
+        $token = $this->session->userdata('token');
+        $url = "http://test.indigoseaways.com/api/api/A_GetTrips?departureDate=".$departureDate."&destinationID=".$destinationID."&sourceID=".$sourceID;
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
+       
         echo json_encode($result);
         exit;
     }

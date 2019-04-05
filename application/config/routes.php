@@ -62,6 +62,10 @@ $route['dashboard'] = 'account/dashboard';
 $route['trip-detail'] = 'homepage/getTrips';
 $route['get-cargo-trips'] = 'homepage/GetCargoTrips';
 $route['get-class'] = 'homepage/GetClass';
+$route['get-trip-time'] = 'homepage/GetTripTime';
+$route['get-trip-pickUp'] = 'homepage/GetTripPickUpStaion';
+$route['get-trip-drop'] = 'homepage/GetTripDropStaion';
+$route['get-without-cargo-trips'] = 'homepage/GetWithoutCargoTrips';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
