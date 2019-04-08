@@ -213,7 +213,7 @@ class Homepage extends CI_Controller {
     
     
     public function GetWithoutCargoTrips(){
-        $departureDate= $this->input->post('departureDate');
+        $departureDate= date('d/m/Y', strtotime($this->input->post('departureDate')));
         $destinationID= $this->input->post('destinationID');
         $sourceID= $this->input->post('sourceID');
         $data = "";

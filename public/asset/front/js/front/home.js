@@ -32,6 +32,10 @@ var Home = function() {
                 }}},
         
                 vehical: {required: true},
+                ferryTime: {required: true},
+                ferryClass: {required: true},
+                noPassangerharter: {required: true},
+                
         
             },
             messages: {
@@ -78,9 +82,20 @@ var Home = function() {
                     required: "please select bus drop time and station "
                 },
                 
+                ferryTime : {
+                    required: "please select ferry time "
+                },
+                
+                ferryClass : {
+                    required: "please select ferry class "
+                },
+                
+                noPassangerharter : {
+                    required: "please select number of passanger "
+                },
+                
             },
             invalidHandler: function(event, validator) {
-                //display error alert on form submit
                 validateTrip = false;
             },
             submitHandler: function(form) {
@@ -106,12 +121,8 @@ var Home = function() {
         
         $('.ferryTime').change(function(){
             
-            var trip_type = $("input[name='trip_type']:checked").val();
-            if(trip_type ==  'Without vehicle'){
-                
-            }else{
-                var tripId=$('.ferryTime option:selected').attr('tripid');
-                var postTripId={ tripId:tripId};
+            var tripId=$('.ferryTime option:selected').attr('tripid');
+            var postTripId={ tripId:tripId};
                 ajaxcall(baseurl + 'get-class', postTripId, function(data) {
                     var returnClass=JSON.parse(data);
 
@@ -123,7 +134,6 @@ var Home = function() {
                     }
                     $(".ferryClass").html(htmlClass);
                 });
-            }
             
         });
         
@@ -363,6 +373,79 @@ var Home = function() {
                     }
                 }
             }
+            
+            if (nextForm == 5)
+            {
+                validateTrip = true;
+                $('#bookticket').submit();
+                if (validateTrip)
+                { 
+                   var ferryTime = $('.ferryTime option:selected').text();
+                   var ferryClass = $('.ferryClass option:selected').text();
+                   var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
+                   var noPassangerequal = $('.noPassangerequal option:selected').val();
+                   var noPassangerharter = $('.noPassangerharter option:selected').val();
+                   if(noPassangerlesstwo == " " ){
+                       noPassangerlesstwo = 0;
+                   }
+                   
+                   if(noPassangerequal == " " ){
+                       noPassangerequal = 0;
+                   }
+                   
+                   if(noPassangerharter == " " ){
+                       noPassangerharter = 0;
+                   }
+                   var sum = Number(noPassangerlesstwo) + Number(noPassangerequal) + Number(noPassangerharter) ;
+                   $('.noOfPassanger').text(sum);
+                   $('.ferryTimeText').text(ferryTime);
+                   $('.ferryClassText').text(ferryClass);
+                   var passangerDiv = "";
+                   for(var np = 1; np <= sum ; np++){
+                    var temp = "";
+//                    var passangerNo = Number(noPassangerequal) + Number("1");
+                    temp='<div class="col-md-12"><div class="col-md-6" ><label for="tripDropTime">Passanger No :'+ np  +'</label></div></div>'+
+                            '<div class="col-md-12">'+
+                                '<div class="col-md-2" >'+
+                                    '<label for="tripDropTime">Passanger Name :</label>'+
+                                '</div>'+
+                                '<div class="col-md-10">'+
+                                    '<fieldset>'+
+                                        '<input type="text" name="passanger" class="form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                    '</fieldset>'+
+                                '</div>'+                                
+                           '</div>'+
+                           
+                           '<div class="col-md-12">'+
+                                    '<div class="col-md-2" >'+
+                                        '<label for="tripDropTime">Passanger Age :</label>'+
+                                    '</div>'+
+                                    '<div class="col-md-4">'+
+                                        '<fieldset>'+
+                                            '<input type="text" name="passangerAge" class="form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                        '</fieldset>'+
+                                    '</div>'+
+
+                                    '<div class="col-md-2" >'+
+                                        '<label for="tripDropTime">Passanger Gender :</label>'+
+                                    '</div>'+
+                                    '<div class="col-md-4">'+
+                                        '<fieldset>'+
+                                            '<select class="form-control" style="margin-left: -24px;margin-top: 10px;" name="passangerGender">'+
+                                                '<option value="">Select passanger gender</option>'+
+                                                '<option value="Male">Male</option>'+
+                                                '<option value="Female">Female</option>'+
+                                            '</select>'+
+                                        '</fieldset>'+
+                                    '</div>'+
+                                '</div>';
+                        passangerDiv = passangerDiv + temp ;
+                   }
+                   $('.passangerDiv').html(passangerDiv);
+                   $('.submit-form').addClass('hidden');
+                   $('.form' + nextForm).removeClass('hidden'); 
+                }
+            }
         });
         
         $('body').on('click', '.prevbtn', function() {
@@ -385,12 +468,14 @@ var Home = function() {
         date.setDate(date.getDate());
 
         $('#deparure').datepicker({
-            startDate: date,
+            startDate: new Date(),
             autoclose:true,
+            dateFormat: 'dd/mm/yy',
         });
         $('#return').datepicker({
-            startDate: date,            
+            startDate: new Date(),            
             autoclose:true,
+            dateFormat: 'dd/mm/yy',
         });
 
     }   

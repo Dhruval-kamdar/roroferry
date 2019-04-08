@@ -452,6 +452,9 @@
                                                     <label for="noPassangerlesstwo">Number of passenger(age < 2) :</label>
                                                     <select class="noPassangerlesstwo"  name="noPassangerlesstwo" >
                                                         <option value="">Select a number of passenger(age < 2)...</option>
+                                                        <?php for($i=1;$i<10;$i++){ ?>
+                                                            <option value="<?php print_r($i);?>"><?php print_r($i);?></option> 
+                                                        <?php }?>
                                                     </select>
                                                     <label for="noPassangerlesstwo" class="error"></label>
                                                 </fieldset>
@@ -460,6 +463,9 @@
                                                     <label for="noPassangerequal">Number of passenger(age >= 2 and age <= 12) :</label>
                                                     <select class="noPassangerequal"  name="noPassangerequal" >
                                                         <option value="">Select a number of passenger(age >= 2 and age <= 12)...</option>
+                                                        <?php for($i=1;$i<10;$i++){ ?>
+                                                            <option value="<?php print_r($i);?>"><?php print_r($i);?></option> 
+                                                        <?php }?>
                                                     </select>
                                                     <label for="noPassangerequal" class="error"></label>
                                                 </fieldset>
@@ -468,6 +474,9 @@
                                                     <label for="noPassangerharter">Number of passenger(age > 12) :</label>
                                                     <select class="noPassangerharter"  name="noPassangerharter" >
                                                         <option value="">Select a number of passenger(age > 12)...</option>
+                                                        <?php for($i=1;$i<10;$i++){ ?>
+                                                            <option value="<?php print_r($i);?>"><?php print_r($i);?></option> 
+                                                        <?php }?>
                                                     </select>
                                                     <label for="noPassangerharter" class="error"></label>
                                                 </fieldset>
@@ -524,65 +533,110 @@
                                     </div>
                                 </div>
 
-<!--                                Step 5
-                                <div class="submit-form formWitoutVechicle4 hidden">
+                                <!-- Step 5 -->
+                                <div class="submit-form form5 hidden">
                                     <center>
-                                        <h4>Without Trip Details</h4>
+                                        <h4>Passenger Details</h4>
                                     </center>
-                                     Label Div 
+                                    <!-- Label Div -->
 
                                     <div class="row">
-                                          <div class="col-md-12">
+                                        <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="departure">Trip Date :</label>
-                                                    <input name="depature" type="text" class="form-control date onewayTrip" id="deparure" placeholder="Select date..." autocomplete="off">
-                                                    <label for="depature" class="error"></label>
+                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
                                                 </fieldset>
                                             </div>
-                                            <div class="col-md-6 ifRoundReturnDate " id="ifRoundReturnDate">
+
+                                            <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="return">Return Trip Date :</label>
-                                                    <input name="ifRoundReturnDate" type="text" class="form-control date ifRoundReturnDate" id="ifRoundReturnDate" placeholder="Select date..." autocomplete="off">
-                                                    <label for="ifRoundReturnDate" class="error"></label>
+                                                    <label for="from">Ferry Type :&nbsp;<span class="ferryTypeText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
                                                 </fieldset>
                                             </div>
 
-                                               <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="pickpoint">Selecy Class:</label>
-                                                <select  class="pickpoint" name="pickpoint" class="pickpoint" >
-                                                <option value="">Select a Pick Point...</option>
-                                                <option value="abc">ABC</option>
-                                                <option value="xyz">XYZ</option>
-                                                </select>
-                                            </fieldset>
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
+                                                </fieldset>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="pickpoint">No Off Passanger:</label>
-                                                <select  class="noOfPassanger" name="noOfPassanger" class="noOfPassanger" >
-                                                <option value="">Select a No. of Passanger</option>
-                                                <?php for ($i=1; $i < 20; $i++) {  ?>
-                                                    <option value="<?= $i ?>"><?= $i ?></option>        
-                                                <?php  } ?>
-                                                </select>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
+                                                </fieldset>
+                                            </div>
 
-                                                
-                                                </select>
-                                            </fieldset>
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
+                                                </fieldset>
+                                            </div>
                                         </div>
-
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">No of Passenger :&nbsp;<span class="noOfPassanger"></span></label>
+                                                </fieldset>
+                                            </div>
                                         </div>
+                                        
+                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
+                                                </fieldset>
+                                            </div>
 
-
-
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                     Input Div 
-                                    
-                                     Button Div 
-
+                                    <br><br>
+                                    <!-- Input Div -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <div class="col-md-2">
+                                                    <label for="tripDropTime">Email Address :</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <fieldset>
+                                                        <input type="text" name="phoneNumber" class="form-control" placeholder="Enter your email address" autocomplete="off">
+                                                        <label for="tripDropTime" class="error"></label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                            <div class="col-md-2">
+                                                <label for="phoneNumber">Phone number :</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <fieldset>
+                                                    <input type="text" class="form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">
+                                                    <label for="phoneNumber" class="error"></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12 passangerDiv" style="margin-top:30px">
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Button Div -->
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
@@ -593,12 +647,12 @@
 
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="button" id="form-submit" data-next-form='5' class="btn nextbtn">Next</button>
+                                                    <button type="button" id="form-submit" data-next-form='6' class="btn nextbtn">Next</button>
                                                 </fieldset>
                                             </div>
                                         </div>
                                     </div>
-                                </div>-->
+                                </div>
                             </div>
                         </form>
                     </section>
@@ -1134,3 +1188,5 @@
             </div>
         </div>
     </section>
+    
+    
