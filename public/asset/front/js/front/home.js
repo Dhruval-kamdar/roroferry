@@ -10,6 +10,7 @@ var Home = function() {
                 fromstaton: {required: true},
                 tostation: {required: true},
                 depature: {required: true},
+                
                 returntrip: {required: {depends: function(e) {  
                     return ($('input[name="trip"]:checked').val() == 'round');
                 }}},
@@ -35,7 +36,8 @@ var Home = function() {
                 ferryTime: {required: true},
                 ferryClass: {required: true},
                 noPassangerharter: {required: true},
-                
+                emailAddress: {required: true, email: true},
+                phoneNumber: {required: true,minlength:10,maxlength:10},
         
             },
             messages: {
@@ -92,6 +94,17 @@ var Home = function() {
                 
                 noPassangerharter : {
                     required: "please select number of passanger "
+                },
+                
+                emailAddress : {
+                    required: "please enter your email address ",
+                    email : "Please enter proper email"
+                },
+                
+                phoneNumber : {
+                    required: "please enter your phone number ",
+                    minlength: "Please enter your 10 digit mobile number ",
+                    maxlength: "Please enter your 10 digit mobile number "
                 },
                 
             },
@@ -298,6 +311,7 @@ var Home = function() {
                                       sourceID:fromstatonId};
                             ajaxcall(baseurl + 'get-without-cargo-trips', postData, function(data) {
                              var output=JSON.parse(data);
+                             
                              var htmlFerryTime="<option value=''>Select a ferry time...</option>";
                              for(var j = 0;j < output['data'].length;j++){
                                  var tempHtml="";
@@ -305,8 +319,6 @@ var Home = function() {
                                  htmlFerryTime= htmlFerryTime + tempHtml;
                              }
                              $(".ferryTime").html(htmlFerryTime);
-                             
-                            
                         });
                         
                         
@@ -381,10 +393,12 @@ var Home = function() {
                 if (validateTrip)
                 { 
                    var ferryTime = $('.ferryTime option:selected').text();
+                   var ferryIdText = $('.ferryTime option:selected').attr('tripid');
                    var ferryClass = $('.ferryClass option:selected').text();
                    var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
                    var noPassangerequal = $('.noPassangerequal option:selected').val();
                    var noPassangerharter = $('.noPassangerharter option:selected').val();
+                   
                    if(noPassangerlesstwo == " " ){
                        noPassangerlesstwo = 0;
                    }
@@ -396,6 +410,17 @@ var Home = function() {
                    if(noPassangerharter == " " ){
                        noPassangerharter = 0;
                    }
+//                   var postDatabooking ={
+//                       tripID:ferryIdText,
+//                       noOfPassengers:noPassangerharter,
+//                       noOfInfants:noPassangerequal,
+//                       noOfChilds:noPassangerlesstwo,
+//                       className:ferryClass,
+//                   };
+//                   ajaxcall(baseurl + 'get-booking', postDatabooking, function(data) {
+////                        var output=JSON.parse(data);
+////                        console.log(output); 
+//                   });
                    var sum = Number(noPassangerlesstwo) + Number(noPassangerequal) + Number(noPassangerharter) ;
                    $('.noOfPassanger').text(sum);
                    $('.ferryTimeText').text(ferryTime);
@@ -411,7 +436,7 @@ var Home = function() {
                                 '</div>'+
                                 '<div class="col-md-10">'+
                                     '<fieldset>'+
-                                        '<input type="text" name="passanger" class="form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                        '<input type="text" name="passanger[]" class="passanger'+np+' form-control" placeholder="Enter passanger name" autocomplete="off">'+
                                     '</fieldset>'+
                                 '</div>'+                                
                            '</div>'+
@@ -422,7 +447,7 @@ var Home = function() {
                                     '</div>'+
                                     '<div class="col-md-4">'+
                                         '<fieldset>'+
-                                            '<input type="text" name="passangerAge" class="form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                            '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  form-control" placeholder="Enter passanger age" autocomplete="off">'+
                                         '</fieldset>'+
                                     '</div>'+
 
@@ -431,7 +456,7 @@ var Home = function() {
                                     '</div>'+
                                     '<div class="col-md-4">'+
                                         '<fieldset>'+
-                                            '<select class="form-control" style="margin-left: -24px;margin-top: 10px;" name="passangerGender">'+
+                                            '<select class="passangerGender'+np+'   form-control" style="margin-left: -24px;margin-top: 10px;" name="passangerGender[]">'+
                                                 '<option value="">Select passanger gender</option>'+
                                                 '<option value="Male">Male</option>'+
                                                 '<option value="Female">Female</option>'+
@@ -444,6 +469,57 @@ var Home = function() {
                    $('.passangerDiv').html(passangerDiv);
                    $('.submit-form').addClass('hidden');
                    $('.form' + nextForm).removeClass('hidden'); 
+                }
+            }
+            
+            if (nextForm == 6)
+            {  
+                validateTrip = true;
+                $('#bookticket').submit();
+                if (validateTrip){
+                    var email = $(".emailAddress").val();
+                    var phoneNumber = $(".phoneNumber").val();
+                    var NOP =$('#noOfPassanger').text();
+                    var totalAmountText = NOP * 550;
+                    var NOPhtml='';
+                    for(var NP=1; NP <= NOP ; NP++){
+                        var passangerName = '.passanger'+NP;
+                        var passangerAge = '.passangerAge'+NP;
+                        var passangerGender = '.passangerGender'+NP;
+                        var temp_NOPhtml='';
+                        temp_NOPhtml='<div class="col-md-12" style="margin-top:15px" >'+
+                                                '<div class="col-md-12">'+
+                                                    '<fieldset>'+
+                                                        '<label for="from">Passanger No : '+ NP +' &nbsp;</label>'+
+                                                    '</fieldset>'+
+                                                '</div>'+
+                                                '<div class="col-md-12">'+
+                                                    '<fieldset>'+
+                                                        '<label for="from">Passanger Name : '+ $(passangerName).val() +' &nbsp;</label>'+
+                                                    '</fieldset>'+
+                                                '</div>'+
+                                                
+                                                '<div class="col-md-6">'+
+                                                    '<fieldset>'+
+                                                        '<label for="from">Passanger Age : '+ $(passangerAge).val() +'&nbsp;</label>'+
+                                                    '</fieldset>'+
+                                                '</div>'+
+                                                
+                                                '<div class="col-md-6">'+
+                                                    '<fieldset>'+
+                                                        '<label for="from">Passanger Gender : '+ $(passangerGender).val() +' &nbsp;</label>'+
+                                                    '</fieldset>'+
+                                                '</div>'+
+                                            '</div><br><br><br>';
+                        NOPhtml= NOPhtml + temp_NOPhtml;
+                    }
+                    $('.passangeTextDiv').html(NOPhtml);
+                    $('.passangrrEmailText').text(email);
+                    $('.phoneNumberText').text(phoneNumber);
+                    $('.phoneNumberText').text(totalAmountText);
+                    
+                    $('.submit-form').addClass('hidden');
+                    $('.form' + nextForm).removeClass('hidden');
                 }
             }
         });

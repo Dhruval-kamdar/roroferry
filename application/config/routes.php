@@ -66,6 +66,7 @@ $route['get-trip-time'] = 'homepage/GetTripTime';
 $route['get-trip-pickUp'] = 'homepage/GetTripPickUpStaion';
 $route['get-trip-drop'] = 'homepage/GetTripDropStaion';
 $route['get-without-cargo-trips'] = 'homepage/GetWithoutCargoTrips';
+$route['get-booking'] = 'homepage/GetBooking';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
