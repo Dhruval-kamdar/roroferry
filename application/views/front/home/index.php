@@ -609,30 +609,27 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
-                                                <div class="col-md-2">
-                                                    <label for="tripDropTime">Email Address :</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <fieldset>
-                                                        <input type="text" name="emailAddress" class="emailAddress form-control" placeholder="Enter your email address" autocomplete="off">
-                                                        <label for="emailAddress" class=" error"></label>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                            <div class="col-md-2">
-                                                <label for="phoneNumber">Phone number :</label>
-                                            </div>
-                                            <div class="col-md-10">
                                                 <fieldset>
+                                                    <label for="tripDropTime" style="margin-left:7px">Email Address :</label>
+                                                    <input type="text" name="emailAddress" class="emailAddress form-control" placeholder="Enter your email address" autocomplete="off">
+                                                    <label for="emailAddress" class=" error"></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    <label for="phoneNumber" style="margin-left:7px">Phone number :</label>
                                                     <input type="text" class="phoneNumber form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">
                                                     <label for="phoneNumber" class=" error"></label>
                                                 </fieldset>
                                             </div>
                                         </div>
-                                        </div>
-                                        <div class="col-md-12 passangerDiv" style="margin-top:30px">
+                                        <div class="row">
+                                            <div class="col-md-12 passangerDiv" style="margin-top:30px">
                                             
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- Button Div -->

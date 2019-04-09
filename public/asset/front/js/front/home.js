@@ -429,41 +429,50 @@ var Home = function() {
                    for(var np = 1; np <= sum ; np++){
                     var temp = "";
 //                    var passangerNo = Number(noPassangerequal) + Number("1");
-                    temp='<div class="col-md-12"><div class="col-md-6" ><label for="tripDropTime">Passanger No :'+ np  +'</label></div></div>'+
-                            '<div class="col-md-12">'+
-                                '<div class="col-md-2" >'+
-                                    '<label for="tripDropTime">Passanger Name :</label>'+
-                                '</div>'+
-                                '<div class="col-md-10">'+
+                                            //<!--<div class="col-md-12">-->
+                                              //  <!--<fieldset>-->
+                                                //    <!--<label for="phoneNumber" style="margin-left:7px">Phone number :</label>-->
+                                                  ///  <!--<input type="text" class="phoneNumber form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">-->
+                                                    //<!--<label for="phoneNumber" class=" error"></label>-->
+                                                //<!--</fieldset>-->
+                                            //<!--</div>-->
+                        temp='<div class="col-md-12">'+
+                                '<div class="col-md-12" >'+
                                     '<fieldset>'+
-                                        '<input type="text" name="passanger[]" class="passanger'+np+' form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                      '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
                                     '</fieldset>'+
-                                '</div>'+                                
-                           '</div>'+
-                           
-                           '<div class="col-md-12">'+
-                                    '<div class="col-md-2" >'+
-                                        '<label for="tripDropTime">Passanger Age :</label>'+
-                                    '</div>'+
-                                    '<div class="col-md-4">'+
+                                '</div>'+
+                                
+                                '<div class="col-md-12" >'+
+                                    '<fieldset>'+
+                                        '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
+                                        '<input type="text" name="passanger[]" class="passanger'+np+' form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                        '<label for="passangerName" style="margin-left:7px" class=" error"></label>'+
+                                    '</fieldset>'+
+                                '</div>'+
+                                
+                                
+                                    '<div class="col-md-6" >'+
                                         '<fieldset>'+
+                                            '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
                                             '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                            '<label for="passangerAge" style="margin-left:7px" class=" error"></label>'+
                                         '</fieldset>'+
                                     '</div>'+
-
-                                    '<div class="col-md-2" >'+
-                                        '<label for="tripDropTime">Passanger Gender :</label>'+
-                                    '</div>'+
-                                    '<div class="col-md-4">'+
+                                    
+                                    '<div class="col-md-6" >'+
                                         '<fieldset>'+
-                                            '<select class="passangerGender'+np+'   form-control" style="margin-left: -24px;margin-top: 10px;" name="passangerGender[]">'+
+                                            '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
+                                            '<select class="passangerGender'+np+'  style="margin-left:7px" form-control"  name="passangerGender[]">'+
                                                 '<option value="">Select passanger gender</option>'+
                                                 '<option value="Male">Male</option>'+
                                                 '<option value="Female">Female</option>'+
                                             '</select>'+
+                                            '<label for="passangerGender" style="margin-left:7px" class=" error"></label>'+
                                         '</fieldset>'+
                                     '</div>'+
-                                '</div>';
+                             '</div>';
+                    
                         passangerDiv = passangerDiv + temp ;
                    }
                    $('.passangerDiv').html(passangerDiv);
