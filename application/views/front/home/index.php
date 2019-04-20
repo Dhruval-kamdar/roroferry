@@ -612,7 +612,7 @@
                                                 <fieldset>
                                                     <label for="tripDropTime" style="margin-left:7px">Email Address :</label>
                                                     <input type="text" name="emailAddress" class="emailAddress form-control" placeholder="Enter your email address" autocomplete="off">
-                                                    <label for="emailAddress" class=" error"></label>
+                                                    <label for="emailAddress" class=" error" style="margin-left:7px"></label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -622,7 +622,7 @@
                                                 <fieldset>
                                                     <label for="phoneNumber" style="margin-left:7px">Phone number :</label>
                                                     <input type="text" class="phoneNumber form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">
-                                                    <label for="phoneNumber" class=" error"></label>
+                                                    <label for="phoneNumber" class=" error" style="margin-left:7px"></label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -772,6 +772,125 @@
                                             <div class="col-md-6">
                                                 <fieldset>
                                                     <button type="button" id="form-submit" data-next-form='7' class="btn nextbtn">Make Payment</button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 7 -->
+                                <div class="submit-form form7 hidden">
+                                    <center>
+                                        <h4>Make Your Payment</h4>
+                                    </center>
+                                    <!-- Label Div -->
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Type :&nbsp;<span class="ferryTypeText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">No of Passenger :&nbsp;<span class="noOfPassanger" id="noOfPassanger"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12" >
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    <label for="from">Your Email : &nbsp;<span class="passangrrEmailText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12" >
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    <label for="from">Your Phone Number : &nbsp;<span class="phoneNumberText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" >
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    <label for="from">Total Amount : &nbsp;<span class="totalAmountText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <!-- Input Div -->
+                                    
+                                    <!-- Button Div -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-prev-form='6' class="pagefour btn prevbtn">Prev</button>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-next-form='7' class="btn nextbtn">Finish</button>
                                                 </fieldset>
                                             </div>
                                         </div>

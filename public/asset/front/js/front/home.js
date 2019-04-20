@@ -390,6 +390,7 @@ var Home = function() {
             {
                 validateTrip = true;
                 $('#bookticket').submit();
+
                 if (validateTrip)
                 { 
                    var ferryTime = $('.ferryTime option:selected').text();
@@ -425,18 +426,15 @@ var Home = function() {
                    $('.noOfPassanger').text(sum);
                    $('.ferryTimeText').text(ferryTime);
                    $('.ferryClassText').text(ferryClass);
-                   var passangerDiv = "";
+                   var passangerDiv = '<div class="col-md-12">'+
+                                            '<div class="col-md-12 errorDiv">'+
+                                            '</div>'+
+                                      '</div>';
                    for(var np = 1; np <= sum ; np++){
                     var temp = "";
-//                    var passangerNo = Number(noPassangerequal) + Number("1");
-                                            //<!--<div class="col-md-12">-->
-                                              //  <!--<fieldset>-->
-                                                //    <!--<label for="phoneNumber" style="margin-left:7px">Phone number :</label>-->
-                                                  ///  <!--<input type="text" class="phoneNumber form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">-->
-                                                    //<!--<label for="phoneNumber" class=" error"></label>-->
-                                                //<!--</fieldset>-->
-                                            //<!--</div>-->
+
                         temp='<div class="col-md-12">'+
+                                
                                 '<div class="col-md-12" >'+
                                     '<fieldset>'+
                                       '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
@@ -446,8 +444,8 @@ var Home = function() {
                                 '<div class="col-md-12" >'+
                                     '<fieldset>'+
                                         '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
-                                        '<input type="text" name="passanger[]" class="passanger'+np+' form-control" placeholder="Enter passanger name" autocomplete="off">'+
-                                        '<label for="passangerName" style="margin-left:7px" class=" error"></label>'+
+                                        '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                        '<label for="passangerName" style="margin-left:7px" class="error"></label>'+
                                     '</fieldset>'+
                                 '</div>'+
                                 
@@ -455,15 +453,15 @@ var Home = function() {
                                     '<div class="col-md-6" >'+
                                         '<fieldset>'+
                                             '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
-                                            '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  form-control" placeholder="Enter passanger age" autocomplete="off">'+
-                                            '<label for="passangerAge" style="margin-left:7px" class=" error"></label>'+
+                                            '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                            '<label for="passangerAge" style="margin-left:7px" class="error"></label>'+
                                         '</fieldset>'+
                                     '</div>'+
                                     
                                     '<div class="col-md-6" >'+
                                         '<fieldset>'+
                                             '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
-                                            '<select class="passangerGender'+np+'  style="margin-left:7px" form-control"  name="passangerGender[]">'+
+                                            '<select class="passangerGender'+np+'   passangerGender form-control"  style="margin-left:7px" name="passangerGender[]">'+
                                                 '<option value="">Select passanger gender</option>'+
                                                 '<option value="Male">Male</option>'+
                                                 '<option value="Female">Female</option>'+
@@ -485,7 +483,9 @@ var Home = function() {
             {  
                 validateTrip = true;
                 $('#bookticket').submit();
-                if (validateTrip){
+               
+                
+                if (validateTrip == true){
                     var email = $(".emailAddress").val();
                     var phoneNumber = $(".phoneNumber").val();
                     var NOP =$('#noOfPassanger').text();
@@ -525,11 +525,17 @@ var Home = function() {
                     $('.passangeTextDiv').html(NOPhtml);
                     $('.passangrrEmailText').text(email);
                     $('.phoneNumberText').text(phoneNumber);
-                    $('.phoneNumberText').text(totalAmountText);
+                    $('.totalAmountText').text(totalAmountText);
                     
                     $('.submit-form').addClass('hidden');
                     $('.form' + nextForm).removeClass('hidden');
                 }
+            }
+            
+            if(nextForm == 7){
+                validateTrip = true;
+                $('.submit-form').addClass('hidden');
+                $('.form' + nextForm).removeClass('hidden');
             }
         });
         

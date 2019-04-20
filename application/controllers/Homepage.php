@@ -1,5 +1,5 @@
 <?php
-
+require('application/libraries/bob/libfiles/iPay24Pipe.php');
 class Homepage extends CI_Controller {
 
     function __construct() {
@@ -11,7 +11,7 @@ class Homepage extends CI_Controller {
     }
 
     public function index() {
-       
+        
         $data['page'] = "front/home/index";
         $data['var_meta_title'] = 'login';
         $data['var_meta_description'] = 'login';
@@ -236,6 +236,15 @@ class Homepage extends CI_Controller {
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
         echo json_encode($result);
         exit;
+    }
+    
+    
+    public function makePayment(){
+        $result= $this->this_model->makePaymentBOB($this->input->post());
+    }
+    
+    public function getResponse(){
+         $result= $this->this_model->makePaymentResponse();
     }
 
 }
