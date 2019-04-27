@@ -11,7 +11,7 @@ class Homepage extends CI_Controller {
     }
 
     public function index() {
-        
+       
         $data['page'] = "front/home/index";
         $data['var_meta_title'] = 'login';
         $data['var_meta_description'] = 'login';
@@ -240,13 +240,72 @@ class Homepage extends CI_Controller {
     
     
     public function makePayment(){
+    
+//        $amount=count($this->input->post('passanger'))*550;
+        $amount = '1.00';
         $result= $this->this_model->makePaymentBOB($this->input->post());
+        
     }
     
     public function getResponse(){
          $result= $this->this_model->makePaymentResponse();
     }
+    
+    public function paymentInquiry(){
+        if($this->input->post()){
+//            print_r($this->input->post());exit;
+           $result= $this->this_model->paymentInquiry($this->input->post());
+        }
+        $data['page'] = "front/home/paymentInquirey";
+        $data['var_meta_title'] = 'roroferry - Payment Inquirey';
+        $data['var_meta_description'] = 'roroferry - payment Inquirey';
+        $data['var_meta_keyword'] = 'roroferry - payment Inquirey';
+        $data['js'] = array(
+            'front/paymentInquirey.js'
+        );
+        $data['js_plugin'] = array();
 
+        $data['css'] = array();
+        $data['css_plugin'] = array(
+        );
+        $data['init'] = array(
+            'PaymentInquirey.init()'
+        );
+        
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function getResponsepaymentInquiry(){
+         $result= $this->this_model->getResponsepaymentInquiry();
+    }
+    
+    public function paymentRefund(){
+        
+        if($this->input->post()){
+              $result= $this->this_model->paymentRefund($this->input->post());
+        }
+        $data['page'] = "front/home/paymentRefund";
+        $data['var_meta_title'] = 'roroferry - Payment Inquirey';
+        $data['var_meta_description'] = 'roroferry - payment Inquirey';
+        $data['var_meta_keyword'] = 'roroferry - payment Inquirey';
+        $data['js'] = array(
+            'front/paymentRefund.js'
+        );
+        $data['js_plugin'] = array();
+
+        $data['css'] = array();
+        $data['css_plugin'] = array(
+        );
+        $data['init'] = array(
+            'PaymentRefund.init()'
+        );
+        
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function getResponsepaymentRefund(){
+        $result= $this->this_model->getResponsepaymentRefund();
+    }
 }
 
 ?>

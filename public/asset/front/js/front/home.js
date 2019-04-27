@@ -2,6 +2,7 @@ var Home = function() {
     var mainForm = function() {
         var validateTrip = true;
         var submitFrom = false;
+        var customValid = true;
         $('#bookticket').validate({
             debug: true,
             rules: {
@@ -10,6 +11,9 @@ var Home = function() {
                 fromstaton: {required: true},
                 tostation: {required: true},
                 depature: {required: true},
+                phoneNumber: {required: true},
+                pinCode: {required: true},
+                cityName: {required: true},
                 
                 returntrip: {required: {depends: function(e) {  
                     return ($('input[name="trip"]:checked').val() == 'round');
@@ -96,6 +100,14 @@ var Home = function() {
                     required: "please select number of passanger "
                 },
                 
+                pinCode : {
+                    required: "please enter pin code"
+                },
+                
+                cityName : {
+                    required: "please enter city name"
+                },
+                
                 emailAddress : {
                     required: "please enter your email address ",
                     email : "Please enter proper email"
@@ -110,14 +122,69 @@ var Home = function() {
             },
             invalidHandler: function(event, validator) {
                 validateTrip = false;
+                customValid = customerInfoValid();
+                console.log('faf'+customValid);
             },
             submitHandler: function(form) {
-                if(submitFrom)
+                customValid = customerInfoValid();
+                console.log('fsfs' + customValid);
+                if(submitFrom && customValid)
                 {
                     form.submit();
                 }
             }
         });
+        
+        function customerInfoValid(){
+//           alert("customerInfoValid");
+           var customValid = true;
+            $('.passangerAge').each(function(){
+                if($(this).is(':visible')){
+                    if($(this).val() == ''){
+                        console.log('dda');
+                        $(this).addClass('error');
+                        $(this).next('span').text('Please enter age');
+                        customValid = false;
+                    }else{
+                        console.log('aa');
+                        $(this).removeClass('error');
+                        $(this).next('span').text('');
+                    }
+                }
+            });
+            
+            $('.passangerGender').each(function(){
+                if($(this).is(':visible')){
+                    if($(this).val() == ''){
+                       
+                        console.log('dda1');
+                        $(this).addClass('error');
+                        $(this).next('span').text('Please select gender');
+                        customValid = false;
+                    }else{
+                        console.log('aa1');
+                        $(this).removeClass('error');
+                        $(this).next('span').text('');
+                    }
+                }
+            });
+            
+            $('.passanger').each(function(){
+                if($(this).is(':visible')){
+                    if($(this).val() == ''){
+                        console.log('dda2');
+                        $(this).addClass('error');
+                        $(this).next('span').text('Please eneter passange name');
+                        customValid = false;
+                    }else{
+                        console.log('aa2');
+                        $(this).removeClass('error');
+                        $(this).next('span').text('');
+                    }
+                }
+            });
+            return customValid;
+        }
         
         $('.tripSelection').change(function () {
             var tripType=$(".tripSelection:checked").val();
@@ -356,11 +423,11 @@ var Home = function() {
 
                                         });
                         }
-                        var postData = {sourceID: fromstatonId, 
-                                        destinationID: tostationId,
-                                        vehicleTypeID: vehicalId ,
-                                        vehicleCategoryID:vehicleCategoryID,
-                                        departureDate:tripdate };
+                                    var postData = {sourceID: fromstatonId, 
+                                                    destinationID: tostationId,
+                                                    vehicleTypeID: vehicalId ,
+                                                    vehicleCategoryID:vehicleCategoryID,
+                                                    departureDate:tripdate };
                                     
                                     ajaxcall(baseurl + 'get-cargo-trips', postData, function(data) {
                                         var output=JSON.parse(data);
@@ -389,6 +456,7 @@ var Home = function() {
             if (nextForm == 5)
             {
                 validateTrip = true;
+                
                 $('#bookticket').submit();
 
                 if (validateTrip)
@@ -411,17 +479,6 @@ var Home = function() {
                    if(noPassangerharter == " " ){
                        noPassangerharter = 0;
                    }
-//                   var postDatabooking ={
-//                       tripID:ferryIdText,
-//                       noOfPassengers:noPassangerharter,
-//                       noOfInfants:noPassangerequal,
-//                       noOfChilds:noPassangerlesstwo,
-//                       className:ferryClass,
-//                   };
-//                   ajaxcall(baseurl + 'get-booking', postDatabooking, function(data) {
-////                        var output=JSON.parse(data);
-////                        console.log(output); 
-//                   });
                    var sum = Number(noPassangerlesstwo) + Number(noPassangerequal) + Number(noPassangerharter) ;
                    $('.noOfPassanger').text(sum);
                    $('.ferryTimeText').text(ferryTime);
@@ -445,7 +502,7 @@ var Home = function() {
                                     '<fieldset>'+
                                         '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
                                         '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
-                                        '<label for="passangerName" style="margin-left:7px" class="error"></label>'+
+                                        '<span for="passangerName" style="margin-left:7px" class="error"></span>'+
                                     '</fieldset>'+
                                 '</div>'+
                                 
@@ -454,7 +511,7 @@ var Home = function() {
                                         '<fieldset>'+
                                             '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
                                             '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
-                                            '<label for="passangerAge" style="margin-left:7px" class="error"></label>'+
+                                            '<span for="passangerAge" style="margin-left:7px" class="error"></span>'+
                                         '</fieldset>'+
                                     '</div>'+
                                     
@@ -466,7 +523,7 @@ var Home = function() {
                                                 '<option value="Male">Male</option>'+
                                                 '<option value="Female">Female</option>'+
                                             '</select>'+
-                                            '<label for="passangerGender" style="margin-left:7px" class=" error"></label>'+
+                                            '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
                                         '</fieldset>'+
                                     '</div>'+
                              '</div>';
@@ -483,9 +540,13 @@ var Home = function() {
             {  
                 validateTrip = true;
                 $('#bookticket').submit();
+//                if (customValid){
+//                    $('#bookticket').submit();
+//                }
+                
                
                 
-                if (validateTrip == true){
+                if (validateTrip == true && customValid == true){
                     var email = $(".emailAddress").val();
                     var phoneNumber = $(".phoneNumber").val();
                     var NOP =$('#noOfPassanger').text();
@@ -533,9 +594,14 @@ var Home = function() {
             }
             
             if(nextForm == 7){
+                var totalAmmount=$(".totalAmountText").text();
+                
                 validateTrip = true;
-                $('.submit-form').addClass('hidden');
-                $('.form' + nextForm).removeClass('hidden');
+                $('#bookticket').submit();
+                if (validateTrip == true){
+                    submitFrom = true ;
+                    $('#bookticket').submit();
+                }
             }
         });
         

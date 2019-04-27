@@ -1372,12 +1372,13 @@ class iPay24Pipe {
 			$request .= "&errorURL=" . $this->errorURL;
 			$request .= "&responseURL=" . $this->responseURL;
 			$request .= "&tranportalId=" . $xmlData ['id'];
+//                        echo $request;exit;
 			// echo "HERE I AM IN performTransactionHTTP   and encrypted URL IS  " . $request;
 			$this->webAddress = $xmlData ['webaddress'];
 			$this->setid ( $xmlData ['id'] . "" );
 			$this->webAddress .= "/tranPipeHTTP.htm?param=tranInit" . $request;
 			
-			
+			//echo $this->webAddress;exit;
 		
 			return 0;
 		} catch ( Exception $e ) {
@@ -1585,6 +1586,7 @@ class iPay24Pipe {
 			}
 			$this->key = $hm ['resourceKey'];
 			// $cipher->setKey ( $this->key );
+                        
 			$trandata = $this->decryptData ( $trandata, $this->key );
 		//	$trandata = $this->decryptDataNew ( $trandata, '712121583726712121583728' );
 		

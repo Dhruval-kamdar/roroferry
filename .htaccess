@@ -2,7 +2,7 @@ Options -Indexes
 
 # Prod
 RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/
+RewriteCond %{REQUEST_URI} !^/roroferry
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /index.php?$1 [L]
@@ -10,8 +10,8 @@ RewriteRule ^(.*)$ /index.php?$1 [L]
 
 # Local/Demo
 RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/
+RewriteCond %{REQUEST_URI} ^/roroferry
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?$1 [L]
+RewriteRule ^(.*)$ /roroferry/index.php?$1 [L]
 

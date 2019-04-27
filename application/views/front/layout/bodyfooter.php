@@ -4,6 +4,8 @@
                 <div class="col-md-12">
                     <div class="primary-button">
                         <a href="#" class="scroll-top">Back To Top</a>
+                        <a href="<?= base_url().'payment-inquiry'?>">Payment Inquiry</a>
+                        <a href="<?= base_url().'payment-refund'?>">Refund Request</a>
                     </div>
                 </div>
                 <div class="col-md-12">

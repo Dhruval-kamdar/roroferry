@@ -24,6 +24,7 @@ function setAlias($alias) {
 }
 function setKey($key) {
 	//echo "in set key";
+//    echo $key; exit();
 	$this->key = $key;
 }
 function createCGZFromCGN() {

@@ -54,10 +54,13 @@ $route['default_controller'] = 'homepage/index';
 //$route['default_controller'] = 'account/zz';
 $route['register'] = 'account/register';
 $route['contact'] = 'front/contact';
+$route['payment-inquiry'] = 'homepage/paymentInquiry';
 
+$route['payment-refund'] = 'homepage/paymentRefund';
 /* START BY JIGNESH */
 $route['login'] = 'account/login';
 $route['home'] = 'account/home';
+
 $route['dashboard'] = 'account/dashboard';
 $route['trip-detail'] = 'homepage/getTrips';
 $route['get-cargo-trips'] = 'homepage/GetCargoTrips';
@@ -70,6 +73,8 @@ $route['get-booking'] = 'homepage/GetBooking';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
+$route['payment'] = 'homepage/makePayment';
+//$route['payment-inquiry'] = 'homepage/paymentInquiry';
 /* END BY JIGNESH */
 
 $route['404_override'] = '';
