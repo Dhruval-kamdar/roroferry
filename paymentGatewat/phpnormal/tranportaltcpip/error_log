@@ -1,0 +1,57 @@
+[16-Apr-2019 06:01:03 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:01:30 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: transacType in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 19
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: AMOUNT in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 23
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: action in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 24
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: comment in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 25
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: pan in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 26
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: cvv in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 27
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: expmm in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 28
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: expyy in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 29
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: trckId in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 30
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: name in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 40
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: udf1 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 42
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: udf2 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 43
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: udf3 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 44
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: udf4 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 45
+[16-Apr-2019 06:02:43 UTC] PHP Notice:  Undefined index: udf5 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 46
+[16-Apr-2019 06:02:43 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: transacType in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 19
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: AMOUNT in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 23
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: action in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 24
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: comment in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 25
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: pan in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 26
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: cvv in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 27
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: expmm in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 28
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: expyy in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 29
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: trckId in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 30
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: name in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 40
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: udf1 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 42
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: udf2 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 43
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: udf3 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 44
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: udf4 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 45
+[16-Apr-2019 06:03:49 UTC] PHP Notice:  Undefined index: udf5 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 46
+[16-Apr-2019 06:03:49 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:05:08 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:13:03 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:13:09 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:15:12 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:15:40 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:17:24 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: transacType in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 19
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: AMOUNT in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 23
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: action in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 24
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: comment in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 25
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: pan in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 26
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: cvv in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 27
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: expmm in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 28
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: expyy in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 29
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: trckId in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 30
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: name in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 40
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: udf1 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 42
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: udf2 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 43
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: udf3 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 44
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: udf4 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 45
+[16-Apr-2019 06:17:40 UTC] PHP Notice:  Undefined index: udf5 in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/tranportaltcpip/TranPipeBuy.php on line 46
+[16-Apr-2019 06:17:40 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1
+[16-Apr-2019 15:12:01 UTC] PHP Warning:  fopen(C:\\xampp5\\htdocs\\phpnormal\\cgnfile\\secret.pooh): failed to open stream: No such file or directory in /home/hcgk8u1dsu89/public_html/paymentGatewat/phpnormal/libfiles/Keystore.php on line 1

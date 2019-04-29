@@ -2055,8 +2055,6 @@ class iPay24Pipe {
 		return 0;
 	}
 	function splitData($trandata) {
-                print_r($trandata);
-                die();
 		$splitData;
 		$data = explode ( "&", $trandata );
 		// // echo "DATA ".var_dump($data);
@@ -2066,8 +2064,6 @@ class iPay24Pipe {
 			$splitData [$temp [0]] = $temp [1];
 			// // echo "<br/>".$splitData[$temp[0]];
 		}
-                print_r($splitData);
-                die();
 		return $splitData;
 	}
 	function encryptData($str, $key) {

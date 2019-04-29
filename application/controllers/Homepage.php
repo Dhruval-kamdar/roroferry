@@ -252,6 +252,7 @@ class Homepage extends CI_Controller {
     }
     
     public function paymentInquiry(){
+        
         if($this->input->post()){
 //            print_r($this->input->post());exit;
            $result= $this->this_model->paymentInquiry($this->input->post());
@@ -276,6 +277,7 @@ class Homepage extends CI_Controller {
     }
     
     public function getResponsepaymentInquiry(){
+        
          $result= $this->this_model->getResponsepaymentInquiry();
     }
     

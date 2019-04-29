@@ -97,7 +97,8 @@ class Booking_model extends My_model
         } else {
 
             if ($errorText == null) {
-
+                print_r($myObj);
+                echo '-----------<br/>';
                 echo 'Transaction Status:' . $myObj->getResult() . '<br/>';
                 echo 'Post Date:' . $myObj->getDates() . '<br/>';
                 echo 'Transaction Reference ID:' . $myObj->getRef() . '<br/>';
@@ -106,7 +107,7 @@ class Booking_model extends My_model
                 echo 'Transaction Amount:' . $myObj->getAmt() . '<br/>';
                 echo 'Payment ID:' . $myObj->getPaymentId() . '<br/>';
             } else {
-
+                print_r($_GET);
                 echo 'ErrorText:' . $errorText . '<br/>';
                 echo 'Mrch Track ID:' . isset($_GET["trackid"]) ? $_GET["trackid"] : isset($_POST["trackid"]) ? $_POST["trackid"] : "" . '<br/>';
                 echo 'Transaction ID:' . isset($_GET["tranid"]) ? $_GET["tranid"] : isset($_POST["tranid"]) ? $_POST["tranid"] : "" . '<br/>';
@@ -117,13 +118,15 @@ class Booking_model extends My_model
     }
     
     public function paymentInquiry($postData){
-        
+       
         $currency = '356';
         $language = 'USA';
         $receiptURL = base_url().'homepage/getResponsepaymentInquiry/';
         $errorURL = base_url().'homepage/getResponsepaymentInquiry/';
         $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
         $aliasName = 'IPGTEST';
+        $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
+        $trackid = $rnd;
         $myObj = new iPay24Pipe();
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setKeystorePath(trim($resourcePath));
@@ -134,10 +137,12 @@ class Booking_model extends My_model
         $myObj->setResponseURL(trim($receiptURL));
         $myObj->setErrorURL(trim($errorURL));
         $myObj->setAmt(trim('1.00'));
+        
         $myObj->setTypes($postData['type']);
-        $myObj->setTrackId($postData['trackID']);
-        $myObj->setTransId($postData['transactionID']);
-        $myObj->setUdf5($postData['PaymentID']);
+        
+        $myObj->setTrackId($trackid);
+        $myObj->setTransId($postData['trackID']);
+        $myObj->setUdf5('TrackID');
         
         if (trim($myObj->performTransactionHTTP()) != 0) {
             echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
@@ -171,7 +176,7 @@ class Booking_model extends My_model
             echo 'Error : ' .$myObj->getError();
         } else {
             if ($errorText == null) {
-                print_r("HELLO");
+                print_r($myObj);
                 die();
 //                echo 'Transaction Status:' . $myObj->getResult() . '<br/>';
 //                echo 'Post Date:' . $myObj->getDates() . '<br/>';
@@ -181,7 +186,7 @@ class Booking_model extends My_model
 //                echo 'Transaction Amount:' . $myObj->getAmt() . '<br/>';
 //                echo 'Payment ID:' . $myObj->getPaymentId() . '<br/>';
             } else {
-                print_r("ERROR");
+                print_r($_GET);
                 die();
 //                echo 'ErrorText:' . $errorText . '<br/>';
 //                echo 'Mrch Track ID:' . isset($_GET["trackid"]) ? $_GET["trackid"] : isset($_POST["trackid"]) ? $_POST["trackid"] : "" . '<br/>';
@@ -200,6 +205,8 @@ class Booking_model extends My_model
         $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
         $aliasName = 'IPGTEST';
         $myObj = new iPay24Pipe();
+        $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
+        $trackid = $rnd;
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setKeystorePath(trim($resourcePath));
         $myObj->setAlias(trim($aliasName));
@@ -208,11 +215,11 @@ class Booking_model extends My_model
         $myObj->setLanguage(trim($language));
         $myObj->setResponseURL(trim($receiptURL));
         $myObj->setErrorURL(trim($errorURL));
-        $myObj->setAmt(trim('1.00'));
-        $myObj->setTypes($postData['type']);
-        $myObj->setTrackId($postData['trackID']);
+        $myObj->setAmt(trim('1.00'));       
+        $myObj->setTypes($postData['type']);        
+        $myObj->setTrackId($trackid);
         $myObj->setTransId($postData['transactionID']);
-        $myObj->setUdf5($postData['PaymentID']);
+        $myObj->setUdf5('TrackID');
         
         if (trim($myObj->performTransaction()) != 0) {
             echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
