@@ -127,56 +127,30 @@ class Booking_model extends My_model
         $aliasName = 'IPGTEST';
         $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
         $trackid = $rnd;
-        $amount = 1;
-        
         $myObj = new iPay24Pipe();
-//        $myObj->setResourcePath(trim($resourcePath));
-//        $myObj->setKeystorePath(trim($resourcePath));
-//        $myObj->setAlias(trim($aliasName));
-//        $myObj->setAction(trim('8'));
-//        $myObj->setCurrency(trim($currency));
-//        $myObj->setLanguage(trim($language));
-//        $myObj->setResponseURL(trim($receiptURL));
-//        $myObj->setErrorURL(trim($errorURL));
-//        $myObj->setAmt(trim('1.00'));
-//        $myObj->setTypes($postData['type']);
-//        $myObj->setTrackId($trackid);
-//        $myObj->setTransId($postData['trackID']);
-//        $myObj->setUdf5('USER DEFINE 5');
-        
-        $myObj->setTrackId(trim($trackid));
-        $myObj->setAlias(trim($aliasName));
         $myObj->setResourcePath(trim($resourcePath));
-        $myObj->setAction(trim('8'));
-        $myObj->setAmt(trim($amount));
-        $myObj->setCurrency(trim($currency));
-//        $myObj->setCard($pan);
-//        $myObj->setCvv2($cvv);
-//        $myObj->setExpMonth($expmm);
-//        $myObj->setExpYear($expyy);
-//        $myObj->setMember($_POST['name']);
-        $myObj->setTransId($postData['transactionID']);
-//        $myObj->setUdf1($_POST['udf1']);
-//        $myObj->setUdf2($_POST['udf2']);
-//        $myObj->setUdf3($_POST['udf3']);
-//        $myObj->setUdf4($_POST['udf4']);
-        $myObj->setUdf5('TRANID');
         $myObj->setKeystorePath(trim($resourcePath));
-
+        $myObj->setAlias(trim($aliasName));
+        $myObj->setAction(trim('8'));
+        $myObj->setCurrency(trim($currency));
+        $myObj->setLanguage(trim($language));
+        $myObj->setResponseURL(trim($receiptURL));
+        $myObj->setErrorURL(trim($errorURL));
+        $myObj->setAmt(trim('1.00'));
         
-        if (trim($myObj->performTransaction()) != 0) {
+        $myObj->setTypes($postData['type']);
+        
+        $myObj->setTrackId($trackid);
+        $myObj->setTransId($postData['trackID']);
+        $myObj->setUdf5('TrackID');
+        
+        if (trim($myObj->performTransactionHTTP()) != 0) {
             echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
             return;
         } else {
             //	header("location:".$myObj->getwebAddress()); 
-            echo 'Transaction Status: '.$myObj->getResult().'<br>';
-            echo 'Transaction ID: '.$myObj->getTransId().'<br>';
-            echo 'Mrch Track ID: '.$myObj->getTrackId().'<br>';
-            echo 'Transaction Amt: '.$myObj->getAmt().'<br>';
-            echo 'UDF5: '.$myObj->getUdf5().'<br>';
-            
-            
-            exit;
+            $url = trim($myObj->getwebAddress());
+            echo "<meta http-equiv='refresh' content='0;url=$url'>";
         }
     }
     
