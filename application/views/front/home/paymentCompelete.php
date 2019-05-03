@@ -22,30 +22,32 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-md-offset-2">
-                    <?php if(($this->session->flashdata('success'))){ ?>
-                        <div class="alert alert-info">
-                            <strong>Info!</strong> <?php echo $this->session->flashdata('success'); ?>.
-                         </div>
-                    <?php } ?>
-                    <?php if(($this->session->flashdata('error'))){ ?>
-                        <div class="alert alert-danger">
-                            <strong>ERROR!</strong> <?php echo $this->session->flashdata('error'); ?>.
-                         </div>
-                    <?php } ?>
+                    
                     <section id="first-tab-group" class="tabgroup">
-                        <form method='post' action='<?= base_url().'payment-refund' ;?>' id='paymentRefund'>
+                        <form method='post' action='<?= base_url().'payment-inquiry' ;?>' id='paymentInquiry'>
                             <div id="tab1">
                                 <!--Step 1-->
 
                                 <div class="submit-form">
-                                    <h4>Payment Refund</h4>
+                                    <h4>Payment Completed</h4>
 
                                     <div class="row">
-                                        
+                                        <div class="col-md-12">
+                                        <?php if(($this->session->flashdata('success'))){ ?>
+                                            <div class="alert alert-success">
+                                                <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>.
+                                             </div>
+                                        <?php } ?>
+                                         <?php if(($this->session->flashdata('error'))){ ?>
+                                            <div class="alert alert-danger">
+                                                <strong>ERROR!</strong> <?php echo $this->session->flashdata('error'); ?>.
+                                             </div>
+                                        <?php } ?>
+                                            </div>
 <!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="departure">Payment Amount :</label>
-                                                <input name="amount" type="number" class="form-control" id="amount" placeholder="Enter your payment amount...." autocomplete="off">
+                                                <input name="amount" type="number" class="form-control" value="1.0" id="amount" placeholder="Enter your payment amount...." autocomplete="off">
                                                 <label for="depature" class="error"></label>
                                             </fieldset>
                                         </div>-->
@@ -53,7 +55,7 @@
 <!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="return">Payment ID :</label>
-                                                <input name="PaymentID" type="text" class="form-control" id="PaymentID" placeholder="Enter your payment ID...." autocomplete="off">
+                                                <input name="PaymentID" type="text" class="form-control" id="PaymentID"  value="101201911455804315" placeholder="Enter your payment ID...." autocomplete="off">
                                                 <label for="PaymentID" class="error"></label>
                                             </fieldset>
                                         </div>-->
@@ -61,15 +63,15 @@
 <!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="return">Track ID :</label>
-                                                <input name="trackID" type="text" class="form-control" id="trackID" placeholder="Enter your Track ID...." autocomplete="off">
+                                                <input name="trackID" type="text" class="form-control" id="trackID" value="2415039101" placeholder="Enter your Track ID...." autocomplete="off">
                                                 <label for="trackID" class="error"></label>
                                             </fieldset>
                                         </div>-->
                                         
-                                        <div class="col-md-12">
+<!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="return">Transaction ID :</label>
-                                                <input name="transactionID" type="text" class="form-control" id="transactionID" placeholder="Enter your Transaction ID...." autocomplete="off">
+                                                <input name="transactionID" type="text" class="form-control" id="transactionID" value="201911455737513" placeholder="Enter your Transaction ID...." autocomplete="off">
                                                 <label for="transactionID" class="error"></label>
                                             </fieldset>
                                         </div>
@@ -78,7 +80,7 @@
                                             <fieldset>
                                                 <button type="submit" id="form-submit" class="btn">Payment Inquiry</button>
                                             </fieldset>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                 </div>
