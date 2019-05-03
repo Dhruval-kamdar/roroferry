@@ -74,6 +74,7 @@ $route['get-booking'] = 'homepage/GetBooking';
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
 $route['payment'] = 'homepage/makePayment';
+$route['payment-compelete'] = 'homepage/paymentCompelete';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';
 /* END BY JIGNESH */
 
