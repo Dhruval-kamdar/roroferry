@@ -44,43 +44,6 @@
                                              </div>
                                         <?php } ?>
                                             </div>
-<!--                                        <div class="col-md-12">
-                                            <fieldset>
-                                                <label for="departure">Payment Amount :</label>
-                                                <input name="amount" type="number" class="form-control" value="1.0" id="amount" placeholder="Enter your payment amount...." autocomplete="off">
-                                                <label for="depature" class="error"></label>
-                                            </fieldset>
-                                        </div>-->
-                                        
-<!--                                        <div class="col-md-12">
-                                            <fieldset>
-                                                <label for="return">Payment ID :</label>
-                                                <input name="PaymentID" type="text" class="form-control" id="PaymentID"  value="101201911455804315" placeholder="Enter your payment ID...." autocomplete="off">
-                                                <label for="PaymentID" class="error"></label>
-                                            </fieldset>
-                                        </div>-->
-                                        
-<!--                                        <div class="col-md-12">
-                                            <fieldset>
-                                                <label for="return">Track ID :</label>
-                                                <input name="trackID" type="text" class="form-control" id="trackID" value="2415039101" placeholder="Enter your Track ID...." autocomplete="off">
-                                                <label for="trackID" class="error"></label>
-                                            </fieldset>
-                                        </div>-->
-                                        
-<!--                                        <div class="col-md-12">
-                                            <fieldset>
-                                                <label for="return">Transaction ID :</label>
-                                                <input name="transactionID" type="text" class="form-control" id="transactionID" value="201911455737513" placeholder="Enter your Transaction ID...." autocomplete="off">
-                                                <label for="transactionID" class="error"></label>
-                                            </fieldset>
-                                        </div>
-                                        
-                                        <div class="col-md-12">
-                                            <fieldset>
-                                                <button type="submit" id="form-submit" class="btn">Payment Inquiry</button>
-                                            </fieldset>
-                                        </div>-->
                                     </div>
 
                                 </div>

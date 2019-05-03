@@ -34,7 +34,7 @@ class Booking_model extends My_model
         return $res;
     }
     
-    public function makePaymentBOB($postData){
+    public function makePaymentBOB($postData,$id){
         
         $currency = '356';
         $language = 'USA';
@@ -56,6 +56,7 @@ class Booking_model extends My_model
         $myObj->setUdf10($postData['cityName']."-".$postData['pinCode']);
         $myObj->setUdf11(trim('1.00'));
         $myObj->setUdf12("No tax Details");
+        $myObj->setUdf13($id);
         
         $myObj->setCurrency(trim($currency));
         $myObj->setLanguage(trim($language));
@@ -336,6 +337,75 @@ class Booking_model extends My_model
             }
         }
     }
+    
+    public function saveTicketDetails($postData,$amount){
+      
+            if($postData['noPassangerlesstwo'] == NULL){
+                $postData['noPassangerlesstwo'] = '0';
+            }
 
+            if($postData['noPassangerequal'] == NULL){
+                $postData['noPassangerequal'] = '0';
+            }
+
+            if($postData['noPassangerharter'] == NULL){
+                $postData['noPassangerharter'] = '0';
+            }
+            
+            $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+            if($postData['depature'] == NULL){
+                $postData['depature']='';
+            }else{
+                $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+            }
+            $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+            $data['table']='ticket_details';
+            $data['insert']=[
+                'trip'=>$postData['trip'],
+                'trip_type'=>$postData['trip_type'],
+                'fromstaton'=>$postData['fromstaton'],
+                'tostation'=>$postData['tostation'],
+                'depatureDate'=>$postData['depature'],
+                'returntripDate'=>$postData['returntrip'],
+                'vehical'=>$postData['vehical'],
+                'pickupservices'=>$postData['pickupservices'],
+                'busRoute'=>$postData['busRoute'],
+                'tripTime'=>$postData['tripTime'],
+                'tripPickUpTime'=>$postData['tripPickUpTime'],
+                'tripDropTime'=>$postData['tripDropTime'],
+                'ferryTime'=>$postData['ferryTime'],
+                'ferryClass'=>$postData['ferryClass'],
+                'noPassanger'=>$totalPassange,
+                'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
+                'noPassangerequal'=>$postData['noPassangerequal'],
+                'noPassangerharter'=>$postData['noPassangerharter'],
+                'emailAddress'=>$postData['emailAddress'],
+                'phoneNumber'=>$postData['phoneNumber'],
+                'cityName'=>$postData['cityName'],
+                'pinCode'=>$postData['pinCode'],
+                'payment'=>$amount,
+                'created_at'=>date("Y-m-d h:i:s"),
+                'updated_at'=>date("Y-m-d h:i:s"),
+           ];
+            $Id = $this->insertRecord($data);
+            if($Id){
+                for($i = 0;$i < count($postData['passanger']) ; $i++){
+                    $data['table']='passanger_details';
+                    $data['insert']=[
+                        'ticketId'=>$Id,
+                        'passangerName'=>$postData['passanger'][$i],
+                        'passangerAge'=>$postData['passangerAge'][$i],
+                        'passangerGender'=>$postData['passangerGender'][$i],
+                        'created_at'=>date("Y-m-d h:i:s"),
+                        'updated_at'=>date("Y-m-d h:i:s"),
+                    ];
+                    $result = $this->insertRecord($data);
+                }
+                return $Id ;  
+            }else{
+              return false;  
+            }
+        
+    }
 }
 ?>

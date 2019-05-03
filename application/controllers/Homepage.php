@@ -241,10 +241,16 @@ class Homepage extends CI_Controller {
     }
     
     public function makePayment(){
-    
-//        $amount=count($this->input->post('passanger'))*550;
         $amount = '1.00';
-        $result= $this->this_model->makePaymentBOB($this->input->post());
+//        $amount=count($this->input->post('passanger'))*550;
+        $res= $this->this_model->saveTicketDetails($this->input->post(),$amount);
+        if($res){
+            $result= $this->this_model->makePaymentBOB($this->input->post(),$res);
+        }else{
+            redirect('payment-compelete');
+        }
+        
+        
         
     }
     
@@ -253,13 +259,19 @@ class Homepage extends CI_Controller {
         if($trandata != ""){
             $result= $this->this_model->makePaymentResponse();
             if($result['status'] == 'success'){
-           $this->session->set_flashdata('success', 'Your payment is successfully. '
-                   . '<br>Transaction Status:'.$result['transaction_status']
-                   . '<br>Transaction ID:'.$result['transaction_id']
-                   . '<br>Mrch Track ID:'.$result['march_track_id']
-                   . '<br>Transaction Amt:'.$result['transaction_anount']
-                   . '<br>Payment Id:'.$result['payment_id']
-                   );
+               echo '<pre>';
+               print_r($result);
+               exit;
+               die();
+               
+//                $update= $this->this_model->paymnetSuccess($result['status']);
+                $this->session->set_flashdata('success', 'Your payment is successfully. '
+                        . '<br>Transaction Status:'.$result['transaction_status']
+                        . '<br>Transaction ID:'.$result['transaction_id']
+                        . '<br>Mrch Track ID:'.$result['march_track_id']
+                        . '<br>Transaction Amt:'.$result['transaction_anount']
+                        . '<br>Payment Id:'.$result['payment_id']
+                        );
            }else{
                $this->session->set_flashdata('error','Something went wrong...');
            }
