@@ -8,6 +8,7 @@ class Homepage extends CI_Controller {
         $this->load->model('Api_model');
         $this->load->model('Account_model');
         $this->load->helper('cookie');
+        $this->load->library('Pdf');
     }
 
     public function index() {
@@ -260,6 +261,8 @@ class Homepage extends CI_Controller {
             $result= $this->this_model->makePaymentResponse();
             if($result['status'] == 'success'){
                 $update= $this->this_model->paymnetSuccess($result);
+                 $this->generateTicketPdf($result['transaction_id']);
+                 $this->sendConfirmMail($result['transaction_id']);
                 $this->session->set_flashdata('success', 'Your payment is successfully. '
                         . '<br>Transaction Status:'.$result['transaction_status']
                         . '<br>Transaction ID:'.$result['transaction_id']
@@ -396,6 +399,60 @@ class Homepage extends CI_Controller {
         );
         
         $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function generateTicketPdf($transaction_id){
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+           // $htmlcontent=  $this->this_model->getpdfdetails($this->input->post('userid'));
+          //  print_r($htmlcontent);exit;
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Nicola Asuni');
+            $pdf->SetTitle('TCPDF Example 006');
+            $pdf->SetSubject('TCPDF Tutorial');
+            $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+            $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+            $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+            $lg = Array();
+            $lg['a_meta_charset'] = 'UTF-8';
+            $lg['a_meta_dir'] = 'rtl';
+            $lg['a_meta_language'] = 'fa';
+            $lg['w_page'] = 'page';
+            $pdf->setLanguageArray($lg);
+            $pdf->SetFont('freeserif', '', 12);
+            $pdf->AddPage();
+            $pdf->setRTL(false);
+            
+            $data = array();
+            //echo $new_html;exit;
+            $new_html = $this->load->view("front/home/generateTicketPdf", $data,true);
+            
+            $pdf->WriteHTML($new_html, true, 0, true, 0);
+            ob_end_clean();  
+            $pdf->Output(FCPATH.'public/uploads/'.$transaction_id.'.pdf', 'F');
+    }
+    
+    public function sendConfirmMail($transaction_id){
+        
+        $data1= array();
+        
+        $data['message'] = $this->load->view('front/email_template/mail_template', $data1, true);
+        $data ['from_title'] = 'Roroferry Confirmation';
+        $data ['subject'] = 'Roroferry Confirmation ';
+//        $data ['to'] = $invoiceData[0]->companyEmail;
+            $data ['from'] = 'parthkhunt12@gmail.com';
+            $data ['to'] = 'kartikdesai123@gmail.com';
+//            $data ['replyto'] = REPLAY_EMAIL;
+//            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
+        $data ['attech'] = 'public/uploads/'.$transaction_id.'.pdf';
+
+        $mailSend = $this->utility->sendMailSMTP($data);
+       
     }
     
 }

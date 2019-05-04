@@ -89,10 +89,10 @@ define('ADMIN_LAYOUT_LOGIN', 'login/app');
 define('FRONT_LAYOUT', 'front/layout/app');
 
 /* Email Setting constatnts */
-define("SMTP_HOST", "smtpout.secureserver.net");
-define("SMTP_PORT", '80');
-define("SMTP_USER", 'admin@helpdesk.experttech.ca');
-define("SMTP_PASS", '7688328jg');
+define("SMTP_HOST", "localhost");
+define("SMTP_PORT", '25');
+define("SMTP_USER", '');
+define("SMTP_PASS", '');
 if($_SERVER['HTTP_HOST'] == "localhost"){
 define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ferryservice/public/asset/images/');
 }else{

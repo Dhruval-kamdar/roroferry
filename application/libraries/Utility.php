@@ -117,7 +117,7 @@ class Utility
     {
         $CI = & get_instance();
         
-        $config ['protocol'] = "smtp";
+        $config ['protocol'] = "sendmail";
         $config ['smtp_host'] = SMTP_HOST;
         $config ['smtp_port'] = SMTP_PORT;
         $config ['smtp_user'] = SMTP_USER;
@@ -148,10 +148,15 @@ class Utility
         if(isset($data ["replyto"])){
             $CI->email->reply_to(REPLAY_EMAIL, $data ['from_title']);
         }
+        if(isset($data ["attech"])){
+           $CI->email->attach($data["attech"]);
+        }
         $CI->email->subject($data ["subject"]);
         $CI->email->message($message);
        
         $response = $CI->email->send();
+        
+       //  echo $CI->email->print_debugger();exit;
         return true;
         
         

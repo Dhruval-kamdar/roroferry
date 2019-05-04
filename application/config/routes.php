@@ -75,6 +75,8 @@ $route['get-pickup-detail'] = 'homepage/getPickupDetail';
 $route['submit-booking'] = 'homepage/submitBooking';
 $route['payment'] = 'homepage/makePayment';
 $route['payment-compelete'] = 'homepage/paymentCompelete';
+$route['generate-ticket-pdf'] = 'homepage/generateTicketPdf';
+$route['send-mail'] = 'homepage/sendConfirmMail';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';
 /* END BY JIGNESH */
 

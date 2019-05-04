@@ -101,12 +101,11 @@ class Booking_model extends My_model
             ];
             return $data;
         } else {
-            print_r($myObj);
-            die();
+           
             if ($errorText == null) {
                 $data = [
                 'status'=>'success',
-                'id'=>$myObj->udf13(),
+                'id'=>$myObj->getudf13(),
                 'transaction_status'=>$myObj->getResult(),
                 'post_data'=>$myObj->getDates(),
                 'transaction_refrence'=>$myObj->getRef(),
@@ -413,8 +412,18 @@ class Booking_model extends My_model
     
     
     public function paymnetSuccess($paymentDetails){
-        print_r($paymentDetails);
-        die();
+       
+        $data['table']='ticket_details';
+        $data['where'] = ['id' => $paymentDetails['id']];
+                    $data['update']=[
+                        'transaction_id'=>$paymentDetails['transaction_id'],
+                        'payment_detail'=> json_encode($paymentDetails),
+                       
+                    ];
+                    $result = $this->updateRecords($data);
+        
+      //  print_r($paymentDetails);
+        
     }
 }
 ?>
