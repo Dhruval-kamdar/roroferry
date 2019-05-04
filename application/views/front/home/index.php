@@ -95,7 +95,6 @@
                                                     <label for="to">To :</label>
                                                     <select name="tostation" class="tripTo tostation">
                                                         <option value="">Select a location...</option>
-
                                                     </select>
                                                     <label for="tostation" class="error"></label>
                                                 </fieldset>
@@ -440,7 +439,6 @@
                                                     <label for="ferryClass">Ferry Class :</label>
                                                     <select class="ferryClass"  name="ferryClass" >
                                                         <option value="">Select a ferry class...</option>
-                                                        
                                                     </select>
                                                     <label for="ferryClass" class="error"></label>
                                                 </fieldset>

@@ -27,6 +27,11 @@
                             <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>.
                          </div>
                     <?php } ?>
+                     <?php if(($this->session->flashdata('error'))){ ?>
+                        <div class="alert alert-danger">
+                            <strong>ERROR!</strong> <?php echo $this->session->flashdata('error'); ?>.
+                         </div>
+                    <?php } ?>
                     <section id="first-tab-group" class="tabgroup">
                         <form method='post' action='<?= base_url().'payment-inquiry' ;?>' id='paymentInquiry'>
                             <div id="tab1">
@@ -36,24 +41,7 @@
                                     <h4>Payment Inquiry</h4>
 
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            
-                                            <div class="col-md-6">
-                                                <div class="radio-select">
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="oneway"> Debit Card </label>
-                                                            <input type="radio" class="setType" name="type"  value="D" checked='checked'>
-                                                        </div>
-                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="round"> Credit Card </label>
-                                                            <input type="radio" class="setType" name="type"  value="C" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
+                                        
                                         <div class="col-md-12">
                                             <fieldset>
                                                 <label for="departure">Payment Amount :</label>
@@ -62,21 +50,21 @@
                                             </fieldset>
                                         </div>
                                         
-                                        <div class="col-md-12">
+<!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="return">Payment ID :</label>
                                                 <input name="PaymentID" type="text" class="form-control" id="PaymentID"  value="101201911455804315" placeholder="Enter your payment ID...." autocomplete="off">
                                                 <label for="PaymentID" class="error"></label>
                                             </fieldset>
-                                        </div>
+                                        </div>-->
                                         
-                                        <div class="col-md-12">
+<!--                                        <div class="col-md-12">
                                             <fieldset>
                                                 <label for="return">Track ID :</label>
                                                 <input name="trackID" type="text" class="form-control" id="trackID" value="2415039101" placeholder="Enter your Track ID...." autocomplete="off">
                                                 <label for="trackID" class="error"></label>
                                             </fieldset>
-                                        </div>
+                                        </div>-->
                                         
                                         <div class="col-md-12">
                                             <fieldset>

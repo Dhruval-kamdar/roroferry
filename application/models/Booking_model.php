@@ -34,14 +34,14 @@ class Booking_model extends My_model
         return $res;
     }
     
-    public function makePaymentBOB($postData){
+    public function makePaymentBOB($postData,$id){
         
         $currency = '356';
         $language = 'USA';
         $receiptURL = base_url().'homepage/getResponse/';
         $errorURL = base_url().'homepage/getResponse/';
-        $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
+        $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+        $aliasName = 'ROROFERRY';
         $myObj = new iPay24Pipe();
         $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
         $trackid = $rnd;
@@ -56,6 +56,7 @@ class Booking_model extends My_model
         $myObj->setUdf10($postData['cityName']."-".$postData['pinCode']);
         $myObj->setUdf11(trim('1.00'));
         $myObj->setUdf12("No tax Details");
+        $myObj->setUdf13($id);
         
         $myObj->setCurrency(trim($currency));
         $myObj->setLanguage(trim($language));
@@ -75,8 +76,8 @@ class Booking_model extends My_model
     }
     
     public function makePaymentResponse() {
-        $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
+        $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+        $aliasName = 'ROROFERRY';
         $myObj = new iPay24Pipe();
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setKeystorePath(trim($resourcePath));
@@ -93,27 +94,42 @@ class Booking_model extends My_model
 
         if (isset($trandata) && trim($myObj->parseEncryptedRequest(trim($trandata))) != 0) {
 
-            echo 'Error : ' .$myObj->getError();
+          //  echo 'Error : ' .$myObj->getError();
+             $data = [
+                'status'=>'error',
+                'message'=>$myObj->getError()         
+            ];
+            return $data;
         } else {
-
+            print_r($myObj);
+            die();
             if ($errorText == null) {
-                print_r($myObj);
-                echo '-----------<br/>';
-                echo 'Transaction Status:' . $myObj->getResult() . '<br/>';
-                echo 'Post Date:' . $myObj->getDates() . '<br/>';
-                echo 'Transaction Reference ID:' . $myObj->getRef() . '<br/>';
-                echo 'Mrch Track ID:' . $myObj->getTrackId() . '<br/>';
-                echo 'Transaction ID:' . $myObj->getTransId() . '<br/>';
-                echo 'Transaction Amount:' . $myObj->getAmt() . '<br/>';
-                echo 'Payment ID:' . $myObj->getPaymentId() . '<br/>';
+                $data = [
+                'status'=>'success',
+                'id'=>$myObj->udf13(),
+                'transaction_status'=>$myObj->getResult(),
+                'post_data'=>$myObj->getDates(),
+                'transaction_refrence'=>$myObj->getRef(),
+                'transaction_id'=>$myObj->getTransId(),
+                'march_track_id'=>$myObj->getTrackId(),
+                'transaction_anount'=>$myObj->getAmt(),
+                'payment_id'=>$myObj->getPaymentId(),
+                
+            ];
+            return $data;
+            
             } else {
-                print_r($_GET);
-                echo 'ErrorText:' . $errorText . '<br/>';
-                echo 'Mrch Track ID:' . isset($_GET["trackid"]) ? $_GET["trackid"] : isset($_POST["trackid"]) ? $_POST["trackid"] : "" . '<br/>';
-                echo 'Transaction ID:' . isset($_GET["tranid"]) ? $_GET["tranid"] : isset($_POST["tranid"]) ? $_POST["tranid"] : "" . '<br/>';
-                echo 'Payment ID:' . $myObj->getTrackId() . '<br/>';
-                echo 'Transaction ID:' . isset($_GET["paymentid"]) ? $_GET["paymentid"] : isset($_POST["paymentid"]) ? $_POST["paymentid"] : "" . '<br/>';
-            }
+                $data = [
+                'status'=>'error',
+                'message'=>$errorText,
+                'transaction_refrence'=>isset($_GET["paymentid"]) ? $_GET["paymentid"] : isset($_POST["paymentid"]) ? $_POST["paymentid"] : "",
+                'transaction_id'=>isset($_GET["tranid"]) ? $_GET["tranid"] : isset($_POST["tranid"]) ? $_POST["tranid"] : "",
+                'march_track_id'=>isset($_GET["trackid"]) ? $_GET["trackid"] : isset($_POST["trackid"]) ? $_POST["trackid"] : "",
+                'payment_id'=>$myObj->getTrackId(),
+                
+            ];
+            return $data;
+           }
         }
     }
     
@@ -124,56 +140,49 @@ class Booking_model extends My_model
         $receiptURL = base_url().'homepage/getResponsepaymentInquiry/';
         $errorURL = base_url().'homepage/getResponsepaymentInquiry/';
         $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
+        $aliasName = 'ROROFERRY';
         $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
         $trackid = $rnd;
-        $amount = 1;
+        $amount = $postData['amount'];
         
         $myObj = new iPay24Pipe();
-//        $myObj->setResourcePath(trim($resourcePath));
-//        $myObj->setKeystorePath(trim($resourcePath));
-//        $myObj->setAlias(trim($aliasName));
-//        $myObj->setAction(trim('8'));
-//        $myObj->setCurrency(trim($currency));
-//        $myObj->setLanguage(trim($language));
-//        $myObj->setResponseURL(trim($receiptURL));
-//        $myObj->setErrorURL(trim($errorURL));
-//        $myObj->setAmt(trim('1.00'));
-//        $myObj->setTypes($postData['type']);
-//        $myObj->setTrackId($trackid);
-//        $myObj->setTransId($postData['trackID']);
-//        $myObj->setUdf5('USER DEFINE 5');
-        
+
         $myObj->setTrackId(trim($trackid));
         $myObj->setAlias(trim($aliasName));
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setAction(trim('8'));
         $myObj->setAmt(trim($amount));
         $myObj->setCurrency(trim($currency));
-//        $myObj->setCard($pan);
-//        $myObj->setCvv2($cvv);
-//        $myObj->setExpMonth($expmm);
-//        $myObj->setExpYear($expyy);
-//        $myObj->setMember($_POST['name']);
+
         $myObj->setTransId($postData['transactionID']);
-//        $myObj->setUdf1($_POST['udf1']);
-//        $myObj->setUdf2($_POST['udf2']);
-//        $myObj->setUdf3($_POST['udf3']);
-//        $myObj->setUdf4($_POST['udf4']);
+
         $myObj->setUdf5('TRANID');
         $myObj->setKeystorePath(trim($resourcePath));
 
         
         if (trim($myObj->performTransaction()) != 0) {
             echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
-            return;
+             $data = [
+                 'status'=>'error'
+             ];
+            return $data;
         } else {
+            
+            $data = [
+                'status'=>'success',
+                'transaction_status'=>$myObj->getResult(),
+                'transaction_id'=>$myObj->getTransId(),
+                'march_track_id'=>$myObj->getTrackId(),
+                'transaction_anount'=>$myObj->getAmt(),
+                'UDF5'=>$myObj->getUdf5()
+            ];
+            return $data;
             //	header("location:".$myObj->getwebAddress()); 
-            echo 'Transaction Status: '.$myObj->getResult().'<br>';
-            echo 'Transaction ID: '.$myObj->getTransId().'<br>';
-            echo 'Mrch Track ID: '.$myObj->getTrackId().'<br>';
-            echo 'Transaction Amt: '.$myObj->getAmt().'<br>';
-            echo 'UDF5: '.$myObj->getUdf5().'<br>';
+//            echo 'Transaction Status: '.$myObj->getResult().'<br>';
+//            echo 'Transaction ID: '.$myObj->getTransId().'<br>';
+//            echo 'Mrch Track ID: '.$myObj->getTrackId().'<br>';
+//            echo 'Transaction Amt: '.$myObj->getAmt().'<br>';
+//            echo 'UDF5: '.$myObj->getUdf5().'<br>';
             
             
             exit;
@@ -181,8 +190,8 @@ class Booking_model extends My_model
     }
     
     public function getResponsepaymentInquiry(){
-        $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
+        $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+        $aliasName = 'ROROFERRY';
         $myObj = new iPay24Pipe();
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setKeystorePath(trim($resourcePath));
@@ -224,42 +233,69 @@ class Booking_model extends My_model
     }
     
     public function paymentRefund($postData){
-        $currency = '356';
-        $language = 'USA';
-        $receiptURL = base_url().'homepage/getResponsepaymentRefund/';
-        $errorURL = base_url().'homepage/getResponsepaymentRefund/';
-        $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
-        $myObj = new iPay24Pipe();
-        $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
-        $trackid = $rnd;
-        $myObj->setResourcePath(trim($resourcePath));
-        $myObj->setKeystorePath(trim($resourcePath));
-        $myObj->setAlias(trim($aliasName));
-        $myObj->setAction(trim('8'));
-        $myObj->setCurrency(trim($currency));
-        $myObj->setLanguage(trim($language));
-        $myObj->setResponseURL(trim($receiptURL));
-        $myObj->setErrorURL(trim($errorURL));
-        $myObj->setAmt(trim('1.00'));       
-        $myObj->setTypes($postData['type']);        
-        $myObj->setTrackId($trackid);
-        $myObj->setTransId($postData['transactionID']);
-        $myObj->setUdf5('TrackID');
         
-        if (trim($myObj->performTransaction()) != 0) {
-            echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
-            return;
-        } else {
-            //	header("location:".$myObj->getwebAddress()); 
-            $url = trim($myObj->getwebAddress());
-            echo "<meta http-equiv='refresh' content='0;url=$url'>";
-        }
+        try {
+            
+                    
+                    $currency = '356';
+                    $language = 'USA';
+                    $receiptURL = base_url().'homepage/getResponsepaymentRefund/';
+                    $errorURL = base_url().'homepage/getResponsepaymentRefund/';
+                    $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+                    $aliasName = 'ROROFERRY';
+                    $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
+                    $trackid = $rnd;
+                    //$keystorePath = $ini_array['keystorePath'];
+
+                    //$aliasName = $ini_array['aliasName'];
+                    $myObj = new iPay24Pipe();
+                    $amount =1.0;
+                    $action=2;
+ 
+                    $myObj->setTrackId(trim($trackid));
+                    $myObj->setAlias(trim($aliasName));
+                    $myObj->setResourcePath(trim($resourcePath));
+
+
+                    $myObj->setAction(trim($action));
+                    $myObj->setAmt(trim($amount));
+                    $myObj->setCurrency(trim($currency));
+
+                    $myObj->setTransId($postData['transactionID']);
+
+                    $myObj->setTypes('C');
+
+                    $myObj->setUdf5('User Define');
+
+
+                     $myObj->setKeystorePath(trim($resourcePath));
+       // $myObj->setKey("222222222222222222222222");
+                    $myObj->setResponseURL(trim($receiptURL));
+                    $myObj->setErrorURL(trim($errorURL));
+
+
+                    $resval=0;
+
+                    if(trim($myObj->performTransactionHTTP())!=0)  {
+                            $url = $myObj->getErrorURL()."?result=".$myObj->getError();
+                    } else {
+
+                    //echo $myObj->getWebAddress();
+                    //die();
+                    $url =trim($myObj->getWebAddress());
+                    }
+                    echo "<meta http-equiv='refresh' content='0;url=$url'>";
+			
+			
+		} catch(Exception $e) {
+			echo 'Message: ' .$e->getFile();
+	  		echo 'Message1 : ' .$e->getCode();
+		}
     }
     
     public function getResponsepaymentRefund(){
-        $resourcePath = '/home/hcgk8u1dsu89/public_html/phpnormal/cgnfile/';
-        $aliasName = 'IPGTEST';
+        $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+        $aliasName = 'ROROFERRY';
         $myObj = new iPay24Pipe();
         $myObj->setResourcePath(trim($resourcePath));
         $myObj->setKeystorePath(trim($resourcePath));
@@ -274,21 +310,25 @@ class Booking_model extends My_model
         //$paymentid =  isset($_GET["paymentid"]) ? $_GET["paymentid"] : isset($_POST["paymentid"]) ? $_POST["paymentid"] : "";
         $errorText = isset($_GET["ErrorText"]) ? $_GET["ErrorText"] : isset($_POST["ErrorText"]) ? $_POST["ErrorText"] : null;
 
-        if (isset($trandata) && trim($myObj->parseEncryptedRequest(trim($trandata))) != 0) {
+        if (isset($trandata) && trim($myObj->parseEncryptedResult(trim($trandata))) != 0) {
             echo 'Error : ' .$myObj->getError();
         } else {
             if ($errorText == null) {
-                
-                    print_r("HELLO");
-                    die();
-//                echo 'Transaction Status:' . $myObj->getResult() . '<br/>';
-//                echo 'Post Date:' . $myObj->getDates() . '<br/>';
-//                echo 'Transaction Reference ID:' . $myObj->getRef() . '<br/>';
-//                echo 'Mrch Track ID:' . $myObj->getTrackId() . '<br/>';
-//                echo 'Transaction ID:' . $myObj->getTransId() . '<br/>';
-//                echo 'Transaction Amount:' . $myObj->getAmt() . '<br/>';
-//                echo 'Payment ID:' . $myObj->getPaymentId() . '<br/>';
+                 $data = [
+                'status'=>'success',
+                'transaction_status'=>$myObj->getResult(),
+                'transaction_id'=>$myObj->getTransId(),
+                'march_track_id'=>$myObj->getTrackId(),
+                'transaction_anount'=>$myObj->getAmt(),
+                'UDF5'=>$myObj->getUdf5()
+            ];
+            return $data;
             } else {
+                 $data = [
+                 'status'=>'error'
+             ];
+            return $data;
+            
                  print_r("ERROR");
                     die();
 //                echo 'ErrorText:' . $errorText . '<br/>';
@@ -299,6 +339,82 @@ class Booking_model extends My_model
             }
         }
     }
+    
+    public function saveTicketDetails($postData,$amount){
+      
+            if($postData['noPassangerlesstwo'] == NULL){
+                $postData['noPassangerlesstwo'] = '0';
+            }
 
+            if($postData['noPassangerequal'] == NULL){
+                $postData['noPassangerequal'] = '0';
+            }
+
+            if($postData['noPassangerharter'] == NULL){
+                $postData['noPassangerharter'] = '0';
+            }
+            
+            $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+            if($postData['depature'] == NULL){
+                $postData['depature']='';
+            }else{
+                $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+            }
+            $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+            $data['table']='ticket_details';
+            $data['insert']=[
+                'trip'=>$postData['trip'],
+                'trip_type'=>$postData['trip_type'],
+                'fromstaton'=>$postData['fromstaton'],
+                'tostation'=>$postData['tostation'],
+                'depatureDate'=>$postData['depature'],
+                'returntripDate'=>$postData['returntrip'],
+                'vehical'=>$postData['vehical'],
+                'pickupservices'=>$postData['pickupservices'],
+                'busRoute'=>$postData['busRoute'],
+                'tripTime'=>$postData['tripTime'],
+                'tripPickUpTime'=>$postData['tripPickUpTime'],
+                'tripDropTime'=>$postData['tripDropTime'],
+                'ferryTime'=>$postData['ferryTime'],
+                'ferryClass'=>$postData['ferryClass'],
+                'noPassanger'=>$totalPassange,
+                'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
+                'noPassangerequal'=>$postData['noPassangerequal'],
+                'noPassangerharter'=>$postData['noPassangerharter'],
+                'emailAddress'=>$postData['emailAddress'],
+                'phoneNumber'=>$postData['phoneNumber'],
+                'cityName'=>$postData['cityName'],
+                'pinCode'=>$postData['pinCode'],
+                'payment'=>$amount,
+                'created_at'=>date("Y-m-d h:i:s"),
+                'updated_at'=>date("Y-m-d h:i:s"),
+           ];
+            $Id = $this->insertRecord($data);
+            if($Id){
+                for($i = 0;$i < count($postData['passanger']) ; $i++){
+                    $data['table']='passanger_details';
+                    $data['insert']=[
+                        'ticketId'=>$Id,
+                        'passangerName'=>$postData['passanger'][$i],
+                        'passangerAge'=>$postData['passangerAge'][$i],
+                        'passangerGender'=>$postData['passangerGender'][$i],
+                        'created_at'=>date("Y-m-d h:i:s"),
+                        'updated_at'=>date("Y-m-d h:i:s"),
+                    ];
+                    $result = $this->insertRecord($data);
+                }
+                return $Id ;  
+            }else{
+              return false;  
+            }
+        
+    }
+    
+    
+    
+    public function paymnetSuccess($paymentDetails){
+        print_r($paymentDetails);
+        die();
+    }
 }
 ?>

@@ -83,6 +83,7 @@ class Homepage extends CI_Controller {
             return $result;
         }
     }
+    
     public function getVehical() {
         $token = $this->session->userdata('token');
        
@@ -97,6 +98,7 @@ class Homepage extends CI_Controller {
             return $result;
         }
     }
+    
     public function GetCargoTrips(){
         
          $fields = array(
@@ -238,24 +240,78 @@ class Homepage extends CI_Controller {
         exit;
     }
     
-    
     public function makePayment(){
-    
-//        $amount=count($this->input->post('passanger'))*550;
         $amount = '1.00';
-        $result= $this->this_model->makePaymentBOB($this->input->post());
+//        $amount=count($this->input->post('passanger'))*550;
+        $res= $this->this_model->saveTicketDetails($this->input->post(),$amount);
+        if($res){
+            $result= $this->this_model->makePaymentBOB($this->input->post(),$res);
+        }else{
+            redirect('payment-compelete');
+        }
+        
+        
         
     }
     
     public function getResponse(){
-         $result= $this->this_model->makePaymentResponse();
+        $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
+        if($trandata != ""){
+            $result= $this->this_model->makePaymentResponse();
+            if($result['status'] == 'success'){
+                $update= $this->this_model->paymnetSuccess($result);
+                $this->session->set_flashdata('success', 'Your payment is successfully. '
+                        . '<br>Transaction Status:'.$result['transaction_status']
+                        . '<br>Transaction ID:'.$result['transaction_id']
+                        . '<br>Mrch Track ID:'.$result['march_track_id']
+                        . '<br>Transaction Amt:'.$result['transaction_anount']
+                        . '<br>Payment Id:'.$result['payment_id']
+                        );
+           }else{
+               $this->session->set_flashdata('error','Something went wrong...');
+           }
+            
+        }
+         redirect('payment-compelete');
     }
     
+    public function paymentCompelete(){
+        $data['page'] = "front/home/paymentCompelete";
+        $data['var_meta_title'] = 'roroferry - Payment Compelete';
+        $data['var_meta_description'] = 'roroferry - payment Compelete';
+        $data['var_meta_keyword'] = 'roroferry - payment Compelete';
+        $data['js'] = array(
+            'front/paymentInquirey.js'
+        );
+        $data['js_plugin'] = array();
+
+        $data['css'] = array();
+        $data['css_plugin'] = array(
+        );
+        $data['init'] = array(
+            'PaymentInquirey.init()'
+        );
+        
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+
     public function paymentInquiry(){
         
         if($this->input->post()){
 //            print_r($this->input->post());exit;
            $result= $this->this_model->paymentInquiry($this->input->post());
+          
+           if($result['status'] == 'success'){
+           $this->session->set_flashdata('success', 'Your inquiry is successfully. '
+                   . '<br>Transaction Status:'.$result['transaction_status']
+                   . '<br>Transaction ID:'.$result['transaction_id']
+                   . '<br>Mrch Track ID:'.$result['march_track_id']
+                   . '<br>Transaction Amt:'.$result['transaction_anount']
+                   . '<br>UDF5:'.$result['UDF5']
+                   );
+           }else{
+               $this->session->set_flashdata('error','Something went wrong...');
+           }
         }
         $data['page'] = "front/home/paymentInquirey";
         $data['var_meta_title'] = 'roroferry - Payment Inquirey';
@@ -285,6 +341,7 @@ class Homepage extends CI_Controller {
         
         if($this->input->post()){
               $result= $this->this_model->paymentRefund($this->input->post());
+              
         }
         $data['page'] = "front/home/paymentRefund";
         $data['var_meta_title'] = 'roroferry - Payment Inquirey';
@@ -306,8 +363,41 @@ class Homepage extends CI_Controller {
     }
     
     public function getResponsepaymentRefund(){
+        $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
+        
+        if($trandata != ""){
         $result= $this->this_model->getResponsepaymentRefund();
+        if($result['status'] == 'success'){
+           $this->session->set_flashdata('success', 'Your inquiry is successfully. '
+                   . '<br>Transaction Status:'.$result['transaction_status']
+                   . '<br>Transaction ID:'.$result['transaction_id']
+                   . '<br>Mrch Track ID:'.$result['march_track_id']
+                   . '<br>Transaction Amt:'.$result['transaction_anount']
+                   . '<br>UDF5:'.$result['UDF5']
+                   );
+           }else{
+               $this->session->set_flashdata('error','Something went wrong...');
+           }
     }
+        $data['page'] = "front/home/paymentRefund";
+        $data['var_meta_title'] = 'roroferry - Payment Inquirey';
+        $data['var_meta_description'] = 'roroferry - payment Inquirey';
+        $data['var_meta_keyword'] = 'roroferry - payment Inquirey';
+        $data['js'] = array(
+            'front/paymentRefund.js'
+        );
+        $data['js_plugin'] = array();
+
+        $data['css'] = array();
+        $data['css_plugin'] = array(
+        );
+        $data['init'] = array(
+            'PaymentRefund.init()'
+        );
+        
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
 }
 
 ?>
