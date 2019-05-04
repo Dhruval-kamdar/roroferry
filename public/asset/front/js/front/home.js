@@ -205,11 +205,12 @@ var Home = function() {
             var postTripId={ tripId:tripId};
                 ajaxcall(baseurl + 'get-class', postTripId, function(data) {
                     var returnClass=JSON.parse(data);
-
+                    
+                    
                     var htmlClass = "<option value=''>Select a ferry class...</option>";
                     for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
                         var temhtmlclass='';
-                        temhtmlclass="<option  value="+ returnClass['data'][lenclass].id +">"+ returnClass['data'][lenclass].className +"</option>";
+                        temhtmlclass="<option  value="+ returnClass['data'][lenclass].classID +">"+ returnClass['data'][lenclass].className +"</option>";
                         htmlClass=htmlClass+temhtmlclass;
                     }
                     $(".ferryClass").html(htmlClass);
