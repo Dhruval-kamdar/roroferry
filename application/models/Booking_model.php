@@ -101,7 +101,8 @@ class Booking_model extends My_model
             ];
             return $data;
         } else {
-            
+            print_r($myObj);
+            die();
             if ($errorText == null) {
                 $data = [
                 'status'=>'success',
