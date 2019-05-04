@@ -101,10 +101,11 @@ class Booking_model extends My_model
             ];
             return $data;
         } else {
-
+            
             if ($errorText == null) {
                 $data = [
                 'status'=>'success',
+                'id'=>$myObj->udf13(),
                 'transaction_status'=>$myObj->getResult(),
                 'post_data'=>$myObj->getDates(),
                 'transaction_refrence'=>$myObj->getRef(),
@@ -406,6 +407,13 @@ class Booking_model extends My_model
               return false;  
             }
         
+    }
+    
+    
+    
+    public function paymnetSuccess($paymentDetails){
+        print_r($paymentDetails);
+        die();
     }
 }
 ?>

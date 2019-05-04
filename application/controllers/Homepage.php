@@ -259,12 +259,7 @@ class Homepage extends CI_Controller {
         if($trandata != ""){
             $result= $this->this_model->makePaymentResponse();
             if($result['status'] == 'success'){
-               echo '<pre>';
-               print_r($result);
-               exit;
-               die();
-               
-//                $update= $this->this_model->paymnetSuccess($result['status']);
+                $update= $this->this_model->paymnetSuccess($result);
                 $this->session->set_flashdata('success', 'Your payment is successfully. '
                         . '<br>Transaction Status:'.$result['transaction_status']
                         . '<br>Transaction ID:'.$result['transaction_id']
