@@ -415,15 +415,51 @@ class Booking_model extends My_model
        
         $data['table']='ticket_details';
         $data['where'] = ['id' => $paymentDetails['id']];
-                    $data['update']=[
-                        'transaction_id'=>$paymentDetails['transaction_id'],
-                        'payment_detail'=> json_encode($paymentDetails),
-                       
-                    ];
-                    $result = $this->updateRecords($data);
+        $data['update']=[
+            'transaction_id'=>$paymentDetails['transaction_id'],
+            'payment_detail'=> json_encode($paymentDetails),
+
+        ];
+        $result = $this->updateRecords($data);
         
       //  print_r($paymentDetails);
         
     }
-}
+    
+    public function getpdfdetails($id){
+        $data['select']=['td.*','sl.time as pickupTIme','rl.route as trip_route'];
+        $data['join'] = [
+            
+            'route_list as rl' => [
+            'rl.id = td.busRoute',
+                'LEFT',
+            ],
+            
+            'station_list as sl' => [
+            'sl.id = td.tripPickUpTime',
+                'LEFT',
+            ],
+        ];
+      
+        $data['table'] ='ticket_details as td';
+        $data['where'] = ['td.id' => $id];
+        $result = $this->selectFromJoin($data);
+        for($i = 0;$i < count($result) ; $i++){
+            $data['select']=['time'];
+            $data['table']=['station_list'];
+            $data['where']=['id'=>$result[$i]->tripDropTime];
+            $result_tem = $this->selectRecords($data);
+            $result[$i]->tripDropTime = $result_tem[0]->time;
+        }
+        return $result;
+    }
+    
+    public function getpassangerDetails($id){
+        $data['table']='passanger_details';
+        $data['select']=['*'];
+        $data['where'] = ['ticketId' => $id];
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+}   
 ?>

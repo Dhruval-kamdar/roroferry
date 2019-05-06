@@ -77,6 +77,12 @@ $route['payment'] = 'homepage/makePayment';
 $route['payment-compelete'] = 'homepage/paymentCompelete';
 $route['generate-ticket-pdf'] = 'homepage/generateTicketPdf';
 $route['send-mail'] = 'homepage/sendConfirmMail';
+$route['terms-condition'] = 'homepage/termsCondition';
+$route['refund-cancellation'] = 'homepage/refundCancellation';
+$route['privacy-policy'] = 'homepage/privacyPolicy';
+
+
+$route['test-pdf'] = 'homepage/testpdf';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';
 /* END BY JIGNESH */
 

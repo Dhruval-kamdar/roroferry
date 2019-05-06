@@ -259,10 +259,11 @@ class Homepage extends CI_Controller {
         $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
         if($trandata != ""){
             $result= $this->this_model->makePaymentResponse();
+            
             if($result['status'] == 'success'){
                 $update= $this->this_model->paymnetSuccess($result);
-                 $this->generateTicketPdf($result['transaction_id']);
-                 $this->sendConfirmMail($result['transaction_id']);
+                $this->generateTicketPdf($result['id'],$result['transaction_id']);
+                $this->sendConfirmMail($result['transaction_id']);
                 $this->session->set_flashdata('success', 'Your payment is successfully. '
                         . '<br>Transaction Status:'.$result['transaction_status']
                         . '<br>Transaction ID:'.$result['transaction_id']
@@ -369,19 +370,19 @@ class Homepage extends CI_Controller {
         $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
         
         if($trandata != ""){
-        $result= $this->this_model->getResponsepaymentRefund();
-        if($result['status'] == 'success'){
-           $this->session->set_flashdata('success', 'Your inquiry is successfully. '
-                   . '<br>Transaction Status:'.$result['transaction_status']
-                   . '<br>Transaction ID:'.$result['transaction_id']
-                   . '<br>Mrch Track ID:'.$result['march_track_id']
-                   . '<br>Transaction Amt:'.$result['transaction_anount']
-                   . '<br>UDF5:'.$result['UDF5']
-                   );
-           }else{
-               $this->session->set_flashdata('error','Something went wrong...');
-           }
-    }
+            $result= $this->this_model->getResponsepaymentRefund();
+            if($result['status'] == 'success'){
+               $this->session->set_flashdata('success', 'Your inquiry is successfully. '
+                       . '<br>Transaction Status:'.$result['transaction_status']
+                       . '<br>Transaction ID:'.$result['transaction_id']
+                       . '<br>Mrch Track ID:'.$result['march_track_id']
+                       . '<br>Transaction Amt:'.$result['transaction_anount']
+                       . '<br>UDF5:'.$result['UDF5']
+                       );
+               }else{
+                   $this->session->set_flashdata('error','Something went wrong...');
+               }
+        }
         $data['page'] = "front/home/paymentRefund";
         $data['var_meta_title'] = 'roroferry - Payment Inquirey';
         $data['var_meta_description'] = 'roroferry - payment Inquirey';
@@ -401,10 +402,13 @@ class Homepage extends CI_Controller {
         $this->load->view(FRONT_LAYOUT, $data);
     }
     
-    public function generateTicketPdf($transaction_id){
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-           // $htmlcontent=  $this->this_model->getpdfdetails($this->input->post('userid'));
-          //  print_r($htmlcontent);exit;
+    public function generateTicketPdf($id,$transaction_id){
+           
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            
+            $data['ticketDetails']=  $this->this_model->getpdfdetails($id);
+            $data['passangerDetails']=  $this->this_model->getpassangerDetails($id);
+            
             $pdf->SetCreator(PDF_CREATOR);
             $pdf->SetAuthor('Nicola Asuni');
             $pdf->SetTitle('TCPDF Example 006');
@@ -428,8 +432,6 @@ class Homepage extends CI_Controller {
             $pdf->AddPage();
             $pdf->setRTL(false);
             
-            $data = array();
-            //echo $new_html;exit;
             $new_html = $this->load->view("front/home/generateTicketPdf", $data,true);
             
             $pdf->WriteHTML($new_html, true, 0, true, 0);
@@ -440,13 +442,11 @@ class Homepage extends CI_Controller {
     public function sendConfirmMail($transaction_id){
         
         $data1= array();
-        
         $data['message'] = $this->load->view('front/email_template/mail_template', $data1, true);
         $data ['from_title'] = 'Roroferry Confirmation';
         $data ['subject'] = 'Roroferry Confirmation ';
-//        $data ['to'] = $invoiceData[0]->companyEmail;
-            $data ['from'] = 'parthkhunt12@gmail.com';
-            $data ['to'] = 'kartikdesai123@gmail.com';
+        $data ['from'] = 'parthkhunt12@gmail.com';
+        $data ['to'] = 'kartikdesai123@gmail.com';
 //            $data ['replyto'] = REPLAY_EMAIL;
 //            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
         $data ['attech'] = 'public/uploads/'.$transaction_id.'.pdf';
@@ -454,6 +454,84 @@ class Homepage extends CI_Controller {
         $mailSend = $this->utility->sendMailSMTP($data);
        
     }
+    
+    public function termsCondition(){
+        $data['page'] = "front/home/termsCondition";
+        $data['var_meta_title'] = 'Terms & Condition';
+        $data['var_meta_description'] = 'Roroferry - Terms & Condition';
+        $data['var_meta_keyword'] = 'Roroferry - Terms & Condition';
+        
+        $data['js'] = array();
+        $data['js_plugin'] = array();
+        $data['css'] = array();        
+        $data['css_plugin'] = array();
+        $data['init'] = array();
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function refundCancellation(){
+        $data['page'] = "front/home/refundCancellation";
+        $data['var_meta_title'] = 'Roroferry - Refund & Cancellation Policy';
+        $data['var_meta_description'] = 'Roroferry - Refund & Cancellation Policy';
+        $data['var_meta_keyword'] = 'Roroferry - Refund & Cancellation Policy';        
+        $data['js'] = array();
+        $data['js_plugin'] = array();
+        $data['css'] = array();        
+        $data['css_plugin'] = array();
+        $data['init'] = array();
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function privacyPolicy(){
+        $data['page'] = "front/home/privacyPolicy";
+        $data['var_meta_title'] = 'Roroferry - Privacy Policy';
+        $data['var_meta_description'] = 'Roroferry - Privacy Policy';
+        $data['var_meta_keyword'] = 'Roroferry - Privacy Policy';        
+        $data['js'] = array();
+        $data['js_plugin'] = array();
+        $data['css'] = array();        
+        $data['css_plugin'] = array();
+        $data['init'] = array();
+        $this->load->view(FRONT_LAYOUT, $data);
+    }
+    
+    public function testpdf(){
+            $id = '9';
+            $transaction_id = "201912618981595";
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            
+            $data['ticketDetails']=  $this->this_model->getpdfdetails($id);
+            $data['passangerDetails']=  $this->this_model->getpassangerDetails($id);
+            
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Nicola Asuni');
+            $pdf->SetTitle('TCPDF Example 006');
+            $pdf->SetSubject('TCPDF Tutorial');
+            $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+            $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+            $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+            $lg = Array();
+            $lg['a_meta_charset'] = 'UTF-8';
+            $lg['a_meta_dir'] = 'rtl';
+            $lg['a_meta_language'] = 'fa';
+            $lg['w_page'] = 'page';
+            $pdf->setLanguageArray($lg);
+            $pdf->SetFont('freeserif', '', 10);
+            $pdf->AddPage();
+            $pdf->setRTL(false);
+            $new_html = $this->load->view("front/home/generateTicketPdf", $data,true);
+            
+            $pdf->WriteHTML($new_html, true, 0, true, 0);
+            ob_end_clean();  
+            $pdf->Output(FCPATH.'public/uploads/'.$transaction_id.'.pdf', 'F');
+    }
+    
     
 }
 
