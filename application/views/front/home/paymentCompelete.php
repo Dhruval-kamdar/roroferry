@@ -43,9 +43,23 @@
                                                 <strong>ERROR!</strong> <?php echo $this->session->flashdata('error'); ?>.
                                              </div>
                                         <?php } ?>
+                                            
+                                        <?php if(($this->session->flashdata('info'))){ ?>
+                                            <div class="alert alert-info">
+                                                <strong>Ticket Cancel</strong> </br><?php echo $this->session->flashdata('info'); ?>.
+                                             </div>
+                                        <?php } ?>
                                             </div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <a href='<?= base_url() ?>'>
+                                                    <button type="button" class="btn">Back to Home</button>
+                                                </a>
+                                            </fieldset>
+                                        </div>
                                     </div>
-
+                                    
                                 </div>
                             </div>
                         </form>

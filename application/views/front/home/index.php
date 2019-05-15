@@ -435,7 +435,7 @@
                                                     <label for="ferryTime" class="error"></label>
                                                 </fieldset>
                                                 
-                                                <fieldset>
+                                                <fieldset class="hidden">
                                                     <label for="ferryClass">Ferry Class :</label>
                                                     <select class="ferryClass"  name="ferryClass" >
                                                         <option value="">Select a ferry class...</option>

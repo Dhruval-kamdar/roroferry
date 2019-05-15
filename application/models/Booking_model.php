@@ -34,8 +34,7 @@ class Booking_model extends My_model
         return $res;
     }
     
-    public function makePaymentBOB($postData,$id){
-        
+    public function makePaymentBOB($postData,$id,$amount){
         $currency = '356';
         $language = 'USA';
         $receiptURL = base_url().'homepage/getResponse/';
@@ -54,7 +53,7 @@ class Booking_model extends My_model
         $myObj->setUdf8($postData['emailAddress']);
         $myObj->setUdf9($postData['phoneNumber']);
         $myObj->setUdf10($postData['cityName']."-".$postData['pinCode']);
-        $myObj->setUdf11(trim('1.00'));
+        $myObj->setUdf11($amount);
         $myObj->setUdf12("No tax Details");
         $myObj->setUdf13($id);
         
@@ -62,7 +61,7 @@ class Booking_model extends My_model
         $myObj->setLanguage(trim($language));
         $myObj->setResponseURL(trim($receiptURL));
         $myObj->setErrorURL(trim($errorURL));
-        $myObj->setAmt(trim('1.00')); //setPostData Amount
+        $myObj->setAmt($amount); //setPostData Amount
         $myObj->setTrackId($trackid);
 
         if (trim($myObj->performPaymentInitializationHTTP()) != 0) {
@@ -340,7 +339,6 @@ class Booking_model extends My_model
     }
     
     public function saveTicketDetails($postData,$amount){
-      
             if($postData['noPassangerlesstwo'] == NULL){
                 $postData['noPassangerlesstwo'] = '0';
             }
@@ -406,13 +404,11 @@ class Booking_model extends My_model
             }else{
               return false;  
             }
-        
     }
     
     
     
-    public function paymnetSuccess($paymentDetails){
-       
+    public function paymnetSuccess($paymentDetails){       
         $data['table']='ticket_details';
         $data['where'] = ['id' => $paymentDetails['id']];
         $data['update']=[
@@ -421,13 +417,10 @@ class Booking_model extends My_model
 
         ];
         $result = $this->updateRecords($data);
-        
-      //  print_r($paymentDetails);
-        
     }
     
     public function getpdfdetails($id){
-        $data['select']=['td.*','sl.time as pickupTIme','rl.route as trip_route'];
+        $data['select']=['td.*','sl.time as pickupTIme','rl.route as trip_route','sl.stationName as pickupPoint','sld.time as tripDropTime','sld.stationName as dropPoint'];
         $data['join'] = [
             
             'route_list as rl' => [
@@ -439,18 +432,15 @@ class Booking_model extends My_model
             'sl.id = td.tripPickUpTime',
                 'LEFT',
             ],
+            
+            'station_list as sld' => [
+            'sld.id = td.tripDropTime',
+                'LEFT',
+            ],
         ];
-      
         $data['table'] ='ticket_details as td';
         $data['where'] = ['td.id' => $id];
         $result = $this->selectFromJoin($data);
-        for($i = 0;$i < count($result) ; $i++){
-            $data['select']=['time'];
-            $data['table']=['station_list'];
-            $data['where']=['id'=>$result[$i]->tripDropTime];
-            $result_tem = $this->selectRecords($data);
-            $result[$i]->tripDropTime = $result_tem[0]->time;
-        }
         return $result;
     }
     

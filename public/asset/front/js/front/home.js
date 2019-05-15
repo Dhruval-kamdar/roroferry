@@ -123,11 +123,10 @@ var Home = function() {
             invalidHandler: function(event, validator) {
                 validateTrip = false;
                 customValid = customerInfoValid();
-                console.log('faf'+customValid);
+                
             },
             submitHandler: function(form) {
                 customValid = customerInfoValid();
-                console.log('fsfs' + customValid);
                 if(submitFrom && customValid)
                 {
                     form.submit();
@@ -157,12 +156,12 @@ var Home = function() {
                 if($(this).is(':visible')){
                     if($(this).val() == ''){
                        
-                        console.log('dda1');
+                       
                         $(this).addClass('error');
                         $(this).next('span').text('Please select gender');
                         customValid = false;
                     }else{
-                        console.log('aa1');
+                       
                         $(this).removeClass('error');
                         $(this).next('span').text('');
                     }
@@ -172,12 +171,12 @@ var Home = function() {
             $('.passanger').each(function(){
                 if($(this).is(':visible')){
                     if($(this).val() == ''){
-                        console.log('dda2');
+                        
                         $(this).addClass('error');
                         $(this).next('span').text('Please eneter passange name');
                         customValid = false;
                     }else{
-                        console.log('aa2');
+                       
                         $(this).removeClass('error');
                         $(this).next('span').text('');
                     }
@@ -207,8 +206,8 @@ var Home = function() {
                     var returnClass=JSON.parse(data);
                     
                     
-                    var htmlClass = "<option value=''>Select a ferry class...</option>";
-                    for(var lenclass = 0; lenclass < returnClass['data'].length ; lenclass++){
+                    var htmlClass = "";
+                    for(var lenclass = 0; lenclass < 1 ; lenclass++){
                         var temhtmlclass='';
                         temhtmlclass="<option  value="+ returnClass['data'][lenclass].classID +">"+ returnClass['data'][lenclass].className +"</option>";
                         htmlClass=htmlClass+temhtmlclass;

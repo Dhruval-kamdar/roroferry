@@ -81,10 +81,20 @@ $route['terms-condition'] = 'homepage/termsCondition';
 $route['refund-cancellation'] = 'homepage/refundCancellation';
 $route['privacy-policy'] = 'homepage/privacyPolicy';
 
+//*******************************Admin Route *****************************************//
+$route['admin'] = 'admin/login';
+$route['booking'] = 'admin/admin/booking/booking';
+$route['bus-route'] = 'admin/admin/busRoute/busroute';
+$route['dashboard'] = 'admin/admin/dashborad';
+$route['agent-dashboard'] = 'admin/agent/dashborad';
 
 $route['test-pdf'] = 'homepage/testpdf';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';
 /* END BY JIGNESH */
 
+$route['logout'] = 'admin/login/logout';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+

@@ -98,6 +98,26 @@ define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ferryservice/public/asset
 }else{
     define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/public/asset/images/');
 }
+
 define('DATE_TIME',date('Y-m-d H:i:s'));
 define('PROJECT_NAME', 'Ferryservice');
 define('REPLAY_EMAIL', '');
+
+
+define('TICKET_AMOUNT',520);
+
+//Table Name
+define('TBL_USERS','users');
+
+//Model Constant
+define('LOGIN_MODEL','admin/Login_model');
+
+//View Constatnt
+define('ADMINLOGINLAYOUT','admin/layout/adminlogin');
+define('ADMINLAYOUT','admin/layout/adminlayout');
+
+define('AGENT_LAYOUT','agent/layout/agent_layout');
+
+define('PAGES','admin/pages/');
+define('AGENT_PAGES','agent/');
+
