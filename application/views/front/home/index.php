@@ -578,11 +578,11 @@
                                                 </fieldset>
                                             </div>
 
-                                            <div class="col-md-6">
+<!--                                            <div class="col-md-6">
                                                 <fieldset>
                                                     <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
                                                 </fieldset>
-                                            </div>
+                                            </div>-->
                                         </div>
                                         
                                         <div class="col-md-12">
@@ -716,11 +716,11 @@
                                                 </fieldset>
                                             </div>
 
-                                            <div class="col-md-6">
+<!--                                            <div class="col-md-6">
                                                 <fieldset>
                                                     <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
                                                 </fieldset>
-                                            </div>
+                                            </div>-->
                                         </div>
                                         
                                         <div class="col-md-12">

@@ -11,7 +11,7 @@
             <?php
                 if (!empty($js)){ 
                  foreach ($js as $value){ ?>
-                <script src="<?= base_url()?>public/admin/js/<?php echo $value; ?>" type="text/javascript"></script>
+                <script src="<?= base_url()?>public/asset/admin/js/<?php echo $value; ?>" type="text/javascript"></script>
 
                 <?php } }
             ?>

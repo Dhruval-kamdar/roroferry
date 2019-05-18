@@ -33,6 +33,14 @@
                     </a>
                 </li>
                 
+                <li class="<?php if(isset($station)){print_r($station);} ?>">
+                    <a href="<?= base_url().'station';?>">
+                         <i class="fa fa-stop-circle-o"></i> 
+                        <span class="nav-label">Station</span>
+                    </a>
+                </li>
+                
+               
                 <li class="<?php if(isset($booking)){print_r($booking);} ?>">
                     <a href="<?= base_url().'booking';?>">
                        <i class="fa fa-th"></i> 

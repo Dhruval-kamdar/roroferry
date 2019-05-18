@@ -339,6 +339,8 @@ class Booking_model extends My_model
     }
     
     public function saveTicketDetails($postData,$amount){
+            $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 5);
+            $pnrNo = "RORO-".$rnd."-".date("Y");
             if($postData['noPassangerlesstwo'] == NULL){
                 $postData['noPassangerlesstwo'] = '0';
             }
@@ -360,6 +362,8 @@ class Booking_model extends My_model
             $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
             $data['table']='ticket_details';
             $data['insert']=[
+                
+                'pnrNumber'=>$pnrNo,
                 'trip'=>$postData['trip'],
                 'trip_type'=>$postData['trip_type'],
                 'fromstaton'=>$postData['fromstaton'],
@@ -385,6 +389,7 @@ class Booking_model extends My_model
                 'payment'=>$amount,
                 'created_at'=>date("Y-m-d h:i:s"),
                 'updated_at'=>date("Y-m-d h:i:s"),
+                
            ];
             $Id = $this->insertRecord($data);
             if($Id){

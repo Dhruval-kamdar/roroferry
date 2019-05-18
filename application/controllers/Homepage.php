@@ -242,39 +242,43 @@ class Homepage extends CI_Controller {
     }
     
     public function makePayment(){
-        $amount = '1.00';
-//        $amount=count($this->input->post('passanger'))*550;
+//        $amount = '1.00';
+        
+        $temp_amount=count($this->input->post('passanger'))*TICKET_AMOUNT;
+        $amount = number_format((float)$temp_amount, 2, '.', '');
         $res= $this->this_model->saveTicketDetails($this->input->post(),$amount);
         if($res){
-            $result= $this->this_model->makePaymentBOB($this->input->post(),$res);
+            $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
         }else{
             redirect('payment-compelete');
         }
-        
-        
-        
     }
     
     public function getResponse(){
         $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
         if($trandata != ""){
             $result= $this->this_model->makePaymentResponse();
-            
+         
             if($result['status'] == 'success'){
-                $update= $this->this_model->paymnetSuccess($result);
-                $this->generateTicketPdf($result['id'],$result['transaction_id']);
-                $this->sendConfirmMail($result['transaction_id']);
-                $this->session->set_flashdata('success', 'Your payment is successfully. '
-                        . '<br>Transaction Status:'.$result['transaction_status']
-                        . '<br>Transaction ID:'.$result['transaction_id']
-                        . '<br>Mrch Track ID:'.$result['march_track_id']
-                        . '<br>Transaction Amt:'.$result['transaction_anount']
-                        . '<br>Payment Id:'.$result['payment_id']
-                        );
+                if($result['transaction_status'] == 'CAPTURED'){
+                    $update= $this->this_model->paymnetSuccess($result);
+                    $this->generateTicketPdf($result['id'],$result['transaction_id']);
+                    $this->sendConfirmMail($result['id'],$result['transaction_id']);
+                    $this->session->set_flashdata('success', 'Your payment is successfully. '
+                            . '<br>Transaction Status:'.$result['transaction_status']
+                            . '<br>Transaction ID:'.$result['transaction_id']
+                            . '<br>Mrch Track ID:'.$result['march_track_id']
+                            . '<br>Transaction Amt:'.$result['transaction_anount']
+                            . '<br>Payment Id:'.$result['payment_id']
+                            );
+                }else{
+                   if($result['transaction_status'] == 'IPAY0100048 - CANCELLED'){
+                       $this->session->set_flashdata('info','Your payment is cancelled.');
+                   }  
+                }
            }else{
                $this->session->set_flashdata('error','Something went wrong...');
            }
-            
         }
          redirect('payment-compelete');
     }
@@ -288,14 +292,12 @@ class Homepage extends CI_Controller {
             'front/paymentInquirey.js'
         );
         $data['js_plugin'] = array();
-
         $data['css'] = array();
         $data['css_plugin'] = array(
         );
         $data['init'] = array(
             'PaymentInquirey.init()'
         );
-        
         $this->load->view(FRONT_LAYOUT, $data);
     }
 
@@ -439,18 +441,16 @@ class Homepage extends CI_Controller {
             $pdf->Output(FCPATH.'public/uploads/'.$transaction_id.'.pdf', 'F');
     }
     
-    public function sendConfirmMail($transaction_id){
-        
-        $data1= array();
+    public function sendConfirmMail($id,$transaction_id){
+        $data['ticketDetails']=  $this->this_model->getpdfdetails($id);
+        $data['passangerDetails']=  $this->this_model->getpassangerDetails($id);
+        $data1= array();        
         $data['message'] = $this->load->view('front/email_template/mail_template', $data1, true);
         $data ['from_title'] = 'Roroferry Confirmation';
         $data ['subject'] = 'Roroferry Confirmation ';
         $data ['from'] = 'parthkhunt12@gmail.com';
-        $data ['to'] = 'kartikdesai123@gmail.com';
-//            $data ['replyto'] = REPLAY_EMAIL;
-//            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
+        $data ['to'] = $data['ticketDetails'][0]->emailAddress;
         $data ['attech'] = 'public/uploads/'.$transaction_id.'.pdf';
-
         $mailSend = $this->utility->sendMailSMTP($data);
        
     }
@@ -502,7 +502,7 @@ class Homepage extends CI_Controller {
             
             $data['ticketDetails']=  $this->this_model->getpdfdetails($id);
             $data['passangerDetails']=  $this->this_model->getpassangerDetails($id);
-            
+           
             $pdf->SetCreator(PDF_CREATOR);
             $pdf->SetAuthor('Nicola Asuni');
             $pdf->SetTitle('TCPDF Example 006');

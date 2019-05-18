@@ -108,9 +108,18 @@ define('TICKET_AMOUNT',520);
 
 //Table Name
 define('TBL_USERS','users');
+define('TBL_PASSANGER_DETAILS','passanger_details');
+define('TBL_ROUTE_LIST','route_list');
+define('TBL_STATION_LIST','station_list');
+define('TBL_TICKET_DETAILS','ticket_details');
+define('TBL_TRIP_TIME','trip_time');
+
 
 //Model Constant
 define('LOGIN_MODEL','admin/Login_model');
+define('BUSROUTE_MODEL','admin/Busroute_model');
+define('STATION_MODEL','admin/Station_model');
+define('BOOKING_MODEL','admin/Booking_model');
 
 //View Constatnt
 define('ADMINLOGINLAYOUT','admin/layout/adminlogin');
