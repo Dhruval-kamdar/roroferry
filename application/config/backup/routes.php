@@ -72,6 +72,7 @@ $route['get-without-cargo-trips'] = 'homepage/GetWithoutCargoTrips';
 $route['get-booking'] = 'homepage/GetBooking';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
+$route['get-total-number-seat'] = 'homepage/getTotalNumberSeat';
 $route['submit-booking'] = 'homepage/submitBooking';
 $route['payment'] = 'homepage/makePayment';
 $route['payment-compelete'] = 'homepage/paymentCompelete';
@@ -83,10 +84,30 @@ $route['privacy-policy'] = 'homepage/privacyPolicy';
 
 //*******************************Admin Route *****************************************//
 $route['admin'] = 'admin/login';
-$route['booking'] = 'admin/admin/booking/booking';
-$route['bus-route'] = 'admin/admin/busRoute/busroute';
+
+
 $route['dashboard'] = 'admin/admin/dashborad';
 $route['agent-dashboard'] = 'admin/agent/dashborad';
+
+//*******************************Admin Bus Route *****************************************//
+$route['busRoute-ajaxcall'] = 'admin/admin/busRoute/busroute/ajaxcall';
+$route['bus-route'] = 'admin/admin/busRoute/busroute';
+$route['add-route'] = 'admin/admin/busRoute/busroute/addRoute';
+$route['deleteRoute'] = 'admin/admin/busRoute/busroute/deleteRoute';
+$route['edit-route/(:any)'] = 'admin/admin/busRoute/busroute/editRoute/$1';
+
+//*******************************Admin station Route *****************************************//
+$route['station'] = 'admin/admin/station/station';
+$route['station-ajaxcall'] = 'admin/admin/station/station/ajaxcall';
+$route['add-station'] = 'admin/admin/station/station/addstation';
+$route['edit-station/(:any)'] = 'admin/admin/station/station/editstation/$1';
+$route['deleteStation'] = 'admin/admin/station/station/deleteStation';
+$route['routeTimeList'] = 'admin/admin/station/station/routeTimeList';
+
+//*******************************Admin booking Route *****************************************//
+$route['booking'] = 'admin/admin/booking/booking';
+$route['booking-ajaxcall'] = 'admin/admin/booking/booking/ajaxcall';
+
 
 $route['test-pdf'] = 'homepage/testpdf';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';

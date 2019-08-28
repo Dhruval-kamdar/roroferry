@@ -23,7 +23,6 @@
                                         <option value="active">Active</option>
                                         <option value="deactive">Deactive</option>
                                     </select>
-                                        
                                 </div>
                             </div>
                             

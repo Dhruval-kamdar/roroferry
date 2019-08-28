@@ -59,7 +59,7 @@ class Homepage extends CI_Controller {
 
     public function getToken() {
         $data = "userName=testagent&password=123456&agentID=C39B22C1-6C27-4810-92AA-1BBE74B8F852";
-        $url = "http://test.indigoseaways.com/api/api/Authenticate";
+        $url = "http://test.dgseaconnect.com/api/api/Authenticate";
         $header = array();
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
        
@@ -74,7 +74,7 @@ class Homepage extends CI_Controller {
     public function getStop() {
         $token = $this->session->userdata('token');
         $data = "token=NgKsXWk2HHwZsOUvAeClfJGVrISyN2Ss";
-        $url = "http://test.indigoseaways.com/api/api/GetStops";
+        $url = "http://test.dgseaconnect.com/api/api/GetStops";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
 
@@ -89,7 +89,7 @@ class Homepage extends CI_Controller {
         $token = $this->session->userdata('token');
        
         $data = "token=NgKsXWk2HHwZsOUvAeClfJGVrISyN2Ss";
-        $url = "http://test.indigoseaways.com/api/api/GetVehicles";
+        $url = "http://test.dgseaconnect.com/api/api/GetVehicles";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
 
@@ -112,7 +112,7 @@ class Homepage extends CI_Controller {
 
         $data = http_build_query($fields);
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/A_GetCargoTrips";
+        $url = "http://test.dgseaconnect.com/api/api/A_GetCargoTrips";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
         echo json_encode($result);
@@ -126,7 +126,7 @@ class Homepage extends CI_Controller {
         $fromDate = date('d/m/Y', strtotime($this->input->post('fromDate')));
         $fromstaton = $this->input->post('fromstaton');
         $tostation = $this->input->post('tostation');
-        $url = "http://test.indigoseaways.com/api/api/GetTrips?departureDate=$fromDate&destinationID=$tostation&sourceID=$fromstaton";
+        $url = "http://test.dgseaconnect.com/api/api/GetTrips?departureDate=$fromDate&destinationID=$tostation&sourceID=$fromstaton";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
         if (empty($result['data'])) {
@@ -141,7 +141,7 @@ class Homepage extends CI_Controller {
 
         $data = "";
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/GetSeatLayout?tripID=4624";
+        $url = "http://test.dgseaconnect.com/api/api/GetSeatLayout?tripID=4624";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
         echo json_encode($result);
@@ -161,7 +161,7 @@ class Homepage extends CI_Controller {
         $data = http_build_query($fields);
 
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/BlockSeats";
+        $url = "http://test.dgseaconnect.com/api/api/BlockSeats";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
         echo json_encode($result);
@@ -171,8 +171,8 @@ class Homepage extends CI_Controller {
     public function getPickupDetail() {
         $data = "";
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/GetBuses?tripID=4624";
-       // http://test.indigoseaways.com/api/api/GetBuses?tripID=3418
+        $url = "http://test.dgseaconnect.com/api/api/GetBuses?tripID=4624";
+       // http://test.dgseaconnect.com/api/api/GetBuses?tripID=3418
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
         echo json_encode($result);
@@ -183,7 +183,7 @@ class Homepage extends CI_Controller {
         $tripID= $this->input->post('tripId');
         $data = "";
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/A_GetClasses?tripID=".$tripID;
+        $url = "http://test.dgseaconnect.com/api/api/A_GetClasses?tripID=".$tripID;
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
         
@@ -216,14 +216,36 @@ class Homepage extends CI_Controller {
         $sourceID= $this->input->post('sourceID');
         $data = "";
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/A_GetTrips?departureDate=".$departureDate."&destinationID=".$destinationID."&sourceID=".$sourceID;
+        $url = "http://test.dgseaconnect.com/api/api/A_GetTrips?departureDate=".$departureDate."&destinationID=".$destinationID."&sourceID=".$sourceID;
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
-       
+        
         echo json_encode($result);
         exit;
     }
     
+    public function a_booking(){
+    
+         $fields = array(
+            'tripID' => $this->input->post('tripId'),
+            'noOfPassengers' => $this->input->post('noPassangerharter'),
+            'noOfInfants' => $this->input->post('noPassangerequal'),
+            'noOfChilds' => $this->input->post('noPassangerlesstwo'),
+            'className' => $this->input->post('ferryClass'),
+        );
+        
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_Booking";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+        
+//        print_r($this->input->post());
+//        exit;
+    }
+
     public function GetBooking(){
         $fields = array(
             'tripID' => $this->input->post('tripID'),
@@ -234,7 +256,7 @@ class Homepage extends CI_Controller {
         );
         $data = http_build_query($fields);
         $token = $this->session->userdata('token');
-        $url = "http://test.indigoseaways.com/api/api/A_Booking";
+        $url = "http://test.dgseaconnect.com/api/api/A_Booking";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
         echo json_encode($result);
@@ -496,8 +518,8 @@ class Homepage extends CI_Controller {
     }
     
     public function testpdf(){
-            $id = '9';
-            $transaction_id = "201912618981595";
+            $id = '2';
+            $transaction_id = "dsdsanbdvsjbdmsbzdcxcxcxcx";
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
             
             $data['ticketDetails']=  $this->this_model->getpdfdetails($id);
@@ -532,7 +554,63 @@ class Homepage extends CI_Controller {
             $pdf->Output(FCPATH.'public/uploads/'.$transaction_id.'.pdf', 'F');
     }
     
+    public function getTotalNumberSeat(){
+
+        $result= $this->this_model->getTotalNumberSeat($this->input->post());
+        echo json_encode($result);
+        exit;
+         
+    }
     
+    public function getTotalSeat(){
+        $data['seatArray']= $this->this_model->getTotalSeat($this->input->post());
+        $html=$this->load->view('front/home/seatLayout',$data,TRUE);
+        echo $html;
+        exit;
+    }
+    
+    public function GetCargoBooking(){
+        $fields = array(
+            "tripID" => $this->input->post('tripId'),
+            "noOfPassengers" => $this->input->post('noPassanger'),
+            "noOfInfants" => "0",
+            "noOfChilds" => "0",
+            "className" => $this->input->post('ferryClass'),
+            "vehicleCategoryID" => $this->input->post('vehicalId'),
+        );
+        
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_CargoBooking";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+        
+        
+        
+    }
+    
+    public function updateCargoPassengerDetails(){
+        print_r($this->input->post());
+        die();
+        $fields = array(
+            "tripID" => $this->input->post('tripId'),
+            "noOfPassengers" => $this->input->post('noPassanger'),
+            "noOfInfants" => "0",
+            "noOfChilds" => "0",
+            "className" => $this->input->post('ferryClass'),
+            "vehicleCategoryID" => $this->input->post('vehicalId'),
+        );
+        
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_UpdatePassengerDetails";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+    }
 }
 
 ?>

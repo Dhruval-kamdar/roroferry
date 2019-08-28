@@ -339,6 +339,9 @@ class Booking_model extends My_model
     }
     
     public function saveTicketDetails($postData,$amount){
+            if(!isset($postData['trip'])){
+                $postData['trip']='';
+            }
             $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 5);
             $pnrNo = "RORO-".$rnd."-".date("Y");
             if($postData['noPassangerlesstwo'] == NULL){
@@ -389,7 +392,6 @@ class Booking_model extends My_model
                 'payment'=>$amount,
                 'created_at'=>date("Y-m-d h:i:s"),
                 'updated_at'=>date("Y-m-d h:i:s"),
-                
            ];
             $Id = $this->insertRecord($data);
             if($Id){
@@ -397,6 +399,7 @@ class Booking_model extends My_model
                     $data['table']='passanger_details';
                     $data['insert']=[
                         'ticketId'=>$Id,
+                        'seatNo'=>$postData['seat'][$i],
                         'passangerName'=>$postData['passanger'][$i],
                         'passangerAge'=>$postData['passangerAge'][$i],
                         'passangerGender'=>$postData['passangerGender'][$i],
@@ -455,6 +458,42 @@ class Booking_model extends My_model
         $data['where'] = ['ticketId' => $id];
         $result = $this->selectRecords($data);
         return $result;
+    }
+    
+    public function getTotalNumberSeat($postData){
+        
+        $this->db->select_sum('noPassanger');
+        $this->db->from(TBL_TICKET_DETAILS);
+        $this->db->where('busRoute',$postData['busRouteForBus']);
+        $this->db->where('tripTime',$postData['tripTimeForBus']);
+        $this->db->where('depatureDate',date("Y-m-d",strtotime($postData['tripdate'])));
+        $this->db->where('transaction_id !=',NULL);
+        $query = $this->db->get();
+        $res=$query->result();
+        if( $res[0]->noPassanger == "" || $res[0]->noPassanger == NULL ){
+            $res[0]->noPassanger = '0';
+        }
+        return (NUMBER_OF_SEAT - $res[0]->noPassanger);
+    }
+    
+    public function getTotalSeat($postData){
+        
+        $data['select']=['TPD.seatNo'];
+        $data['join'] = [
+            
+            TBL_TICKET_DETAILS.' as TTD' => [
+            'TTD.id = TPD.ticketId','',
+            ],
+        ];
+        $data['table'] =TBL_PASSANGER_DETAILS.' as TPD';    
+        $data['where'] = ['TTD.depatureDate' => date("Y-m-d",strtotime($postData['tripdate'])),'TTD.busRoute' => $postData['busRouteForBus'],'TTD.tripTime' => $postData['tripTimeForBus'],'TTD.transaction_id !=' => NULL,'TTD.transaction_id !=' => ''];
+//   
+        $result = $this->selectFromJoin($data);
+        $seatArray=[];
+        for($i = 0 ;$i < count($result) ;$i++){
+            array_push($seatArray,$result[$i]->seatNo);
+        }
+        return $seatArray;
     }
 }   
 ?>

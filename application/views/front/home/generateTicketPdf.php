@@ -77,6 +77,7 @@
                 <table border="1" cellpadding="5">
                     <tr>
                         <td>No</td>
+                        <td>Seat No</td>
                         <td>Name</td>
                         <td>Sex</td>
                         <td>Age</td> 
@@ -84,6 +85,7 @@
                     <?php for($i = 0 ;$i < count($passangerDetails) ;$i++){?>
                         <tr>
                             <td><?php print_r($i+1);?></td>
+                            <td><?php print_r($passangerDetails[$i]->seatNo); ?></td>
                             <td><?php print_r($passangerDetails[$i]->passangerName); ?></td>
                             <td><?php print_r($passangerDetails[$i]->passangerGender);?></td>
                             <td><?php print_r($passangerDetails[$i]->passangerAge);?></td> 

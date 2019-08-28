@@ -130,3 +130,5 @@ define('AGENT_LAYOUT','agent/layout/agent_layout');
 define('PAGES','admin/pages/');
 define('AGENT_PAGES','agent/');
 
+define('NUMBER_OF_SEAT',61);
+

@@ -42,22 +42,7 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                <div class="radio-select">
-                                                    <div class="row">
-
-                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="oneway">Oneway</label>
-                                                            <input type="radio" class="tripSelection" name="trip" id="oneway" value="one-way" checked='checked'>
-                                                        </div>
-
-<!--                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="round">Round</label>
-                                                            <input type="radio" class="tripSelection" name="trip" id="round" value="round" >
-                                                        </div>-->
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="col-md-6">
                                                 <div class="radio-select">
                                                     <div class="row">
@@ -70,10 +55,19 @@
                                                             <label for="round">With vehicle</label>
                                                             <input type="radio" class="tripFerrySelection" name="trip_type" id="cargo" value="With vehicle" >
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
+<!--                                            <div class="col-md-6">
+                                                <div class="radio-select">
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6 col-xs-6 hidden">
+                                                            <label for="oneway">Oneway</label>
+                                                            <input type="radio" class="tripSelection" name="trip" id="oneway" value="one-way" checked='checked'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
                                         </div>
 
                                         <div class="col-md-12">
@@ -116,9 +110,6 @@
                                                 </fieldset>
                                             </div>
                                         </div>
-
-
-
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <!--<button type="submit" id="form-submit" class="btn">Order Ticket Now</button>-->
@@ -141,12 +132,14 @@
                                     <!-- Label Div -->
                                     <div class="row">
                                         <div class="col-md-12">
+                                            
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
                                                 </fieldset>
                                             </div>
-
+                                            
+                                            
                                             <div class="col-md-6">
                                                 <fieldset>
                                                     <label for="from">Ferry Type :&nbsp;<span class="ferryTypeText"></span></label>
@@ -157,27 +150,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
                                                     <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -201,9 +174,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <!-- Button Div -->
-
                                         <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
@@ -232,7 +203,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
                                                 </fieldset>
                                             </div>
 
@@ -246,27 +217,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
                                                     <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -282,27 +233,32 @@
                                             </div>
 
                                             <div class="col-md-12">
+                                                <div class="row">
+                                                    <center>
+                                                        <p style="color: red"><b>Currently  bus service isn't available sorry for inconvenience.</b></p>
+                                                    </center>
+                                                </div>
                                             <!--<div class="col-md-9">-->
                                             <div class="radio-select">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="busservices">Avail Bus Services</label>
-                                                        <input type="radio" class="busservices" name="pickupservices" id="busservices" value="busservices"  checked="checked">
+                                                        <input type="radio" class="busservices" name="pickupservices" id="busservices" value="Bus Services"  disabled>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                                         <label for="transportation">Self-Transportation</label>
-                                                        <input type="radio" class="busservices" name="pickupservices" id="transportation" value="selfservices"  >
+                                                        <input type="radio" class="busservices" name="pickupservices" id="transportation" value="Self Services" checked="checked" >
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--</div>-->
 
                                         </div>
-                                            <div class="bussationDiv">
+                                            <div class="bussationDiv hidden">
                                                 <div class="col-md-6 ">
                                                     <fieldset>
                                                         <label for="pickpoint">Bus Route:</label>
-                                                        <select  class="busRoute" name="busRoute" class="busRoute" >
+                                                        <select  class="busRoute" id="busRouteForBus" name="busRoute" class="busRoute" >
                                                             <option value="">Select Bus Route...</option>
                                                             <?php
                                                             for($i=0 ; $i < count($route) ; $i++ ){?>
@@ -315,7 +271,7 @@
                                                 <div class="col-md-6">
                                                     <fieldset>
                                                         <label for="tripTime">Trip Time:</label>
-                                                        <select  class="tripTime"  name="tripTime"  >
+                                                        <select  class="tripTime" id="tripTimeForBus" name="tripTime"  >
                                                             <option value="">Select a trip time...</option>
                                                         </select>
                                                         <label for="tripTime" class="error"></label>
@@ -325,7 +281,7 @@
                                                 <div class="col-md-6">
                                                     <fieldset>
                                                         <label for="tripPickUpTime">Trip PickUp station name - Time:</label>
-                                                        <select  class="tripPickUpTime"  name="tripPickUpTime" class="tripPickUpTime" >
+                                                        <select  class="tripPickUpTime" id="tripPickUpTimeForBus"  name="tripPickUpTime" class="tripPickUpTime" >
                                                             <option value="">Select a trip pickup station name - Time...</option>
                                                         </select>
                                                         <label for="tripPickUpTime" class="error"></label>
@@ -335,7 +291,7 @@
                                                 <div class="col-md-6">
                                                     <fieldset>
                                                         <label for="tripDropTime">Trip drop station name - Time:</label>
-                                                        <select  class="tripDropTime"  name="tripDropTime"  >
+                                                        <select  class="tripDropTime"  id="tripDropTimeForBus"name="tripDropTime"  >
                                                             <option value="">Select a trip drop station name - Time...</option>
                                                         </select>
                                                         <label for="tripDropTime" class="error"></label>
@@ -375,6 +331,7 @@
                                 <div class="submit-form form4 hidden">
                                     <center>
                                         <h4>Trip Details</h4>
+                                        <p class="bookingerror" style="color:red"></p>
                                     </center>
                                     <!-- Label Div -->
 
@@ -382,7 +339,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
                                                 </fieldset>
                                             </div>
 
@@ -396,33 +353,20 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
                                                     <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
                                                 </fieldset>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
-                                            <div class="col-md-6">
+                                        
+                                        <div class="col-md-12 noofseat">
+                                            <div class="col-md-12">
                                                 <fieldset>
-                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
+                                                    <label style="color:red" for="from">Number of seat remaining :&nbsp;<span class="numberOfSeatRemainingText"></span></label>
                                                 </fieldset>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Input Div -->
+                                                                        
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
@@ -435,13 +379,16 @@
                                                     <label for="ferryTime" class="error"></label>
                                                 </fieldset>
                                                 
-                                                <fieldset class="hidden">
+                                                <fieldset >
                                                     <label for="ferryClass">Ferry Class :</label>
                                                     <select class="ferryClass"  name="ferryClass" >
                                                         <option value="">Select a ferry class...</option>
                                                     </select>
                                                     <label for="ferryClass" class="error"></label>
                                                 </fieldset>
+                                            </div>
+                                            <div class="col-md-6">
+                                                
                                                 <fieldset class="noPassangerDiv hidden">
                                                     <label for="noPassanger">Number of passenger :</label>
                                                     <select class="noPassanger"  name="noPassanger" >
@@ -482,10 +429,12 @@
                                                     </select>
                                                     <label for="noPassangerharter" class="error"></label>
                                                 </fieldset>
-                                                
+                                                    
+                                                    <fieldset class="hidden errorDiv">
+                                                        <label for="noPassangerReturn" style="color:red">You selected more than available seat</label>
+                                                    </fieldset> 
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6 hidden returnFerryTime" >
                                                 <fieldset>
                                                     <label for="ferryTimeReturn">Return Ferry time :</label>
@@ -514,9 +463,9 @@
                                                     <label for="noPassangerReturn" class="error"></label>
                                                 </fieldset>
                                             </div>
+                                           
                                         </div>
                                     </div>
-                                    <!-- Button Div -->
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -528,17 +477,17 @@
 
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="button" id="form-submit" data-next-form='5' class="btn nextbtn">Next</button>
+                                                    <button type="button" id="form-submit" data-next-form='6' class="btn nextbtn pageSelection">Next</button>
                                                 </fieldset>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <!-- Step 5 -->
                                 <div class="submit-form form5 hidden">
                                     <center>
-                                        <h4>Passenger Details</h4>
+                                        <h4>Select Bus Seat</h4>
                                     </center>
                                     <!-- Label Div -->
 
@@ -549,7 +498,7 @@
                                                     <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
                                                 </fieldset>
                                             </div>
-
+                                            
                                             <div class="col-md-6">
                                                 <fieldset>
                                                     <label for="from">Ferry Type :&nbsp;<span class="ferryTypeText"></span></label>
@@ -591,6 +540,12 @@
                                                     <label for="from">No of Passenger :&nbsp;<span class="noOfPassanger"></span></label>
                                                 </fieldset>
                                             </div>
+                                            
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
+                                                </fieldset>
+                                            </div>
                                         </div>
                                         
                                         <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
@@ -603,6 +558,378 @@
                                             <div class="col-md-6">
                                                 <fieldset>
                                                     <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <!-- Input Div -->
+                                    <span class="seatLayout">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <center>
+                                                <h4>Select Seat :</h4>
+                                            </center>
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="A" >&nbsp;&nbsp;A
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        Driver
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="B" >&nbsp;&nbsp;B
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="C" >&nbsp;&nbsp;C
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="D" >&nbsp;&nbsp;D
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="E" >&nbsp;&nbsp;E
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="1" > 01
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="2" > 02
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="3" > 03
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="4" > 04
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="5" > 05
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="6" > 06
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="7" > 07
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="8" > 08
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="9" > 09
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="10" > 10
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="11" > 11
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="12" > 12
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="13" > 13
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="14" > 14
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="15" > 15
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="16" > 16
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="17" > 17
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="18" > 18
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="19" > 19
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="20" > 20
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="21" > 21
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="22" > 22
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="23" > 23
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="24" > 24
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="25" > 25
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="26" > 26
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="27" > 27
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="28" > 28
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="29" > 29
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="30" > 30
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="31" > 31
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="32" > 32
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="33" > 33
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="34" > 34
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="35" > 35
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="36" > 36
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="37" > 37
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="38" > 38
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="39" > 39
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="40" > 40
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="41" > 41
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="42" > 42
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="43" > 43
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="44" > 44
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="45" > 45
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="46" > 46
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="47" > 47
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="48" > 48
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="49" > 49
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="50" > 50
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="51" > 51
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="52" > 52
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-6">
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="53" > 53
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="54" > 54
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="pull-left">
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="55" > 55
+                                                            <input type="checkbox" name="seat[]" class="selectSeat" value="56" > 56
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-8">
+                                                            <fieldset class="hidden errorDivSelectSeat">
+                                                                <center><label for="noPassangerReturn" style="color:red">You select seat  more than no of passenger </label></center>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <!-- Button Div -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-prev-form='4' class="pagefour btn prevbtn">Prev</button>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <button type="button" id="form-submit" data-next-form='6' class="btn nextbtn">Next</button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- Step 6 -->
+                                <div class="submit-form form6 hidden">
+                                    <center>
+                                        <h4>Passenger Details</h4>
+                                    </center>
+                                    <!-- Label Div -->
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <input type="text" id="bookingId" name="bookingId">
+                                            <input type="text" id="tripID" name="tripID">
+                                            <input type="text" id="freeseats" name="freeseats">
+                                            <input type="text" id="totalfare" name="totalfare">
+                                            <input type="text" id="vehicleTotalFare" name="vehicleTotalFare">
+                                            <input type="text" id="grandtotal" name="grandtotal">
+                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Type :&nbsp;<span class="ferryTypeText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">No of Passenger :&nbsp;<span class="noOfPassanger"></span></label>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    <label for="from">Total Amount :&nbsp;<span class="totalamountText"></span></label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -660,21 +987,21 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="button" id="form-submit" data-prev-form='4' class="pagefour btn prevbtn">Prev</button>
+                                                    <button type="button" id="form-submit" data-prev-form='4' class="passangerDetails btn prevbtn">Prev</button>
                                                 </fieldset>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="button" id="form-submit" data-next-form='6' class="btn nextbtn">Next</button>
+                                                    <button type="button" id="form-submit" data-next-form='7' class="btn nextbtn">Next</button>
                                                 </fieldset>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Step 6 -->
-                                <div class="submit-form form6 hidden">
+                                <!-- Step 7 -->
+                                <div class="submit-form form7 hidden">
                                     <center>
                                         <h4>Confirm Your Ticket</h4>
                                     </center>
@@ -684,7 +1011,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry :&nbsp;<span class="ferryText"></span></label>
+                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
                                                 </fieldset>
                                             </div>
 
@@ -698,7 +1025,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <label for="from">Ferry Route :&nbsp;<span class="ferryRouteText"></span></label>
+                                                    <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
                                                 </fieldset>
                                             </div>
 
@@ -707,20 +1034,6 @@
                                                     <label for="from">Ferry Date :&nbsp;<span class="ferryDateText"></span></label>
                                                 </fieldset>
                                             </div>
-                                        </div>
-                                        
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-<!--                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
-                                                </fieldset>
-                                            </div>-->
                                         </div>
                                         
                                         <div class="col-md-12">
@@ -788,13 +1101,13 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="button" id="form-submit" data-prev-form='5' class="pagefour btn prevbtn">Prev</button>
+                                                    <button type="button" id="form-submit" data-prev-form='6' class="pagefour btn prevbtn">Prev</button>
                                                 </fieldset>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <fieldset>
-                                                    <button type="submit" id="form-submit" data-next-form='7' class="btn nextbtn">Make Payment</button>
+                                                    <button type="submit" id="form-submit" data-next-form='8' class="btn nextbtn">Make Payment</button>
                                                 </fieldset>
                                             </div>
                                         </div>

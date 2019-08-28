@@ -9,11 +9,15 @@ class Booking extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-                $this->load->model(BOOKING_MODEL,'this_model');
+                $this->load->model(BOOKING_MODEL,'this_model');                
+                $this->load->library('Pdf');
 	}
 
 	public function index(){
 	      if (isset($this->session->userdata['roroferry_admin'])) {
+                  
+                  $data['route']= $this->this_model->routeList();
+                  
                   $data['title']='Roroferry - Booking';
                   $data['meta']='Roroferry - Booking';
                   $data['page'] = PAGES.'booking/booking-list'; 
@@ -39,7 +43,45 @@ class Booking extends CI_Controller
             }   
 	}
         
-        public function ajaxcall(){
+        public function reportPdf(){
+            $details=$this->input->post();
+            $data['date']=$details['date'];
+            $data['route']=$details['route'];
+            $data['ferryTime']=$details['ferryTime'];
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            $data['routeName']=  $this->this_model->route($details['route']);
+            $data['passangerDetails']=  $this->this_model->reportDetails($details);
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Nicola Asuni');
+            $pdf->SetTitle('TCPDF Example 006');
+            $pdf->SetSubject('TCPDF Tutorial');
+            $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+            $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+            $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+            $lg = Array();
+            $lg['a_meta_charset'] = 'UTF-8';
+            $lg['a_meta_dir'] = 'rtl';
+            $lg['a_meta_language'] = 'fa';
+            $lg['w_page'] = 'page';
+            $pdf->setLanguageArray($lg);
+            $pdf->SetFont('freeserif', '', 10);
+            $pdf->AddPage();
+            $pdf->setRTL(false);
+            $new_html = $this->load->view(PAGES.'booking/reportPdf', $data,true);
+            $pdf->WriteHTML($new_html, true, 0, true, 0);
+            ob_end_clean();  
+            $pdf->Output(FCPATH.'public/uploads/reportPdf/'.'Report'.$data['date'].'.pdf', 'F');
+            echo base_url().'public/uploads/reportPdf/'.'Report'.$data['date'].'.pdf' ;
+            exit();
+        }
+
+                public function ajaxcall(){
             $action= $this->input->post('action');
             switch ($action) {
                 
@@ -55,6 +97,7 @@ class Booking extends CI_Controller
                         $sub_array = array();
                         $sub_array[] = $no; 
                         $sub_array[] = $row->pnrNumber;
+                        $sub_array[] = $row->seatNo;
                         $sub_array[] = $row->route;
                         $sub_array[] = date("d-m-Y" , strtotime($row->depatureDate));
                         $sub_array[] = $row->ferryTime;  

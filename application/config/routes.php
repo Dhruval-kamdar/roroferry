@@ -70,8 +70,12 @@ $route['get-trip-pickUp'] = 'homepage/GetTripPickUpStaion';
 $route['get-trip-drop'] = 'homepage/GetTripDropStaion';
 $route['get-without-cargo-trips'] = 'homepage/GetWithoutCargoTrips';
 $route['get-booking'] = 'homepage/GetBooking';
+$route['get-cargo-booking'] = 'homepage/GetCargoBooking';
+$route['updateCargoPassengerDetails'] = 'homepage/updateCargoPassengerDetails';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';
+$route['get-total-number-seat'] = 'homepage/getTotalNumberSeat';
+$route['get-all-seat'] = 'homepage/getTotalSeat';
 $route['submit-booking'] = 'homepage/submitBooking';
 $route['payment'] = 'homepage/makePayment';
 $route['payment-compelete'] = 'homepage/paymentCompelete';
@@ -80,6 +84,8 @@ $route['send-mail'] = 'homepage/sendConfirmMail';
 $route['terms-condition'] = 'homepage/termsCondition';
 $route['refund-cancellation'] = 'homepage/refundCancellation';
 $route['privacy-policy'] = 'homepage/privacyPolicy';
+$route['a_booking']='homepage/a_booking';
+
 
 //*******************************Admin Route *****************************************//
 $route['admin'] = 'admin/login';
@@ -106,7 +112,7 @@ $route['routeTimeList'] = 'admin/admin/station/station/routeTimeList';
 //*******************************Admin booking Route *****************************************//
 $route['booking'] = 'admin/admin/booking/booking';
 $route['booking-ajaxcall'] = 'admin/admin/booking/booking/ajaxcall';
-
+$route['report-pdf'] = 'admin/admin/booking/booking/reportPdf';
 
 $route['test-pdf'] = 'homepage/testpdf';
 //$route['payment-inquiry'] = 'homepage/paymentInquiry';
