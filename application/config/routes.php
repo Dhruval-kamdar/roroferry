@@ -71,6 +71,7 @@ $route['get-trip-drop'] = 'homepage/GetTripDropStaion';
 $route['get-without-cargo-trips'] = 'homepage/GetWithoutCargoTrips';
 $route['get-booking'] = 'homepage/GetBooking';
 $route['get-cargo-booking'] = 'homepage/GetCargoBooking';
+$route['get-withoutcargo-booking'] = 'homepage/getWithoutcargoBooking';
 $route['updateCargoPassengerDetails'] = 'homepage/updateCargoPassengerDetails';
 
 $route['get-pickup-detail'] = 'homepage/getPickupDetail';

@@ -592,20 +592,61 @@ class Homepage extends CI_Controller {
     }
     
     public function updateCargoPassengerDetails(){
-        print_r($this->input->post());
-        die();
+         
+        $passangerArry =[];
+        for($i = 0 ; $i < count($this->input->post('passaangerName')) ; $i++){
+            $temppassangerArry[$i]=[
+                        'name'=>$this->input->post('passaangerName')[$i],
+                        'age'=>$this->input->post('passaangerAge')[$i],
+                        'gender'=>$this->input->post('passaangerGender')[$i],
+                    ];
+                    array_push($passangerArry,$temppassangerArry[$i]);
+        }
+//        $passengerDetails=json_encode($passangerArry);
         $fields = array(
-            "tripID" => $this->input->post('tripId'),
-            "noOfPassengers" => $this->input->post('noPassanger'),
-            "noOfInfants" => "0",
-            "noOfChilds" => "0",
-            "className" => $this->input->post('ferryClass'),
-            "vehicleCategoryID" => $this->input->post('vehicalId'),
+            "bookingID"=> $this->input->post('bookingId'),
+            "passengerDetails" =>$passangerArry ,
         );
-        
+         
         $data = http_build_query($fields);
+       
         $token = $this->session->userdata('token');
         $url = "http://test.dgseaconnect.com/api/api/A_UpdatePassengerDetails";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+           
+        echo json_encode($result);
+        exit;
+    }
+    
+    public function getWithoutcargoBooking(){
+        if($this->input->post('noOfPassanger') == NULL){
+             $noOfPassanger=0;
+        }else{
+            $noOfPassanger=$this->input->post('noOfPassanger');
+        }
+        if($this->input->post('noOfChild') == NULL){
+             $noOfChild=0;
+        }else{
+            $noOfChild=$this->input->post('noOfChild');
+        }
+        if($this->input->post('noOfInfants') == NULL){
+             $noOfInfants=0;
+        }else{
+            $noOfInfants = $this->input->post('noOfInfants');
+        }
+        
+         $fields = array(
+            "tripID" => $this->input->post('tripId'),
+            "noOfPassengers" => $noOfPassanger,
+            "noOfInfants" => $noOfChild,
+            "noOfChilds" => $noOfInfants,
+            "className" => $this->input->post('className'),
+        );
+       
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_Booking";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
         echo json_encode($result);

@@ -14,7 +14,10 @@ var Home = function() {
                 phoneNumber: {required: true},
                 pinCode: {required: true},
                 cityName: {required: true},
+                licenseNo: {required: true},
+                vehicleNo: {required: true},
                 
+               
                 returntrip: {required: {depends: function(e) {  
                     return ($('input[name="trip"]:checked').val() == 'round');
                 }}},
@@ -51,6 +54,14 @@ var Home = function() {
 
                 trip: {
                     required: "please select trip"
+                },
+                 
+                licenseNo: {
+                    required: "please enter driver license no"
+                },
+
+                vehicleNo: {
+                    required: "please enter vehicle no"
                 },
 
                 fromstaton: {
@@ -323,7 +334,8 @@ var Home = function() {
             var nextForm = $(this).attr('data-next-form');
             if (nextForm == 2)
             {   
-                $(".bookingerror").text();
+                $(".bookingerror").text('');
+                $(".updatebookingerror").text(); 
                 validateTrip = true;
                 $('#bookticket').submit();
                 if (validateTrip)
@@ -348,7 +360,8 @@ var Home = function() {
             
             if (nextForm == 3)
             {   
-                $(".bookingerror").text();
+                $(".bookingerror").text('');
+                $(".updatebookingerror").text(); 
                 validateTrip = true;
                 $('#bookticket').submit();
                 if (validateTrip)
@@ -372,7 +385,8 @@ var Home = function() {
             }
             
             if(nextForm == 4){
-                $(".bookingerror").text();
+                $(".bookingerror").text('');
+                $(".updatebookingerror").text(); 
                 validateTrip = true;
                 
                 var trip_type = $("input[name='trip_type']:checked").val();
@@ -517,7 +531,8 @@ var Home = function() {
             
             if (nextForm == 5)
             {   
-                $(".bookingerror").text();
+                $(".bookingerror").text('');
+                $(".updatebookingerror").text(); 
                 validateTrip = true;
                 var transport_services = $("input[name='pickupservices']:checked").val();
                 var trip_type = $("input[name='trip_type']:checked").val();
@@ -536,7 +551,7 @@ var Home = function() {
                            var noPassangerequal = $('.noPassangerequal option:selected').val();
                            var noPassangerharter = $('.noPassangerharter option:selected').val();
 
-                           if(noPassangerlesstwo == " " ){
+                           if(noPassangerlesstwo == "" ){
                                noPassangerlesstwo = 0;
                            }
 
@@ -576,7 +591,8 @@ var Home = function() {
                         }
                     }
                 }else{
-                     $(".bookingerror").text();
+                     $(".bookingerror").text('');
+                     $(".updatebookingerror").text(); 
                 }
                 
             }
@@ -590,146 +606,163 @@ var Home = function() {
                         $('#bookticket').submit();
                         if (validateTrip)
                         {
-                   var ferryTime = $('.ferryTime option:selected').text();
-                   var ferryIdText = $('.ferryTime option:selected').attr('tripid');
-                   var ferryClass = $('.ferryClass option:selected').text();
-                   var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
-                   var noPassangerequal = $('.noPassangerequal option:selected').val();
-                   var noPassangerharter = $('.noPassangerharter option:selected').val();
-                   
-                   if(noPassangerlesstwo == " " ){
-                       noPassangerlesstwo = 0;
-                   }
-                   
-                   if(noPassangerequal == " " ){
-                       noPassangerequal = 0;
-                   }
-                   
-                   if(noPassangerharter == " " ){
-                       noPassangerharter = 0;
-                   }
-                   var sum = Number(noPassangerlesstwo) + Number(noPassangerequal) + Number(noPassangerharter) ;
-                    var busservices=$(".busservices:checked").val();
-                    if(busservices == "Self Services"){
-                        $('.errorDivSelectSeat').addClass('hidden');
-                        $('.noOfPassanger').text(sum);
-                        $('.ferryTimeText').text(ferryTime);
-                        $('.ferryClassText').text(ferryClass);
-                        var passangerDiv = '<div class="col-md-12">'+
-                                            '<div class="col-md-12 errorDiv">'+
-                                            '</div>'+
-                                      '</div>';
-                        for(var np = 1; np <= sum ; np++){
-                            var temp = "";
-                                temp='<div class="col-md-12">'+
-                                        '<div class="col-md-12" >'+
-                                            '<fieldset>'+
-                                              '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
-                                            '</fieldset>'+
-                                        '</div>'+
+                                var ferryTime = $('.ferryTime option:selected').text();
+                                var ferryIdText = $('.ferryTime option:selected').attr('tripid');
+                                var ferryClass = $('.ferryClass option:selected').text();
+                                var tripId=$('.ferryTime option:selected').attr('tripid');
+                                var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
+                                var noPassangerequal = $('.noPassangerequal option:selected').val();
+                                var noPassangerharter = $('.noPassangerharter option:selected').val();
 
-                                        '<div class="col-md-12" >'+
-                                            '<fieldset>'+
-                                                '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
-                                                '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
-                                                '<span for="passangerName" style="margin-left:7px" class="error"></span>'+
-                                            '</fieldset>'+
-                                        '</div>'+
+                                if(noPassangerlesstwo == " " || noPassangerlesstwo == null){
+                                    noPassangerlesstwo = 0;
+                                }
 
+                                if(noPassangerequal == " " || noPassangerequal == null){
+                                    noPassangerequal = 0;
+                                }
 
-                                            '<div class="col-md-6" >'+
-                                                '<fieldset>'+
-                                                    '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
-                                                    '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
-                                                    '<span for="passangerAge" style="margin-left:7px" class="error"></span>'+
-                                                '</fieldset>'+
-                                            '</div>'+
+                                if(noPassangerharter == " " || noPassangerharter == null){
+                                    noPassangerharter = 0;
+                                }
+                                var sum = Number(noPassangerlesstwo) + Number(noPassangerequal) + Number(noPassangerharter) ;
+                                var busservices=$(".busservices:checked").val();
+                                 if(busservices == "Self Services"){
+                                      var data = {
+                                                tripId:tripId,
+                                                noOfPassanger:noPassangerharter,
+                                                noOfInfants:noPassangerequal,
+                                                noOfChild:noPassangerlesstwo,
+                                                className:ferryClass};
+                                    
+                                        ajaxcall(baseurl + 'get-withoutcargo-booking', data, function(data) {
+                                            var returnOutput=JSON.parse(data);
+                                            
+                                            if(returnOutput.success){
+                                                $(".bookingerror").text('');
+                                                $('.errorDivSelectSeat').addClass('hidden');
+                                                $('.noOfPassanger').text(sum);
+                                                $('.ferryTimeText').text(ferryTime);
+                                                $('.ferryClassText').text(ferryClass);
+                                                var passangerDiv =  '<div class="col-md-12">'+
+                                                                    '<div class="col-md-12 errorDiv">'+
+                                                                    '</div>'+
+                                                                    '</div>';
+                                                for(var np = 1; np <= sum ; np++){
+                                                    var temp = "";
+                                                        temp='<div class="col-md-12">'+
+                                                                '<div class="col-md-12" >'+
+                                                                    '<fieldset>'+
+                                                                      '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
 
-                                            '<div class="col-md-6" >'+
-                                                '<fieldset>'+
-                                                    '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
-                                                    '<select class="passangerGender'+np+'   passangerGender form-control"  style="margin-left:7px" name="passangerGender[]">'+
-                                                        '<option value="">Select passanger gender</option>'+
-                                                        '<option value="Male">Male</option>'+
-                                                        '<option value="Female">Female</option>'+
-                                                    '</select>'+
-                                                    '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
-                                                '</fieldset>'+
-                                            '</div>'+
-                                     '</div>';
-                    
-                                passangerDiv = passangerDiv + temp ;
-                           }
-                                $('.passangerDiv').html(passangerDiv);
-                                $('.submit-form').addClass('hidden');
-                                $('.form' + nextForm).removeClass('hidden');
-                                $('.submit-form').addClass('hidden');
-                                $('.form' + nextForm).removeClass('hidden');
-                    }else{
-                         var seat= [];
-                        $('.selectSeat:checked').each(function() {           
-                            seat.push($(this).val());
-                        });
-                        
-                   if(sum != seat.length){
-                       $(".errorDivSelectSeat").removeClass('hidden'); 
-                   }else{
-                        $('.errorDivSelectSeat').addClass('hidden');
-                        $('.noOfPassanger').text(sum);
-                        $('.ferryTimeText').text(ferryTime);
-                        $('.ferryClassText').text(ferryClass);
-                        var passangerDiv = '<div class="col-md-12">'+
-                                            '<div class="col-md-12 errorDiv">'+
-                                            '</div>'+
-                                      '</div>';
-                        for(var np = 1; np <= sum ; np++){
-                            var temp = "";
-                                temp='<div class="col-md-12">'+
-                                        '<div class="col-md-12" >'+
-                                            '<fieldset>'+
-                                              '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
-                                            '</fieldset>'+
-                                        '</div>'+
-
-                                        '<div class="col-md-12" >'+
-                                            '<fieldset>'+
-                                                '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
-                                                '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
-                                                '<span for="passangerName" style="margin-left:7px" class="error"></span>'+
-                                            '</fieldset>'+
-                                        '</div>'+
+                                                                '<div class="col-md-12" >'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
+                                                                        '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                                                        '<span for="passangerName" style="margin-left:7px" class="error"></span>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
 
 
-                                            '<div class="col-md-6" >'+
-                                                '<fieldset>'+
-                                                    '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
-                                                    '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
-                                                    '<span for="passangerAge" style="margin-left:7px" class="error"></span>'+
-                                                '</fieldset>'+
-                                            '</div>'+
+                                                                    '<div class="col-md-6" >'+
+                                                                        '<fieldset>'+
+                                                                            '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
+                                                                            '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                                                            '<span for="passangerAge" style="margin-left:7px" class="error"></span>'+
+                                                                        '</fieldset>'+
+                                                                    '</div>'+
 
-                                            '<div class="col-md-6" >'+
-                                                '<fieldset>'+
-                                                    '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
-                                                    '<select class="passangerGender'+np+'   passangerGender form-control"  style="margin-left:7px" name="passangerGender[]">'+
-                                                        '<option value="">Select passanger gender</option>'+
-                                                        '<option value="Male">Male</option>'+
-                                                        '<option value="Female">Female</option>'+
-                                                    '</select>'+
-                                                    '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
-                                                '</fieldset>'+
-                                            '</div>'+
-                                     '</div>';
-                    
-                                passangerDiv = passangerDiv + temp ;
-                           }
-                                $('.passangerDiv').html(passangerDiv);
-                                $('.submit-form').addClass('hidden');
-                                $('.form' + nextForm).removeClass('hidden');
+                                                                    '<div class="col-md-6" >'+
+                                                                        '<fieldset>'+
+                                                                            '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
+                                                                            '<select class="passangerGender'+np+'   passangerGender form-control"  style="margin-left:7px" name="passangerGender[]">'+
+                                                                                '<option value="">Select passanger gender</option>'+
+                                                                                '<option value="Male">Male</option>'+
+                                                                                '<option value="Female">Female</option>'+
+                                                                            '</select>'+
+                                                                            '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
+                                                                        '</fieldset>'+
+                                                                    '</div>'+
+                                                             '</div>';
+
+                                                        passangerDiv = passangerDiv + temp ;
+                                                   }
+                                                 $('.withvehicleDetails').addClass("hidden");
+                                                 $('.passangerDiv').html(passangerDiv);
+                                                 $('.submit-form').addClass('hidden');
+                                                 $('.form' + nextForm).removeClass('hidden');
+                                                 $('.submit-form').addClass('hidden');
+                                                 $('.form' + nextForm).removeClass('hidden');
+                                            }else{
+                                                $(".bookingerror").text(returnOutput.message);
+                                            }
+                                        });
+                                 }else{
+                                      var seat= [];
+                                     $('.selectSeat:checked').each(function() {           
+                                         seat.push($(this).val());
+                                     });
+
+                                if(sum != seat.length){
+                                    $(".errorDivSelectSeat").removeClass('hidden'); 
+                                }else{
+                                     $('.errorDivSelectSeat').addClass('hidden');
+                                     $('.noOfPassanger').text(sum);
+                                     $('.ferryTimeText').text(ferryTime);
+                                     $('.ferryClassText').text(ferryClass);
+                                     var passangerDiv = '<div class="col-md-12">'+
+                                                         '<div class="col-md-12 errorDiv">'+
+                                                         '</div>'+
+                                                   '</div>';
+                                     for(var np = 1; np <= sum ; np++){
+                                         var temp = "";
+                                             temp='<div class="col-md-12">'+
+                                                     '<div class="col-md-12" >'+
+                                                         '<fieldset>'+
+                                                           '<label for="tripDropTime" style="margin-left:7px">Passanger No :'+ np  +'</label>'+
+                                                         '</fieldset>'+
+                                                     '</div>'+
+
+                                                     '<div class="col-md-12" >'+
+                                                         '<fieldset>'+
+                                                             '<label for="passangerName" style="margin-left:7px">Passanger Name :</label>'+
+                                                             '<input type="text" name="passanger[]" class="passanger'+np+' passanger form-control" placeholder="Enter passanger name" autocomplete="off">'+
+                                                             '<span for="passangerName" style="margin-left:7px" class="error"></span>'+
+                                                         '</fieldset>'+
+                                                     '</div>'+
+
+
+                                                         '<div class="col-md-6" >'+
+                                                             '<fieldset>'+
+                                                                 '<label for="tripDropTime" style="margin-left:7px">Passanger Age :</label>'+
+                                                                 '<input type="text" name="passangerAge[]" class="passangerAge'+ np + '  passangerAge form-control" placeholder="Enter passanger age" autocomplete="off">'+
+                                                                 '<span for="passangerAge" style="margin-left:7px" class="error"></span>'+
+                                                             '</fieldset>'+
+                                                         '</div>'+
+
+                                                         '<div class="col-md-6" >'+
+                                                             '<fieldset>'+
+                                                                 '<label for="tripDropTime" style="margin-left:7px">Passanger Gender :</label>'+
+                                                                 '<select class="passangerGender'+np+'   passangerGender form-control"  style="margin-left:7px" name="passangerGender[]">'+
+                                                                     '<option value="">Select passanger gender</option>'+
+                                                                     '<option value="Male">Male</option>'+
+                                                                     '<option value="Female">Female</option>'+
+                                                                 '</select>'+
+                                                                 '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
+                                                             '</fieldset>'+
+                                                         '</div>'+
+                                                  '</div>';
+
+                                             passangerDiv = passangerDiv + temp ;
+                                        }
+                                             $('.passangerDiv').html(passangerDiv);
+                                             $('.submit-form').addClass('hidden');
+                                             $('.form' + nextForm).removeClass('hidden');
+                                     }
+                                 }
                         }
-                    }
-                    
-            }
                     }else{
                        validateTrip = true;
                         $('#bookticket').submit();
@@ -747,7 +780,8 @@ var Home = function() {
                                     var returnOutput=JSON.parse(data);
                                     
                                     if(returnOutput.success){
-                                        $(".bookingerror").text();
+                                        $(".bookingerror").text('');
+                                        $(".updatebookingerror").text();
                                         $('#bookingId').val(returnOutput.data.bookingID);
                                         $('#tripID').val(returnOutput.data.tripID);
                                         $('#freeseats').val(returnOutput.data.freeSeats);
@@ -756,6 +790,7 @@ var Home = function() {
                                         $('#grandtotal').val(returnOutput.data.grandTotal);
                                         $('.errorDivSelectSeat').addClass('hidden');
                                         $('.noOfPassanger').text(sum);
+                                        $('.withvehicleDetails').removeClass("hidden");
                                         $('.ferryTimeText').text(ferryTime);
                                         $('.ferryClassText').text(ferryClass);
                                         $('.totalamountText').text(returnOutput.data.grandTotal);
@@ -800,7 +835,7 @@ var Home = function() {
                                                                      '<span for="passangerGender" style="margin-left:7px" class=" error"></span>'+
                                                                  '</fieldset>'+
                                                              '</div>'+
-                                                      '</div>';
+                                                      '</div><hr>';
 
                                                  passangerDiv = passangerDiv + temp ;
                                             }
@@ -810,6 +845,7 @@ var Home = function() {
                                        
                                     }else{
                                         $(".bookingerror").text(returnOutput.message);
+                                        $(".updatebookingerror").text(); 
                                     }    
                                 });                                      
                         } 
@@ -897,6 +933,7 @@ var Home = function() {
                             $('.form' + nextForm).removeClass('hidden');
                         }
                     }else{
+                        
                         validateTrip = true;
                         $('#bookticket').submit();
                         if (validateTrip == true && customValid == true){
@@ -905,28 +942,19 @@ var Home = function() {
                             if (validateTrip == true && customValid == true){
                             var tripId=$('.ferryTime option:selected').attr('tripid');
                             var ferryClass=$('.ferryClass option:selected').val();
-                            var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
-                            var noPassangerequal = $('.noPassangerequal option:selected').val();
-                            var noPassangerharter = $('.noPassangerharter option:selected').val();
-
-                            if(noPassangerlesstwo == "" || noPassangerlesstwo == null){
-                                noPassangerlesstwo = 0;
-                            }
-
-                            if(noPassangerequal == "" || noPassangerequal == null){
-                                noPassangerequal = 0;
-                            }
-
-                            if(noPassangerharter == "" || noPassangerharter == null){
-                                noPassangerharter = 0;
-                            }
+                            var noPassanger = $(".noPassanger option:selected").val();
+                            var sum = Number(noPassanger);
+                            
                             var bookingId =  $('#bookingId').val();
                             var email = $(".emailAddress").val();
                             var phoneNumber = $(".phoneNumber").val();
+                            var vehicleNo = $(".vehicleNo").val();
+                            var licenseNo = $(".licenseNo").val();
                             var NOP =$('#noOfPassanger').text();
                             var passaangerName = [];
                             var passaangerAge = [];
                             var passaangerGender = [];
+                            
                             for(var NPARRAY=1; NPARRAY <= NOP ; NPARRAY++){
                                 var passangerName = '.passanger'+NPARRAY;
                                 var passangerAge = '.passangerAge'+NPARRAY;
@@ -935,72 +963,62 @@ var Home = function() {
                                 passaangerAge.push($(passangerAge).val());
                                 passaangerGender.push($(passangerGender).val());
                             }
+                            
                             var passangerDetails = {
                                 passaangerName : passaangerName,
                                 passaangerAge : passaangerAge,
                                 passaangerGender : passaangerGender,
                                 bookingId:bookingId,
                             };
+                            
                              ajaxcall(baseurl + 'updateCargoPassengerDetails', passangerDetails, function(data) {
                                 var outputBooking=JSON.parse(data);
-                                console.log(outputBooking);
-                                exit();
+                                if(outputBooking.success){
+                                    var NOPhtml='';
+                                     for(var NP=1; NP <= NOP ; NP++){
+                                        var passangerName = '.passanger'+NP;
+                                        var passangerAge = '.passangerAge'+NP;
+                                        var passangerGender = '.passangerGender'+NP;
+                                        var temp_NOPhtml='';
+                                        temp_NOPhtml='<div class="col-md-12" style="margin-top:15px" >'+
+                                                                '<div class="col-md-12">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger No : '+ NP +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-12">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Name : '+ $(passangerName).val() +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+
+                                                                '<div class="col-md-6">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Age : '+ $(passangerAge).val() +'&nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+
+                                                                '<div class="col-md-6">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Gender : '+ $(passangerGender).val() +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+                                                            '</div><br><br><br>';
+                                        NOPhtml= NOPhtml + temp_NOPhtml;
+                                    }
+                                    
+                                    $('.passangeTextDiv').html(NOPhtml);
+                                    $('.passangrrEmailText').text(email);
+                                    $('.phoneNumberText').text(phoneNumber);
+                                    $('.lincenseNoText').text(licenseNo);
+                                    $('.vehicleNOText').text(vehicleNo);
+                                    $(".totalamountText").text($('#grandtotal').val());
+                                    $('.submit-form').addClass('hidden');
+                                    $('.form' + nextForm).removeClass('hidden');
+                                }else{
+                                    $(".updatebookingerror").text(outputBooking.message);
+                                }
                             });
-//                            var postDataSeat={tripId:tripId,
-//                                        ferryClass:ferryClass,
-//                                        noPassangerequal:noPassangerequal,
-//                                        noPassangerharter:noPassangerharter,
-//                                        noPassangerlesstwo:noPassangerlesstwo};
-//                            ajaxcall(baseurl + 'a_booking', postDataSeat, function(data) {
-//                                var outputBooking=JSON.parse(data);
-//                                console.log(outputBooking);
-//                                exit();
-//        //                        $(".numberOfSeatRemainingText").text(outputSeat);
-//                            }); 
-//                            var email = $(".emailAddress").val();
-//                            var phoneNumber = $(".phoneNumber").val();
-//                            var NOP =$('#noOfPassanger').text();
-//                            var totalAmountText = NOP * 550;
-//                            var NOPhtml='';
-//=============================================================================
-//                            for(var NP=1; NP <= NOP ; NP++){
-//                                var passangerName = '.passanger'+NP;
-//                                var passangerAge = '.passangerAge'+NP;
-//                                var passangerGender = '.passangerGender'+NP;
-//                                var temp_NOPhtml='';
-//                                temp_NOPhtml='<div class="col-md-12" style="margin-top:15px" >'+
-//                                                        '<div class="col-md-12">'+
-//                                                            '<fieldset>'+
-//                                                                '<label for="from">Passanger No : '+ NP +' &nbsp;</label>'+
-//                                                            '</fieldset>'+
-//                                                        '</div>'+
-//                                                        '<div class="col-md-12">'+
-//                                                            '<fieldset>'+
-//                                                                '<label for="from">Passanger Name : '+ $(passangerName).val() +' &nbsp;</label>'+
-//                                                            '</fieldset>'+
-//                                                        '</div>'+
-//
-//                                                        '<div class="col-md-6">'+
-//                                                            '<fieldset>'+
-//                                                                '<label for="from">Passanger Age : '+ $(passangerAge).val() +'&nbsp;</label>'+
-//                                                            '</fieldset>'+
-//                                                        '</div>'+
-//
-//                                                        '<div class="col-md-6">'+
-//                                                            '<fieldset>'+
-//                                                                '<label for="from">Passanger Gender : '+ $(passangerGender).val() +' &nbsp;</label>'+
-//                                                            '</fieldset>'+
-//                                                        '</div>'+
-//                                                    '</div><br><br><br>';
-//                                NOPhtml= NOPhtml + temp_NOPhtml;
-//                            }
-//                            $('.passangeTextDiv').html(NOPhtml);
-//                            $('.passangrrEmailText').text(email);
-//                            $('.phoneNumberText').text(phoneNumber);
-//                            $('.totalAmountText').text(totalAmountText);
-//
-//                            $('.submit-form').addClass('hidden');
-//                            $('.form' + nextForm).removeClass('hidden');
                         }
                     }
                 }
@@ -1020,7 +1038,8 @@ var Home = function() {
         });
         
         $('body').on('click', '.prevbtn', function() {
-            $(".bookingerror").text();
+            $(".bookingerror").text('');
+            $(".updatebookingerror").text(); 
              var prvForm = $(this).attr('data-prev-form');
                 $('.submit-form').addClass('hidden');
                 $('.form' + prvForm).removeClass('hidden'); 

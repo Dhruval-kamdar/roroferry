@@ -331,7 +331,7 @@
                                 <div class="submit-form form4 hidden">
                                     <center>
                                         <h4>Trip Details</h4>
-                                        <p class="bookingerror" style="color:red"></p>
+                                        <b><p class="bookingerror" style="color:red"></p></b>
                                     </center>
                                     <!-- Label Div -->
 
@@ -872,16 +872,25 @@
                                 <div class="submit-form form6 hidden">
                                     <center>
                                         <h4>Passenger Details</h4>
+                                        <p class="updatebookingerror" style="color:red"></p>
                                     </center>
                                     <!-- Label Div -->
                                     <div class="row">
-                                        <div class="col-md-12 ">
+                                        <div class="col-md-12 hidden">
                                             <input type="text" id="bookingId" name="bookingId">
                                             <input type="text" id="tripID" name="tripID">
                                             <input type="text" id="freeseats" name="freeseats">
                                             <input type="text" id="totalfare" name="totalfare">
                                             <input type="text" id="vehicleTotalFare" name="vehicleTotalFare">
                                             <input type="text" id="grandtotal" name="grandtotal">
+                                         </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 hidden">
+                                            <input type="text" id="withoutcargobookingId" name="bookingId">
+                                            <input type="text" id="withoutcargototalfare" name="totalfare">
+                                            <input type="text" id="withoutcargograndtotal" name="grandtotal">
                                          </div>
                                     </div>
                                     <div class="row">
@@ -975,6 +984,28 @@
                                             </div>
                                             
                                         </div>
+                                        <div class="withvehicleDetails">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <label for="Vehicle No" style="margin-left:7px">Vehicle No :</label>
+                                                            <input type="text" class="vehicleNo form-control"  name="vehicleNo" placeholder="Enter your vehicle no" autocomplete="off">
+                                                            <label for="vehicleNo" class=" error"></label>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <label for="licenseNo" style="margin-left:7px">Driver License NO :</label>
+                                                            <input type="text" class="licenseNo form-control"  name="licenseNo" placeholder="Enter your driver license no" autocomplete="off">
+                                                            <label for="licenseNo" class=" error"></label>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        
                                         
                                         <div class="row">
                                             <div class="col-md-12 passangerDiv" style="margin-top:30px">
@@ -1044,26 +1075,13 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-md-12 hidden returnTripTextDiv" id="returnTripTextDiv">
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Route:&nbsp;<span class="returnferryRouteText"></span></label>
-                                                </fieldset>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Return Ferry Date :&nbsp;<span class="returnferryTypeDateText"></span></label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
                                     </div>
                                     <br><br>
                                     <!-- Input Div -->
                                     <div class="row">
                                         <div class="col-md-12">
                                             <center>
-                                                <h4>Passanger's Details :</h4>
+                                                <h4>Passenger's Details :</h4>
                                             </center>
                                             <div class="col-md-12" >
                                                 <div class="col-md-12">
@@ -1085,7 +1103,23 @@
                                             <div class="col-md-12" >
                                                 <div class="col-md-12">
                                                     <fieldset>
-                                                        <label for="from">Total Amount : &nbsp;<span class="totalAmountText"></span></label>
+                                                        <label for="from">Your Vehicle No : &nbsp;<span class="vehicleNOText"></span></label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12" >
+                                                <div class="col-md-12">
+                                                    <fieldset>
+                                                        <label for="from">Your License No : &nbsp;<span class="lincenseNoText"></span></label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12" >
+                                                <div class="col-md-12">
+                                                    <fieldset>
+                                                        <label for="from">Total Amount : &nbsp;<span class="totalamountText"></span></label>
                                                     </fieldset>
                                                 </div>
                                             </div>
