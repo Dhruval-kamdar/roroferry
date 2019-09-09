@@ -639,6 +639,13 @@ var Home = function() {
                                             var returnOutput=JSON.parse(data);
                                             
                                             if(returnOutput.success){
+                                                $(".vehicledetails").addClass("hidden");
+                                                $('#bookingId').val(returnOutput.data.bookingID);
+                                                $('#tripID').val(tripId);
+                                                $('#totalfare').val(returnOutput.data.totalFare);
+                                                $('#grandtotal').val(returnOutput.data.grandTotal);
+
+                                                $('.totalamountText').text(returnOutput.data.grandTotal);
                                                 $(".bookingerror").text('');
                                                 $('.errorDivSelectSeat').addClass('hidden');
                                                 $('.noOfPassanger').text(sum);
@@ -696,6 +703,7 @@ var Home = function() {
                                                  $('.submit-form').addClass('hidden');
                                                  $('.form' + nextForm).removeClass('hidden');
                                             }else{
+                                                 $(".vehicledetails").removeClass("hidden");
                                                 $(".bookingerror").text(returnOutput.message);
                                             }
                                         });
@@ -780,6 +788,7 @@ var Home = function() {
                                     var returnOutput=JSON.parse(data);
                                     
                                     if(returnOutput.success){
+                                        $(".vehicledetails").removeClass("hidden");
                                         $(".bookingerror").text('');
                                         $(".updatebookingerror").text();
                                         $('#bookingId').val(returnOutput.data.bookingID);
@@ -856,6 +865,7 @@ var Home = function() {
             {  
                 var trip_type = $("input[name='trip_type']:checked").val();
                     if(trip_type ==  'Without vehicle'){
+                        
                         validateTrip = true;
                         $('#bookticket').submit();
                         if (validateTrip == true && customValid == true){
@@ -864,7 +874,7 @@ var Home = function() {
                             var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
                             var noPassangerequal = $('.noPassangerequal option:selected').val();
                             var noPassangerharter = $('.noPassangerharter option:selected').val();
-
+                            var bookingId =  $('#bookingId').val();
                             if(noPassangerlesstwo == "" || noPassangerlesstwo == null){
                                 noPassangerlesstwo = 0;
                             }
@@ -876,61 +886,81 @@ var Home = function() {
                             if(noPassangerharter == "" || noPassangerharter == null){
                                 noPassangerharter = 0;
                             }
-
-                            var postDataSeat={tripId:tripId,
-                                        ferryClass:ferryClass,
-                                        noPassangerequal:noPassangerequal,
-                                        noPassangerharter:noPassangerharter,
-                                        noPassangerlesstwo:noPassangerlesstwo};
-                            ajaxcall(baseurl + 'a_booking', postDataSeat, function(data) {
-                                var outputBooking=JSON.parse(data);
-                                console.log(outputBooking);
-                                exit();
-        //                        $(".numberOfSeatRemainingText").text(outputSeat);
-                            }); 
-                            var email = $(".emailAddress").val();
-                            var phoneNumber = $(".phoneNumber").val();
                             var NOP =$('#noOfPassanger').text();
-                            var totalAmountText = NOP * 550;
-                            var NOPhtml='';
-                            for(var NP=1; NP <= NOP ; NP++){
-                                var passangerName = '.passanger'+NP;
-                                var passangerAge = '.passangerAge'+NP;
-                                var passangerGender = '.passangerGender'+NP;
-                                var temp_NOPhtml='';
-                                temp_NOPhtml='<div class="col-md-12" style="margin-top:15px" >'+
-                                                        '<div class="col-md-12">'+
-                                                            '<fieldset>'+
-                                                                '<label for="from">Passanger No : '+ NP +' &nbsp;</label>'+
-                                                            '</fieldset>'+
-                                                        '</div>'+
-                                                        '<div class="col-md-12">'+
-                                                            '<fieldset>'+
-                                                                '<label for="from">Passanger Name : '+ $(passangerName).val() +' &nbsp;</label>'+
-                                                            '</fieldset>'+
-                                                        '</div>'+
-
-                                                        '<div class="col-md-6">'+
-                                                            '<fieldset>'+
-                                                                '<label for="from">Passanger Age : '+ $(passangerAge).val() +'&nbsp;</label>'+
-                                                            '</fieldset>'+
-                                                        '</div>'+
-
-                                                        '<div class="col-md-6">'+
-                                                            '<fieldset>'+
-                                                                '<label for="from">Passanger Gender : '+ $(passangerGender).val() +' &nbsp;</label>'+
-                                                            '</fieldset>'+
-                                                        '</div>'+
-                                                    '</div><br><br><br>';
-                                NOPhtml= NOPhtml + temp_NOPhtml;
+                            
+                            var passaangerName = [];
+                            var passaangerAge = [];
+                            var passaangerGender = [];
+                            
+                            for(var NPARRAY=1; NPARRAY <= NOP ; NPARRAY++){
+                                var passangerName = '.passanger'+NPARRAY;
+                                var passangerAge = '.passangerAge'+NPARRAY;
+                                var passangerGender = '.passangerGender'+NPARRAY;
+                                passaangerName.push($(passangerName).val());
+                                passaangerAge.push($(passangerAge).val());
+                                passaangerGender.push($(passangerGender).val());
                             }
-                            $('.passangeTextDiv').html(NOPhtml);
-                            $('.passangrrEmailText').text(email);
-                            $('.phoneNumberText').text(phoneNumber);
-                            $('.totalAmountText').text(totalAmountText);
+                           
+                            var passangerDetails = {
+                                passaangerName : passaangerName,
+                                passaangerAge : passaangerAge,
+                                passaangerGender : passaangerGender,
+                                bookingId:bookingId,
+                            };
+                            
+                            ajaxcall(baseurl + 'A_UpdateCargoPassengerDetails', passangerDetails, function(data) {
+                                var outputBooking=JSON.parse(data);
+                               
+                                if(outputBooking.message == "Success"){
+                                    var email = $(".emailAddress").val();
+                                    var phoneNumber = $(".phoneNumber").val();
+                                    var NOP =$('#noOfPassanger').text();
+                                    var totalAmountText = NOP * 550;
+                                    var NOPhtml='';
+                                    for(var NP=1; NP <= NOP ; NP++){
+                                        var passangerName = '.passanger'+NP;
+                                        var passangerAge = '.passangerAge'+NP;
+                                        var passangerGender = '.passangerGender'+NP;
+                                        var temp_NOPhtml='';
+                                        temp_NOPhtml='<div class="col-md-12" style="margin-top:15px" >'+
+                                                                '<div class="col-md-12">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger No : '+ NP +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-12">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Name : '+ $(passangerName).val() +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
 
-                            $('.submit-form').addClass('hidden');
-                            $('.form' + nextForm).removeClass('hidden');
+                                                                '<div class="col-md-6">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Age : '+ $(passangerAge).val() +'&nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+
+                                                                '<div class="col-md-6">'+
+                                                                    '<fieldset>'+
+                                                                        '<label for="from">Passanger Gender : '+ $(passangerGender).val() +' &nbsp;</label>'+
+                                                                    '</fieldset>'+
+                                                                '</div>'+
+                                                            '</div><br><br><br>';
+                                        NOPhtml= NOPhtml + temp_NOPhtml;
+                                    }
+                                    $('.passangeTextDiv').html(NOPhtml);
+                                    $('.passangrrEmailText').text(email);
+                                    $('.phoneNumberText').text(phoneNumber);
+                                    $('.totalAmountText').text(totalAmountText);
+
+                                    $('.submit-form').addClass('hidden');
+                                    $('.form' + nextForm).removeClass('hidden');  
+                                }else{
+                                    $(".updatebookingerror").text(outputBooking.message);
+                                }
+                                
+                            }); 
+                            
                         }
                     }else{
                         
@@ -946,6 +976,7 @@ var Home = function() {
                             var sum = Number(noPassanger);
                             
                             var bookingId =  $('#bookingId').val();
+                          
                             var email = $(".emailAddress").val();
                             var phoneNumber = $(".phoneNumber").val();
                             var vehicleNo = $(".vehicleNo").val();
@@ -1026,14 +1057,73 @@ var Home = function() {
             }
             
             if(nextForm == 8){
-                var totalAmmount=$(".totalAmountText").text();
-                
-                validateTrip = true;
-                $('#bookticket').submit();
-                if (validateTrip == true){
-                    submitFrom = true ;
-                    $('#bookticket').submit();
+                var trip_type = $("input[name='trip_type']:checked").val();
+                if(trip_type ==  'Without vehicle'){ 
+                    var bookingId =  $('#bookingId').val();
+                    var email =  $('#emailAddress').val();
+                    var mobile =  $('#phoneNumber').val();
+                    var data={
+                         bookingID:bookingId,
+                         email:email,
+                         mobile:mobile,
+                     };
+                     ajaxcall(baseurl + 'withoutcargoconfirmCargoBooking', data, function(data) {
+                        var returnOutput=JSON.parse(data);
+                        if(returnOutput.success){
+                            $(".confirmError").text('');
+                            $("#pnrNo").val(returnOutput.data.pnrNo);
+                            validateTrip = true;
+                            $('#bookticket').submit();
+                            if (validateTrip == true){
+                                submitFrom = true ;
+                                $('#bookticket').submit();
+                            }
+                        }else{
+                            $(".confirmError").text(returnOutput.message);
+                        }
+                    });
+                }else{
+                    var bookingId =  $('#bookingId').val();
+                    var email =  $('#emailAddress').val();
+                    var mobile =  $('#phoneNumber').val();
+                    var vehicleno =  $('#vehicleNo').val();
+                    var licenseno =  $('#licenseNo').val();
+                    var noPassanger = $("#noPassanger option:selected").val();
+                    var data={
+                         bookingID:bookingId,
+                         returnBookingID:0,
+                         email:email,
+                         mobile:mobile,
+                         vehicleRegNo:vehicleno,
+                         driverLicenseNo:licenseno,
+                         NoOfPassengers:noPassanger,
+                         NoOfInfants:0,
+                     };
+                    ajaxcall(baseurl + 'confirmCargoBooking', data, function(data) {
+                        var returnOutput=JSON.parse(data);
+                        $("#pnrNo").val(returnOutput.data.pnrNo);
+                        if(returnOutput.success){
+                            $(".confirmError").text('');
+                            validateTrip = true;
+                            $('#bookticket').submit();
+                            if (validateTrip == true){
+                                submitFrom = true ;
+                                $('#bookticket').submit();
+                            }
+                        }else{
+                            $(".confirmError").text(returnOutput.message);
+                        }
+                    });
+                    
                 }
+//                var totalAmmount=$(".totalAmountText").text();
+//                
+//                validateTrip = true;
+//                $('#bookticket').submit();
+//                if (validateTrip == true){
+//                    submitFrom = true ;
+//                    $('#bookticket').submit();
+//                }
             }
         });
         

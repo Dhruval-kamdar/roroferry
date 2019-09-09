@@ -86,6 +86,9 @@ $route['terms-condition'] = 'homepage/termsCondition';
 $route['refund-cancellation'] = 'homepage/refundCancellation';
 $route['privacy-policy'] = 'homepage/privacyPolicy';
 $route['a_booking']='homepage/a_booking';
+$route['A_UpdateCargoPassengerDetails']='homepage/A_UpdateCargoPassengerDetails';
+$route['confirmCargoBooking']='homepage/confirmCargoBooking';
+$route['withoutcargoconfirmCargoBooking']='homepage/withoutcargoconfirmCargoBooking';
 
 
 //*******************************Admin Route *****************************************//

@@ -1,4 +1,4 @@
-<?php
+ <?php
 require('application/libraries/bob/libfiles/iPay24Pipe.php');
 class Homepage extends CI_Controller {
 
@@ -265,10 +265,10 @@ class Homepage extends CI_Controller {
     
     public function makePayment(){
 //        $amount = '1.00';
-        
-        $temp_amount=count($this->input->post('passanger'))*TICKET_AMOUNT;
-        $amount = number_format((float)$temp_amount, 2, '.', '');
-        $res= $this->this_model->saveTicketDetails($this->input->post(),$amount);
+       
+//        $temp_amount=count($this->input->post('passanger'))*TICKET_AMOUNT;
+        $amount = $this->input->post('grandtotal');
+        $res= $this->this_model->saveTicketDetails($this->input->post());
         if($res){
             $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
         }else{
@@ -652,6 +652,75 @@ class Homepage extends CI_Controller {
         echo json_encode($result);
         exit;
     }
-}
+    
+    public function A_UpdateCargoPassengerDetails(){
+        if($this->input->post('noOfPassanger') == NULL){
+            
+            
+        $passangerArry =[];
+            for($i = 0 ; $i < count($this->input->post('passaangerName')) ; $i++){
+                $temppassangerArry[$i]=[
+                            'name'=>$this->input->post('passaangerName')[$i],
+                            'age'=>$this->input->post('passaangerAge')[$i],
+                            'gender'=>$this->input->post('passaangerGender')[$i],
+                        ];
+                        array_push($passangerArry,$temppassangerArry[$i]);
+            }
+    //        $passengerDetails=json_encode($passangerArry);
+            $fields = array(
+                "bookingID"=> $this->input->post('bookingId'),
+                "passengerDetails" =>$passangerArry ,
+            );
 
+            $data = http_build_query($fields);
+
+            $token = $this->session->userdata('token');
+            $url = "http://test.dgseaconnect.com/api/api/A_UpdatePassengerDetails";
+            $header = array('authorization: ' . $token);
+            $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+            
+            echo json_encode($result);
+            exit;
+        }
+    }
+    
+    public function confirmCargoBooking(){
+         $fields = array(
+            "bookingID" => $this->input->post('bookingID'),
+            "returnBookingID" => 0,
+            "email" => $this->input->post('email'),
+            "mobile" => $this->input->post('mobile'),
+            "vehicleRegNo" => $this->input->post('vehicleRegNo'),
+            "driverLicenseNo" => $this->input->post('driverLicenseNo'),
+            "NoOfPassengers" => $this->input->post('NoOfPassengers'),
+            "NoOfInfants"=>0,
+        );
+        
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_ConfirmCargoBooking";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+    }
+    
+    public function withoutcargoconfirmCargoBooking(){
+       
+        $fields = array(
+            "bookingID" => $this->input->post('bookingID'),
+            "email" => $this->input->post('email'),
+            "mobile" => $this->input->post('mobile'),
+        );
+        
+        $data = http_build_query($fields);
+        $token = $this->session->userdata('token');
+        $url = "http://test.dgseaconnect.com/api/api/A_ConfirmBooking";
+        $header = array('authorization: ' . $token);
+        $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
+        echo json_encode($result);
+        exit;
+    }
+}
+    
 ?>

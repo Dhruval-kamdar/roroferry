@@ -58,16 +58,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-<!--                                            <div class="col-md-6">
-                                                <div class="radio-select">
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-6 col-xs-6 hidden">
-                                                            <label for="oneway">Oneway</label>
-                                                            <input type="radio" class="tripSelection" name="trip" id="oneway" value="one-way" checked='checked'>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>-->
                                         </div>
 
                                         <div class="col-md-12">
@@ -391,7 +381,7 @@
                                                 
                                                 <fieldset class="noPassangerDiv hidden">
                                                     <label for="noPassanger">Number of passenger :</label>
-                                                    <select class="noPassanger"  name="noPassanger" >
+                                                    <select class="noPassanger" id="noPassanger" name="noPassanger" >
                                                         <option value="">Select a number of passenger...</option>
                                                     </select>
                                                     <label for="noPassanger" class="error"></label>
@@ -526,12 +516,6 @@
                                                     <label for="from">Ferry Time :&nbsp;<span class="ferryTimeText"></span></label>
                                                 </fieldset>
                                             </div>
-
-<!--                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">Ferry Class :&nbsp;<span class="ferryClassText"></span></label>
-                                                </fieldset>
-                                            </div>-->
                                         </div>
                                         
                                         <div class="col-md-12">
@@ -886,13 +870,7 @@
                                          </div>
                                     </div>
                                     
-                                    <div class="row">
-                                        <div class="col-md-12 hidden">
-                                            <input type="text" id="withoutcargobookingId" name="bookingId">
-                                            <input type="text" id="withoutcargototalfare" name="totalfare">
-                                            <input type="text" id="withoutcargograndtotal" name="grandtotal">
-                                         </div>
-                                    </div>
+                                    
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
@@ -950,7 +928,7 @@
                                             <div class="col-md-12">
                                                 <fieldset>
                                                     <label for="tripDropTime" style="margin-left:7px">Email Address :</label>
-                                                    <input type="text" name="emailAddress" class="emailAddress form-control" placeholder="Enter your email address" autocomplete="off">
+                                                    <input type="text" name="emailAddress" id="emailAddress" class="emailAddress form-control" placeholder="Enter your email address" autocomplete="off">
                                                     <label for="emailAddress" class=" error"></label>
                                                 </fieldset>
                                             </div>
@@ -960,7 +938,7 @@
                                             <div class="col-md-12">
                                                 <fieldset>
                                                     <label for="phoneNumber" style="margin-left:7px">Phone number :</label>
-                                                    <input type="text" class="phoneNumber form-control"  name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">
+                                                    <input type="text" class="phoneNumber form-control"  id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" autocomplete="off">
                                                     <label for="phoneNumber" class=" error"></label>
                                                 </fieldset>
                                             </div>
@@ -989,7 +967,7 @@
                                                     <div class="col-md-12">
                                                         <fieldset>
                                                             <label for="Vehicle No" style="margin-left:7px">Vehicle No :</label>
-                                                            <input type="text" class="vehicleNo form-control"  name="vehicleNo" placeholder="Enter your vehicle no" autocomplete="off">
+                                                            <input type="text" class="vehicleNo form-control"  id="vehicleNo" name="vehicleNo" placeholder="Enter your vehicle no" autocomplete="off">
                                                             <label for="vehicleNo" class=" error"></label>
                                                         </fieldset>
                                                     </div>
@@ -998,7 +976,7 @@
                                                     <div class="col-md-12">
                                                         <fieldset>
                                                             <label for="licenseNo" style="margin-left:7px">Driver License NO :</label>
-                                                            <input type="text" class="licenseNo form-control"  name="licenseNo" placeholder="Enter your driver license no" autocomplete="off">
+                                                            <input type="text" class="licenseNo form-control" id="licenseNo" name="licenseNo" placeholder="Enter your driver license no" autocomplete="off">
                                                             <label for="licenseNo" class=" error"></label>
                                                         </fieldset>
                                                     </div>
@@ -1037,7 +1015,12 @@
                                         <h4>Confirm Your Ticket</h4>
                                     </center>
                                     <!-- Label Div -->
-
+                                    <div class="row">
+                                        <div class="col-md-12 hidden">
+                                            <input type="text" id="pnrNo" name="pnrNo">
+                                            
+                                         </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
@@ -1081,7 +1064,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <center>
-                                                <h4>Passenger's Details :</h4>
+                                                <h4>Confirm Passenger's Details :</h4>
+                                                <p class="confirmError" style="color:red"></p>
                                             </center>
                                             <div class="col-md-12" >
                                                 <div class="col-md-12">
@@ -1099,23 +1083,23 @@
                                                     </fieldset>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="col-md-12" >
-                                                <div class="col-md-12">
-                                                    <fieldset>
-                                                        <label for="from">Your Vehicle No : &nbsp;<span class="vehicleNOText"></span></label>
-                                                    </fieldset>
+                                            <div class="vehicledetails ">
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <label for="from">Your Vehicle No : &nbsp;<span class="vehicleNOText"></span></label>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            
-                                            <div class="col-md-12" >
+
+                                                <div class="col-md-12" >
                                                 <div class="col-md-12">
                                                     <fieldset>
                                                         <label for="from">Your License No : &nbsp;<span class="lincenseNoText"></span></label>
                                                     </fieldset>
                                                 </div>
                                             </div>
-                                            
+                                            </div>
                                             <div class="col-md-12" >
                                                 <div class="col-md-12">
                                                     <fieldset>

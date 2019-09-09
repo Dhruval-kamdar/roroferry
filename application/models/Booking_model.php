@@ -338,82 +338,243 @@ class Booking_model extends My_model
         }
     }
     
-    public function saveTicketDetails($postData,$amount){
-            if(!isset($postData['trip'])){
-                $postData['trip']='';
-            }
-            $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 5);
-            $pnrNo = "RORO-".$rnd."-".date("Y");
-            if($postData['noPassangerlesstwo'] == NULL){
-                $postData['noPassangerlesstwo'] = '0';
-            }
+    public function saveTicketDetails($postData){
+        
+            if($postData['trip_type'] == "Without vehicle"){
+                if($postData['pickupservices'] == "Self Services"){
+                    if(!isset($postData['trip'])){
+                        $postData['trip']='';
+                    }
+                    
+                    $pnrNo = $postData['pnrNo'];
+                    if($postData['noPassangerlesstwo'] == NULL){
+                        $postData['noPassangerlesstwo'] = '0';
+                    }
 
-            if($postData['noPassangerequal'] == NULL){
-                $postData['noPassangerequal'] = '0';
-            }
+                    if($postData['noPassangerequal'] == NULL){
+                        $postData['noPassangerequal'] = '0';
+                    }
 
-            if($postData['noPassangerharter'] == NULL){
-                $postData['noPassangerharter'] = '0';
-            }
-            
-            $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
-            if($postData['depature'] == NULL){
-                $postData['depature']='';
-            }else{
-                $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
-            }
-            $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
-            $data['table']='ticket_details';
-            $data['insert']=[
-                
-                'pnrNumber'=>$pnrNo,
-                'trip'=>$postData['trip'],
-                'trip_type'=>$postData['trip_type'],
-                'fromstaton'=>$postData['fromstaton'],
-                'tostation'=>$postData['tostation'],
-                'depatureDate'=>$postData['depature'],
-                'returntripDate'=>$postData['returntrip'],
-                'vehical'=>$postData['vehical'],
-                'pickupservices'=>$postData['pickupservices'],
-                'busRoute'=>$postData['busRoute'],
-                'tripTime'=>$postData['tripTime'],
-                'tripPickUpTime'=>$postData['tripPickUpTime'],
-                'tripDropTime'=>$postData['tripDropTime'],
-                'ferryTime'=>$postData['ferryTime'],
-                'ferryClass'=>$postData['ferryClass'],
-                'noPassanger'=>$totalPassange,
-                'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
-                'noPassangerequal'=>$postData['noPassangerequal'],
-                'noPassangerharter'=>$postData['noPassangerharter'],
-                'emailAddress'=>$postData['emailAddress'],
-                'phoneNumber'=>$postData['phoneNumber'],
-                'cityName'=>$postData['cityName'],
-                'pinCode'=>$postData['pinCode'],
-                'payment'=>$amount,
-                'created_at'=>date("Y-m-d h:i:s"),
-                'updated_at'=>date("Y-m-d h:i:s"),
-           ];
-            $Id = $this->insertRecord($data);
-            if($Id){
-                for($i = 0;$i < count($postData['passanger']) ; $i++){
-                    $data['table']='passanger_details';
+                    if($postData['noPassangerharter'] == NULL){
+                        $postData['noPassangerharter'] = '0';
+                    }
+
+                    $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    if($postData['depature'] == NULL){
+                        $postData['depature']='';
+                    }else{
+                        $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    }
+                    $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+                    $data['table']='ticket_details';
                     $data['insert']=[
-                        'ticketId'=>$Id,
-                        'seatNo'=>$postData['seat'][$i],
-                        'passangerName'=>$postData['passanger'][$i],
-                        'passangerAge'=>$postData['passangerAge'][$i],
-                        'passangerGender'=>$postData['passangerGender'][$i],
+
+                        'pnrNumber'=>$pnrNo,
+                        'bookingid'=>$postData['bookingId'],
+                        'trip'=>$postData['trip'],
+                        'trip_type'=>$postData['trip_type'],
+                        'fromstaton'=>$postData['fromstaton'],
+                        'tostation'=>$postData['tostation'],
+                        'depatureDate'=>$postData['depature'],
+                        'returntripDate'=>$postData['returntrip'],
+                        'vehical'=>$postData['vehical'],
+                        'pickupservices'=>$postData['pickupservices'],
+                        'busRoute'=>$postData['busRoute'],
+                        'tripTime'=>$postData['tripTime'],
+                        'tripPickUpTime'=>$postData['tripPickUpTime'],
+                        'tripDropTime'=>$postData['tripDropTime'],
+                        'ferryTime'=>$postData['ferryTime'],
+                        'ferryClass'=>$postData['ferryClass'],
+                        'noPassanger'=>$totalPassange,
+                        'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
+                        'noPassangerequal'=>$postData['noPassangerequal'],
+                        'noPassangerharter'=>$postData['noPassangerharter'],
+                        'emailAddress'=>$postData['emailAddress'],
+                        'phoneNumber'=>$postData['phoneNumber'],
+                        'cityName'=>$postData['cityName'],
+                        'pinCode'=>$postData['pinCode'],
+                        'payment'=>'pendding',
+                        'grandtotal'=>$postData['grandtotal'],
                         'created_at'=>date("Y-m-d h:i:s"),
                         'updated_at'=>date("Y-m-d h:i:s"),
                     ];
-                    $result = $this->insertRecord($data);
+                    $Id = $this->insertRecord($data);
+                    if($Id){
+                        for($i = 0;$i < count($postData['passanger']) ; $i++){
+                            $data['table']='passanger_details';
+                            $data['insert']=[
+                                'ticketId'=>$Id,
+//                                'seatNo'=>$postData['seat'][$i],
+                                'passangerName'=>$postData['passanger'][$i],
+                                'passangerAge'=>$postData['passangerAge'][$i],
+                                'passangerGender'=>$postData['passangerGender'][$i],
+                                'created_at'=>date("Y-m-d h:i:s"),
+                                'updated_at'=>date("Y-m-d h:i:s"),
+                            ];
+                            $result = $this->insertRecord($data);
+                        }
+                        return $Id ;  
+                    }else{
+                      return false;  
+                    }
+                }else{
+                    
+                    if(!isset($postData['trip'])){
+                        $postData['trip']='';
+                    }
+                    
+                    $pnrNo = $postData['pnrNo'];
+                    if($postData['noPassangerlesstwo'] == NULL){
+                        $postData['noPassangerlesstwo'] = '0';
+                    }
+
+                    if($postData['noPassangerequal'] == NULL){
+                        $postData['noPassangerequal'] = '0';
+                    }
+
+                    if($postData['noPassangerharter'] == NULL){
+                        $postData['noPassangerharter'] = '0';
+                    }
+
+                    $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    if($postData['depature'] == NULL){
+                        $postData['depature']='';
+                    }else{
+                        $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    }
+                    $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+                    $data['table']='ticket_details';
+                    $data['insert']=[
+
+                        'pnrNumber'=>$pnrNo,
+                        'bookingid'=>$postData['bookingId'],
+                        'trip'=>$postData['trip'],
+                        'trip_type'=>$postData['trip_type'],
+                        'fromstaton'=>$postData['fromstaton'],
+                        'tostation'=>$postData['tostation'],
+                        'depatureDate'=>$postData['depature'],
+                        'returntripDate'=>$postData['returntrip'],
+                        'vehical'=>$postData['vehical'],
+                        'pickupservices'=>$postData['pickupservices'],
+                        'busRoute'=>$postData['busRoute'],
+                        'tripTime'=>$postData['tripTime'],
+                        'tripPickUpTime'=>$postData['tripPickUpTime'],
+                        'tripDropTime'=>$postData['tripDropTime'],
+                        'ferryTime'=>$postData['ferryTime'],
+                        'ferryClass'=>$postData['ferryClass'],
+                        'noPassanger'=>$totalPassange,
+                        'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
+                        'noPassangerequal'=>$postData['noPassangerequal'],
+                        'noPassangerharter'=>$postData['noPassangerharter'],
+                        'emailAddress'=>$postData['emailAddress'],
+                        'phoneNumber'=>$postData['phoneNumber'],
+                        'cityName'=>$postData['cityName'],
+                        'pinCode'=>$postData['pinCode'],
+                        'payment'=>'pendding',
+                        'grandtotal'=>$postData['grandtotal'],
+                        'created_at'=>date("Y-m-d h:i:s"),
+                        'updated_at'=>date("Y-m-d h:i:s"),
+                    ];
+                    $Id = $this->insertRecord($data);
+                    if($Id){
+                        for($i = 0;$i < count($postData['passanger']) ; $i++){
+                            $data['table']='passanger_details';
+                            $data['insert']=[
+                                'ticketId'=>$Id,
+                                'seatNo'=>$postData['seat'][$i],
+                                'passangerName'=>$postData['passanger'][$i],
+                                'passangerAge'=>$postData['passangerAge'][$i],
+                                'passangerGender'=>$postData['passangerGender'][$i],
+                                'created_at'=>date("Y-m-d h:i:s"),
+                                'updated_at'=>date("Y-m-d h:i:s"),
+                            ];
+                            $result = $this->insertRecord($data);
+                        }
+                        return $Id ;  
+                    }else{
+                      return false;  
+                    }
                 }
-                return $Id ;  
             }else{
-              return false;  
+                    if(!isset($postData['trip'])){
+                        $postData['trip']='';
+                    }
+                    
+                    $pnrNo = $postData['pnrNo'];
+                    if($postData['noPassangerlesstwo'] == NULL){
+                        $postData['noPassangerlesstwo'] = '0';
+                    }
+
+                    if($postData['noPassangerequal'] == NULL){
+                        $postData['noPassangerequal'] = '0';
+                    }
+
+                    if($postData['noPassangerharter'] == NULL){
+                        $postData['noPassangerharter'] = '0';
+                    }
+
+                    $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    if($postData['depature'] == NULL){
+                        $postData['depature']='';
+                    }else{
+                        $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
+                    }
+                    $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+                    $data['table']='ticket_details';
+                    $data['insert']=[
+
+                        'pnrNumber'=>$pnrNo,
+                        'bookingid'=>$postData['bookingId'],
+                        'vehicleNo'=>$postData['vehicleNo'],
+                        'licenseNo'=>$postData['licenseNo'],
+                        'trip'=>$postData['trip'],
+                        'trip_type'=>$postData['trip_type'],
+                        'fromstaton'=>$postData['fromstaton'],
+                        'tostation'=>$postData['tostation'],
+                        'depatureDate'=>$postData['depature'],
+                        'returntripDate'=>$postData['returntrip'],
+                        'vehical'=>$postData['vehical'],
+                        'pickupservices'=>$postData['pickupservices'],
+                        'busRoute'=>$postData['busRoute'],
+                        'tripTime'=>$postData['tripTime'],
+                        'tripPickUpTime'=>$postData['tripPickUpTime'],
+                        'tripDropTime'=>$postData['tripDropTime'],
+                        'ferryTime'=>$postData['ferryTime'],
+                        'ferryClass'=>$postData['ferryClass'],
+                        'noPassanger'=>$totalPassange,
+                        'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
+                        'noPassangerequal'=>$postData['noPassangerequal'],
+                        'noPassangerharter'=>$postData['noPassangerharter'],
+                        'emailAddress'=>$postData['emailAddress'],
+                        'phoneNumber'=>$postData['phoneNumber'],
+                        'cityName'=>$postData['cityName'],
+                        'pinCode'=>$postData['pinCode'],
+                        'payment'=>'pendding',
+                        'grandtotal'=>$postData['grandtotal'],
+                        'created_at'=>date("Y-m-d h:i:s"),
+                        'updated_at'=>date("Y-m-d h:i:s"),
+                    ];
+                    $Id = $this->insertRecord($data);
+                    if($Id){
+                        for($i = 0;$i < count($postData['passanger']) ; $i++){
+                            $data['table']='passanger_details';
+                            $data['insert']=[
+                                'ticketId'=>$Id,
+//                                'seatNo'=>$postData['seat'][$i],
+                                'passangerName'=>$postData['passanger'][$i],
+                                'passangerAge'=>$postData['passangerAge'][$i],
+                                'passangerGender'=>$postData['passangerGender'][$i],
+                                'created_at'=>date("Y-m-d h:i:s"),
+                                'updated_at'=>date("Y-m-d h:i:s"),
+                            ];
+                            $result = $this->insertRecord($data);
+                        }
+                        return $Id ;  
+                    }else{
+                      return false;  
+                    }
+                }
             }
-    }
-    
     
     
     public function paymnetSuccess($paymentDetails){       
