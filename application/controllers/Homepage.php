@@ -92,7 +92,7 @@ class Homepage extends CI_Controller {
         $url = "http://test.dgseaconnect.com/api/api/GetVehicles";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'GET', $header);
-
+        
         if (isset($result['success'])) {
             return $result;
         } else {
@@ -267,9 +267,15 @@ class Homepage extends CI_Controller {
 //        $amount = '1.00';
        
 //        $temp_amount=count($this->input->post('passanger'))*TICKET_AMOUNT;
-        $amount = $this->input->post('grandtotal');
+//        $amount = $this->input->post('grandtotal');
+        $amount = '1';
         $res= $this->this_model->saveTicketDetails($this->input->post());
         if($res){
+            if($this->input->post() == 'Without vehicle'){
+                $res = $this->withoutcargoconfirmCargoBooking($this->input->post());
+            }else{
+                $res = $this->confirmCargoBooking($this->input->post());
+            }
             $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
         }else{
             redirect('payment-compelete');
@@ -684,15 +690,15 @@ class Homepage extends CI_Controller {
         }
     }
     
-    public function confirmCargoBooking(){
+    public function confirmCargoBooking($postData){
          $fields = array(
-            "bookingID" => $this->input->post('bookingID'),
+            "bookingID" => $postData('bookingID'),
             "returnBookingID" => 0,
-            "email" => $this->input->post('email'),
-            "mobile" => $this->input->post('mobile'),
-            "vehicleRegNo" => $this->input->post('vehicleRegNo'),
-            "driverLicenseNo" => $this->input->post('driverLicenseNo'),
-            "NoOfPassengers" => $this->input->post('NoOfPassengers'),
+            "email" => $postData('emailAddress'),
+            "mobile" => $postData('phoneNumber'),
+            "vehicleRegNo" => $postData('vehicleNo'),
+            "driverLicenseNo" => $postData('licenseNo'),
+            "NoOfPassengers" => $postData('noPassanger'),
             "NoOfInfants"=>0,
         );
         
@@ -705,12 +711,12 @@ class Homepage extends CI_Controller {
         exit;
     }
     
-    public function withoutcargoconfirmCargoBooking(){
+    public function withoutcargoconfirmCargoBooking($postData){
        
         $fields = array(
-            "bookingID" => $this->input->post('bookingID'),
-            "email" => $this->input->post('email'),
-            "mobile" => $this->input->post('mobile'),
+            "bookingID" => $postData('bookingID'),
+            "email" => $postData('emailAddress'),
+            "mobile" => $postData('phoneNumber'),
         );
         
         $data = http_build_query($fields);

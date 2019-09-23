@@ -35,6 +35,8 @@ class Booking_model extends My_model
     }
     
     public function makePaymentBOB($postData,$id,$amount){
+        
+        
         $currency = '356';
         $language = 'USA';
         $receiptURL = base_url().'homepage/getResponse/';
@@ -339,7 +341,6 @@ class Booking_model extends My_model
     }
     
     public function saveTicketDetails($postData){
-        
             if($postData['trip_type'] == "Without vehicle"){
                 if($postData['pickupservices'] == "Self Services"){
                     if(!isset($postData['trip'])){

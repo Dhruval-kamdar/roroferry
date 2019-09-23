@@ -772,11 +772,13 @@ var Home = function() {
                                  }
                         }
                     }else{
+                       
                        validateTrip = true;
                         $('#bookticket').submit();
                         if (validateTrip){
                             var tripId=$('.ferryTime option:selected').attr('tripid');
-                            var vehicalId = $('.vehical').val();
+                            var vehicalId = $('.vehical option:selected').attr('data-vehiclecategoryid');
+                           
                             var ferryClass = $('.ferryClass option:selected').text();
                             var ferryTime = $('.ferryTime option:selected').text();
                             var noPassanger = $(".noPassanger option:selected").val();
@@ -1055,76 +1057,82 @@ var Home = function() {
                 }
                 
             }
-            
             if(nextForm == 8){
-                var trip_type = $("input[name='trip_type']:checked").val();
-                if(trip_type ==  'Without vehicle'){ 
-                    var bookingId =  $('#bookingId').val();
-                    var email =  $('#emailAddress').val();
-                    var mobile =  $('#phoneNumber').val();
-                    var data={
-                         bookingID:bookingId,
-                         email:email,
-                         mobile:mobile,
-                     };
-                     ajaxcall(baseurl + 'withoutcargoconfirmCargoBooking', data, function(data) {
-                        var returnOutput=JSON.parse(data);
-                        if(returnOutput.success){
-                            $(".confirmError").text('');
-                            $("#pnrNo").val(returnOutput.data.pnrNo);
-                            validateTrip = true;
-                            $('#bookticket').submit();
-                            if (validateTrip == true){
-                                submitFrom = true ;
-                                $('#bookticket').submit();
-                            }
-                        }else{
-                            $(".confirmError").text(returnOutput.message);
-                        }
-                    });
-                }else{
-                    var bookingId =  $('#bookingId').val();
-                    var email =  $('#emailAddress').val();
-                    var mobile =  $('#phoneNumber').val();
-                    var vehicleno =  $('#vehicleNo').val();
-                    var licenseno =  $('#licenseNo').val();
-                    var noPassanger = $("#noPassanger option:selected").val();
-                    var data={
-                         bookingID:bookingId,
-                         returnBookingID:0,
-                         email:email,
-                         mobile:mobile,
-                         vehicleRegNo:vehicleno,
-                         driverLicenseNo:licenseno,
-                         NoOfPassengers:noPassanger,
-                         NoOfInfants:0,
-                     };
-                    ajaxcall(baseurl + 'confirmCargoBooking', data, function(data) {
-                        var returnOutput=JSON.parse(data);
-                        $("#pnrNo").val(returnOutput.data.pnrNo);
-                        if(returnOutput.success){
-                            $(".confirmError").text('');
-                            validateTrip = true;
-                            $('#bookticket').submit();
-                            if (validateTrip == true){
-                                submitFrom = true ;
-                                $('#bookticket').submit();
-                            }
-                        }else{
-                            $(".confirmError").text(returnOutput.message);
-                        }
-                    });
-                    
+                $('#bookticket').submit();
+                if (validateTrip == true){
+                    submitFrom = true ;
+                    $('#bookticket').submit();
                 }
-//                var totalAmmount=$(".totalAmountText").text();
-//                
-//                validateTrip = true;
-//                $('#bookticket').submit();
-//                if (validateTrip == true){
-//                    submitFrom = true ;
-//                    $('#bookticket').submit();
-//                }
             }
+//            if(nextForm == 8){
+//                var trip_type = $("input[name='trip_type']:checked").val();
+//                if(trip_type ==  'Without vehicle'){ 
+//                    var bookingId =  $('#bookingId').val();
+//                    var email =  $('#emailAddress').val();
+//                    var mobile =  $('#phoneNumber').val();
+//                    var data={
+//                         bookingID:bookingId,
+//                         email:email,
+//                         mobile:mobile,
+//                     };
+//                     ajaxcall(baseurl + 'withoutcargoconfirmCargoBooking', data, function(data) {
+//                        var returnOutput=JSON.parse(data);
+//                        if(returnOutput.success){
+//                            $(".confirmError").text('');
+//                            $("#pnrNo").val(returnOutput.data.pnrNo);
+//                            validateTrip = true;
+//                            
+//                            if (validateTrip == true){
+//                                submitFrom = true ;
+//                                $('#bookticket').submit();
+//                            }
+//                        }else{
+//                            $(".confirmError").text(returnOutput.message);
+//                        }
+//                    });
+//                }else{
+//                    var bookingId =  $('#bookingId').val();
+//                    var email =  $('#emailAddress').val();
+//                    var mobile =  $('#phoneNumber').val();
+//                    var vehicleno =  $('#vehicleNo').val();
+//                    var licenseno =  $('#licenseNo').val();
+//                    var noPassanger = $("#noPassanger option:selected").val();
+//                    var data={
+//                         bookingID:bookingId,
+//                         returnBookingID:0,
+//                         email:email,
+//                         mobile:mobile,
+//                         vehicleRegNo:vehicleno,
+//                         driverLicenseNo:licenseno,
+//                         NoOfPassengers:noPassanger,
+//                         NoOfInfants:0,
+//                     };
+//                    ajaxcall(baseurl + 'confirmCargoBooking', data, function(data) {
+//                        var returnOutput=JSON.parse(data);
+//                        $("#pnrNo").val(returnOutput.data.pnrNo);
+//                        if(returnOutput.success){
+//                            $(".confirmError").text('');
+//                            validateTrip = true;
+//                            $('#bookticket').submit();
+//                            if (validateTrip == true){
+//                                submitFrom = true ;
+//                                $('#bookticket').submit();
+//                            }
+//                        }else{
+//                            $(".confirmError").text(returnOutput.message);
+//                        }
+//                    });
+//                    
+//                }
+////                var totalAmmount=$(".totalAmountText").text();
+////                
+////                validateTrip = true;
+////                $('#bookticket').submit();
+////                if (validateTrip == true){
+////                    submitFrom = true ;
+////                    $('#bookticket').submit();
+////                }
+//            }
         });
         
         $('body').on('click', '.prevbtn', function() {
