@@ -270,13 +270,16 @@ class Homepage extends CI_Controller {
 //        $amount = $this->input->post('grandtotal');
         $amount = '1';
         $res= $this->this_model->saveTicketDetails($this->input->post());
-        if($res){
+        $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
+        if($result){
+            print_r($this->input->post());
+            die();
             if($this->input->post() == 'Without vehicle'){
                 $res = $this->withoutcargoconfirmCargoBooking($this->input->post());
             }else{
                 $res = $this->confirmCargoBooking($this->input->post());
             }
-            $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
+            
         }else{
             redirect('payment-compelete');
         }
@@ -692,13 +695,13 @@ class Homepage extends CI_Controller {
     
     public function confirmCargoBooking($postData){
          $fields = array(
-            "bookingID" => $postData('bookingID'),
+            "bookingID" => $postData['bookingID'],
             "returnBookingID" => 0,
-            "email" => $postData('emailAddress'),
-            "mobile" => $postData('phoneNumber'),
-            "vehicleRegNo" => $postData('vehicleNo'),
-            "driverLicenseNo" => $postData('licenseNo'),
-            "NoOfPassengers" => $postData('noPassanger'),
+            "email" => $postData['emailAddress'],
+            "mobile" => $postData['phoneNumber'],
+            "vehicleRegNo" => $postData['vehicleNo'],
+            "driverLicenseNo" => $postData['licenseNo'],
+            "NoOfPassengers" => $postData['noPassanger'],
             "NoOfInfants"=>0,
         );
         
@@ -714,9 +717,9 @@ class Homepage extends CI_Controller {
     public function withoutcargoconfirmCargoBooking($postData){
        
         $fields = array(
-            "bookingID" => $postData('bookingID'),
-            "email" => $postData('emailAddress'),
-            "mobile" => $postData('phoneNumber'),
+            "bookingID" => $postData['bookingID'],
+            "email" => $postData['emailAddress'],
+            "mobile" => $postData['phoneNumber'],
         );
         
         $data = http_build_query($fields);
