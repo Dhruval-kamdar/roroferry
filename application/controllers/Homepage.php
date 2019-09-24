@@ -265,24 +265,32 @@ class Homepage extends CI_Controller {
     
     public function makePayment(){
 //        $amount = '1.00';
+        $amount = $this->input->post('grandtotal');
+        $res= $this->this_model->saveTicketDetails($this->input->post());
+        if($res){
+        $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
+        }else{
+        redirect('payment-compelete');
+        }
+//        $amount = '1.00';
        
 //        $temp_amount=count($this->input->post('passanger'))*TICKET_AMOUNT;
 //        $amount = $this->input->post('grandtotal');
-        $amount = '1';
-        $res= $this->this_model->saveTicketDetails($this->input->post());
-        $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
-        if($result){
-            print_r($this->input->post());
-            die();
-            if($this->input->post() == 'Without vehicle'){
-                $res = $this->withoutcargoconfirmCargoBooking($this->input->post());
-            }else{
-                $res = $this->confirmCargoBooking($this->input->post());
-            }
-            
-        }else{
-            redirect('payment-compelete');
-        }
+//        $amount = '1';
+//        $res= $this->this_model->saveTicketDetails($this->input->post());
+//        $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
+//        if($result){
+//            print_r($this->input->post());
+//            die();
+//            if($this->input->post() == 'Without vehicle'){
+//                $res = $this->withoutcargoconfirmCargoBooking($this->input->post());
+//            }else{
+//                $res = $this->confirmCargoBooking($this->input->post());
+//            }
+//            
+//        }else{
+//            redirect('payment-compelete');
+//        }
     }
     
     public function getResponse(){
@@ -292,6 +300,14 @@ class Homepage extends CI_Controller {
          
             if($result['status'] == 'success'){
                 if($result['transaction_status'] == 'CAPTURED'){
+                    $getticketDetails= $this->this_model->getticketDetails($result['id']);
+                 
+                    if($getticketDetails[0]->trip_type == 'Without vehicle'){
+                        $res = $this->withoutcargoconfirmCargoBooking($getticketDetails[0],$result['id']);
+                    }else{
+                        $res = $this->confirmCargoBooking($getticketDetails[0],$result['id']);
+                    }
+                         
                     $update= $this->this_model->paymnetSuccess($result);
                     $this->generateTicketPdf($result['id'],$result['transaction_id']);
                     $this->sendConfirmMail($result['id'],$result['transaction_id']);
@@ -693,15 +709,15 @@ class Homepage extends CI_Controller {
         }
     }
     
-    public function confirmCargoBooking($postData){
+    public function confirmCargoBooking($postData,$id){
          $fields = array(
-            "bookingID" => $postData['bookingID'],
+            "bookingID" => $postData->bookingid,
             "returnBookingID" => 0,
-            "email" => $postData['emailAddress'],
-            "mobile" => $postData['phoneNumber'],
-            "vehicleRegNo" => $postData['vehicleNo'],
-            "driverLicenseNo" => $postData['licenseNo'],
-            "NoOfPassengers" => $postData['noPassanger'],
+            "email" => $postData->emailAddress,
+            "mobile" => $postData->phoneNumber,
+            "vehicleRegNo" => $postData->vehicleNo,
+            "driverLicenseNo" => $postData->licenseNo,
+            "NoOfPassengers" => $postData->noPassanger,
             "NoOfInfants"=>0,
         );
         
@@ -710,16 +726,17 @@ class Homepage extends CI_Controller {
         $url = "http://test.dgseaconnect.com/api/api/A_ConfirmCargoBooking";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
-        echo json_encode($result);
-        exit;
+        $updatePNrNo= $this->this_model->updatePNRno($result['data']['pnrNo'],$id);
+//        echo json_encode($result);
+//        exit;
     }
     
-    public function withoutcargoconfirmCargoBooking($postData){
+    public function withoutcargoconfirmCargoBooking($postData,$id){
        
         $fields = array(
-            "bookingID" => $postData['bookingID'],
-            "email" => $postData['emailAddress'],
-            "mobile" => $postData['phoneNumber'],
+            "bookingID" => $postData->bookingid,
+            "email" => $postData->emailAddress,
+            "mobile" => $postData->phoneNumber,
         );
         
         $data = http_build_query($fields);
@@ -727,8 +744,9 @@ class Homepage extends CI_Controller {
         $url = "http://test.dgseaconnect.com/api/api/A_ConfirmBooking";
         $header = array('authorization: ' . $token);
         $result = $this->Api_model->curlCall($url, $data, 'POST', $header);
-        echo json_encode($result);
-        exit;
+        $updatePNrNo= $this->this_model->updatePNRno($result['data']['pnrNo'],$id);
+//        echo json_encode($result);
+//        exit;
     }
 }
     

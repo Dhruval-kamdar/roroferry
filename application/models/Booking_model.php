@@ -341,6 +341,7 @@ class Booking_model extends My_model
     }
     
     public function saveTicketDetails($postData){
+        
             if($postData['trip_type'] == "Without vehicle"){
                 if($postData['pickupservices'] == "Self Services"){
                     if(!isset($postData['trip'])){
@@ -367,6 +368,7 @@ class Booking_model extends My_model
                         $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
                     }
                     $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+                    
                     $data['table']='ticket_details';
                     $data['insert']=[
 
@@ -386,7 +388,7 @@ class Booking_model extends My_model
                         'tripDropTime'=>$postData['tripDropTime'],
                         'ferryTime'=>$postData['ferryTime'],
                         'ferryClass'=>$postData['ferryClass'],
-                        'noPassanger'=>$totalPassange,
+                        'noPassanger'=>count($postData['passanger']),
                         'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
                         'noPassangerequal'=>$postData['noPassangerequal'],
                         'noPassangerharter'=>$postData['noPassangerharter'],
@@ -521,6 +523,7 @@ class Booking_model extends My_model
                         $postData['depature']=date('Y-m-d', strtotime($postData['depature']));
                     }
                     $totalPassange= $postData['noPassangerlesstwo'] + $postData['noPassangerequal'] + $postData['noPassangerharter'] ;
+                    
                     $data['table']='ticket_details';
                     $data['insert']=[
 
@@ -542,7 +545,7 @@ class Booking_model extends My_model
                         'tripDropTime'=>$postData['tripDropTime'],
                         'ferryTime'=>$postData['ferryTime'],
                         'ferryClass'=>$postData['ferryClass'],
-                        'noPassanger'=>$totalPassange,
+                        'noPassanger'=>count($postData['passanger']),
                         'noPassangerlesstwo'=>$postData['noPassangerlesstwo'],
                         'noPassangerequal'=>$postData['noPassangerequal'],
                         'noPassangerharter'=>$postData['noPassangerharter'],
@@ -656,6 +659,26 @@ class Booking_model extends My_model
             array_push($seatArray,$result[$i]->seatNo);
         }
         return $seatArray;
+    }
+    
+    
+    public function getticketDetails($id){
+        $data['table']=TBL_TICKET_DETAILS;
+        $data['select']=['bookingid','vehicleNo','licenseNo','noPassanger','emailAddress','phoneNumber','trip_type'];
+        $data['where']=['id'=>$id];
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
+    public function updatePNRno($pnrNo,$id){
+        
+        $data['table']='ticket_details';
+        $data['where'] = ['id' => $id];
+        $data['update']=[
+            'pnrNumber'=>$pnrNo,
+        ];
+        $result = $this->updateRecords($data);
+       
     }
 }   
 ?>
