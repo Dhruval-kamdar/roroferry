@@ -55,6 +55,9 @@ $route['default_controller'] = 'homepage/index';
 $route['register'] = 'account/register';
 $route['contact'] = 'front/contact';
 $route['payment-inquiry'] = 'homepage/paymentInquiry';
+$route['pay-now'] = 'Paynow/index';
+$route['confirm-payment'] = 'Paynow/confirmpayment';
+$route['makePayment'] = 'Paynow/makePayment';
 
 $route['payment-refund'] = 'homepage/paymentRefund';
 /* START BY JIGNESH */

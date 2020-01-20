@@ -75,6 +75,47 @@ class Booking_model extends My_model
             echo "<meta http-equiv='refresh' content='0;url=$url'>";
         }
     }
+    public function makePaymentBOBNew($postData,$id,$amount){
+        
+        //            Array ( [firstname] => Parth [lastname] => Khunt [email] => parthkhunt12@gmail.com [amount] => 12500 [mobileno] => 9727466631 [note] => Test )
+        $currency = '356';
+        $language = 'USA';
+        $receiptURL = base_url().'homepage/getResponse/';
+        $errorURL = base_url().'homepage/getResponse/';
+        $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
+        $aliasName = 'ROROFERRY';
+        $myObj = new iPay24Pipe();
+        $rnd = substr(number_format(time() * rand(), 0, '', ''), 0, 10);
+        $trackid = $rnd;
+        $myObj->setResourcePath(trim($resourcePath));
+        $myObj->setKeystorePath(trim($resourcePath));
+        $myObj->setAlias(trim($aliasName));
+        $myObj->setAction(trim('1'));
+        $myObj->setUdf6("ROROFERRY");
+        $myObj->setUdf7($postData['firstname']." ".$postData['lastname']);
+        $myObj->setUdf8($postData['email']);
+        $myObj->setUdf9($postData['mobileno']);
+        $myObj->setUdf10("Bharuch- 392002");
+        $myObj->setUdf11($amount);
+        $myObj->setUdf12("No tax Details");
+        $myObj->setUdf13($id);
+        
+        $myObj->setCurrency(trim($currency));
+        $myObj->setLanguage(trim($language));
+        $myObj->setResponseURL(trim($receiptURL));
+        $myObj->setErrorURL(trim($errorURL));
+        $myObj->setAmt($amount); //setPostData Amount
+        $myObj->setTrackId($trackid);
+
+        if (trim($myObj->performPaymentInitializationHTTP()) != 0) {
+            echo("ERROR OCCURED! SEE CONSOLE FOR MORE DETAILS");
+            return;
+        } else {
+            //	header("location:".$myObj->getwebAddress()); 
+            $url = trim($myObj->getWebAddress());
+            echo "<meta http-equiv='refresh' content='0;url=$url'>";
+        }
+    }
     
     public function makePaymentResponse() {
         $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';

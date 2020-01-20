@@ -268,7 +268,7 @@ class Homepage extends CI_Controller {
         $amount = $this->input->post('grandtotal');
         $res= $this->this_model->saveTicketDetails($this->input->post());
         if($res){
-        $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
+            $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
         }else{
         redirect('payment-compelete');
         }

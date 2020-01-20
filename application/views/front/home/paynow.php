@@ -1,100 +1,128 @@
-
+<style>
+    select.error{
+        border: 1px solid #e80c0c;
+    }
+    input.error{
+        border: 1px solid #e80c0c !important;
+    }
+    label.error {
+        text-transform: none;
+        font-size: 14px;
+        color: #e80c0c;
+        border: none;
+        margin-left: 8px;
+    }
+    span.error {
+        text-transform: none;
+        font-size: 14px;
+        color: #e80c0c;
+        border: none;
+    }
+    textarea.error {
+        border: 1px solid #e80c0c !important;
+    } 
+</style>
 <section class="banner" id="top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="left-side">
-                            <div class="logo">
-                                <img src="<?= base_url()?>public/asset/front/img/logo.png" alt="Flight Template">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-md-offset-1">
-                        <section id="first-tab-group" class="tabgroup">
-                            <div id="tab1">
-                                <div class="submit-form">
-                                    <h4>Check availability for <em>direction</em>:</h4>
-                                    <form id="form-submit" action="" method="get">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="from">From:</label>
-                                                    <select required name='from' onchange='this.form.()'>
-                                                        <option value="">Select a location...</option>
-                                                        <option value="Cambodia">Cambodia</option>
-                                                        <option value="Hong Kong">Hong Kong</option>
-                                                        <option value="India">India</option>
-                                                        <option value="Japan">Japan</option>
-                                                        <option value="Korea">Korea</option>
-                                                        <option value="Laos">Laos</option>
-                                                        <option value="Myanmar">Myanmar</option>
-                                                        <option value="Singapore">Singapore</option>
-                                                        <option value="Thailand">Thailand</option>
-                                                        <option value="Vietnam">Vietnam</option>
-                                                    </select>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="to">To:</label>
-                                                    <select required name='to' onchange='this.form.()'>
-                                                        <option value="">Select a location...</option>
-                                                        <option value="Cambodia">Cambodia</option>
-                                                        <option value="Hong Kong">Hong Kong</option>
-                                                        <option value="India">India</option>
-                                                        <option value="Japan">Japan</option>
-                                                        <option value="Korea">Korea</option>
-                                                        <option value="Laos">Laos</option>
-                                                        <option value="Myanmar">Myanmar</option>
-                                                        <option value="Singapore">Singapore</option>
-                                                        <option value="Thailand">Thailand</option>
-                                                        <option value="Vietnam">Vietnam</option>
-                                                    </select>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="departure">Departure date:</label>
-                                                    <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form.()'>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <label for="return">Return date:</label>
-                                                    <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form.()'>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="radio-select">
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="round">Round</label>
-                                                            <input type="radio" name="trip" id="round" value="round" required="required"onchange='this.form.()'>
-                                                        </div>
-                                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                                            <label for="oneway">Oneway</label>
-                                                            <input type="radio" name="trip" id="oneway" value="one-way" required="required"onchange='this.form.()'>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <button type="submit" id="form-submit" class="btn">Order Ticket Now</button>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="logo">
+                    <img src="<?= base_url() ?>public/asset/front/img/logo.png" alt="Flight Template">
                 </div>
             </div>
-        </section>
+            <div class="col-md-8 col-md-offset-2">
+                <?php if (($this->session->flashdata('success'))) { ?>
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>.
+                    </div>
+                <?php } ?>
+                <section id="first-tab-group" class="tabgroup">
+                    <form method='post' action='<?= base_url() . 'confirm-payment'; ?>' id='paynow'>
+                        <div id="tab1">
+                            <!--Step 1-->
+
+                            <div class="submit-form form1 ">
+                                <h4>Make your payment here </h4>
+
+                                <div class="row">
 
 
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="from" style="margin-left:7px">First Name :</label>
+                                                <input type="text" class="firstname form-control"  id="firstname" name="firstname" placeholder="Enter your first name" autocomplete="off">
+                                                <label for="fromstaton" class="error"></label>
+                                            </fieldset>
+                                        </div>
 
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="from" style="margin-left:7px" >Last Name :</label>
+                                                <input type="text" class="lastname form-control"  id="lastname" name="lastname" placeholder="Enter your last name" autocomplete="off">
+                                                <label for="fromstaton" class="error"></label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <label for="from" style="margin-left:7px">Email Address :</label>
+                                                <input type="text" class="emailAddress form-control"  id="email" name="email" placeholder="Enter your email address" autocomplete="off">
+                                                <label for="fromstaton" class="error"></label>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <label for="from" style="margin-left:7px" >Amount :</label>
+                                                <input type="text" class="amount form-control"  id="amount" name="amount" placeholder="Enter your amount" autocomplete="off">
+                                                <label for="fromstaton" class="error"></label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <label for="from" style="margin-left:7px">Mobile Number :</label>
+                                                <input type="text" class="mobileno form-control"  id="mobileno" name="mobileno" placeholder="Enter your mobile number" autocomplete="off">
+                                                <label for="fromstaton" class="error"></label>
+                                            </fieldset>
+                                        </div>
+
+                                       
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            
+                                                <fieldset>
+                                                    <label for="from" style="margin-left:8px">Note :</label>
+                                                    <textarea class="note form-control"  style="margin-left:8px" id="note" name="note" placeholder="Describe your payment details here..." autocomplete="off"></textarea>
+
+                                                    <label for="fromstaton" class="error"></label>
+                                                </fieldset>
+                                            
+                                        </div>
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <button type="submit" style="margin-left:8px"  id="pageOne form-submit" >Pay now</button>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="tabs-content" id="weather">
     <div class="container">
         <div class="row">
@@ -626,3 +654,4 @@
         </div>
     </div>
 </section>
+
