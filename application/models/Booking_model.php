@@ -76,12 +76,11 @@ class Booking_model extends My_model
         }
     }
     public function makePaymentBOBNew($postData,$id,$amount){
-        
-        //            Array ( [firstname] => Parth [lastname] => Khunt [email] => parthkhunt12@gmail.com [amount] => 12500 [mobileno] => 9727466631 [note] => Test )
+        //  Array ( [firstname] => Parth [lastname] => Khunt [email] => parthkhunt12@gmail.com [amount] => 12500 [mobileno] => 9727466631 [note] => Test )
         $currency = '356';
         $language = 'USA';
-        $receiptURL = base_url().'homepage/getResponse/';
-        $errorURL = base_url().'homepage/getResponse/';
+        $receiptURL = base_url().'paynow/getResponsepaynow/';
+        $errorURL = base_url().'paynow/getResponsepaynow/';
         $resourcePath = '/home/hcgk8u1dsu89/public_html/application/libraries/bob/cgnfile/';
         $aliasName = 'ROROFERRY';
         $myObj = new iPay24Pipe();

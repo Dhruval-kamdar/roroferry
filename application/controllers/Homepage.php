@@ -270,7 +270,7 @@ class Homepage extends CI_Controller {
         if($res){
             $result= $this->this_model->makePaymentBOB($this->input->post(),$res,$amount);
         }else{
-        redirect('payment-compelete');
+            redirect('payment-compelete');
         }
 //        $amount = '1.00';
        
@@ -294,6 +294,9 @@ class Homepage extends CI_Controller {
     }
     
     public function getResponse(){
+        
+        print_r("Are you in PDF");
+        die();
         $trandata = isset($_GET["trandata"]) ? $_GET["trandata"] : isset($_POST["trandata"]) ? $_POST["trandata"] : "";
         if($trandata != ""){
             $result= $this->this_model->makePaymentResponse();
@@ -459,9 +462,9 @@ class Homepage extends CI_Controller {
             $data['passangerDetails']=  $this->this_model->getpassangerDetails($id);
             
             $pdf->SetCreator(PDF_CREATOR);
-            $pdf->SetAuthor('Nicola Asuni');
-            $pdf->SetTitle('TCPDF Example 006');
-            $pdf->SetSubject('TCPDF Tutorial');
+            $pdf->SetAuthor('Roroferry Ticket');
+            $pdf->SetTitle('Roroferry Ticket');
+            $pdf->SetSubject('Roroferry Ticket');
             $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
             $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
             $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
