@@ -131,4 +131,5 @@ define('PAGES','admin/pages/');
 define('AGENT_PAGES','agent/');
 
 define('NUMBER_OF_SEAT',61);
+define('API_URL',"http://uat.dgseaconnect.com/");
 

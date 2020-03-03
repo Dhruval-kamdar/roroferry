@@ -4,7 +4,7 @@
                 <div class="col-md-12">
                     <div class="primary-button">
                         <a href="#" class="scroll-top">Back To Top</a>
-                        <a href="<?= base_url().'pay-now'?>">Pay Now</a>
+                        <!--<a href="<?= base_url().'pay-now'?>">Pay Now</a>-->
                         <!--<a href="<?= base_url().'payment-refund'?>">Refund Request</a>-->
                     </div>
                 </div>
@@ -24,9 +24,7 @@
                         <a href="<?= base_url().'refund-cancellation'?>" style="color:white"><em>REFUND AND CANCELLATION POLICY</em></a><em> || </em>
                         <a href="<?= base_url().'privacy-policy'?>" style="color:white"><em>Privacy Policy </em></a>
                     </p>
-                    <p> Copyright &copy; 2018 Flight Tour and Travel Company
-                        | Design: <a href="http://www.tooplate.com/view/2093-flight" target="_parent"><em>Flight</em></a>
-                    </p>
+                    
                 </div>
             </div>
         </div>

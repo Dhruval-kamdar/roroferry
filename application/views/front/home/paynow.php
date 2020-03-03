@@ -21,16 +21,46 @@
     textarea.error {
         border: 1px solid #e80c0c !important;
     } 
+.title{
+        margin-top: 20px !important; 
+        text-align: center;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: 900;
+        color: #ffffff;
+    }
+    .subtitle{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: #ffffff;
+    }
 </style>
-<section class="banner" id="top">
+<section class="banner navbar-static-top" id="top" style="background: #1f3646">
+    <div class="container" >
+        <div class="row" >
+            <div class="col-md-12" >
+                <div class="section-heading">
+                    <p class="title">Mahavir Tours And Travels </p>
+                    <p class="subtitle">Authorised booking Agent of DGSEA CONNECT PVT LTD </p>
+                    
+                </div>
+                <div class="right-side" style="float: right !important;padding-bottom: 20px">
+                        <div class="primary-button">
+                            <a href="<?= base_url() . 'pay-now' ?>">Pay Now</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="banner" >
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="logo">
-                    <img src="<?= base_url() ?>public/asset/front/img/logo.png" alt="Flight Template">
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
+            
+            <div class="col-md-12" style="margin: 0px;padding: 0px !important">
                 <?php if (($this->session->flashdata('success'))) { ?>
                     <div class="alert alert-success">
                         <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>.

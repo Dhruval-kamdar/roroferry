@@ -609,6 +609,7 @@ var Home = function() {
                                 var ferryTime = $('.ferryTime option:selected').text();
                                 var ferryIdText = $('.ferryTime option:selected').attr('tripid');
                                 var ferryClass = $('.ferryClass option:selected').text();
+                                var ferryClassId = $('.ferryClass option:selected').val();
                                 var tripId=$('.ferryTime option:selected').attr('tripid');
                                 var noPassangerlesstwo = $('.noPassangerlesstwo option:selected').val();
                                 var noPassangerequal = $('.noPassangerequal option:selected').val();
@@ -633,7 +634,8 @@ var Home = function() {
                                                 noOfPassanger:noPassangerharter,
                                                 noOfInfants:noPassangerequal,
                                                 noOfChild:noPassangerlesstwo,
-                                                className:ferryClass};
+                                                className:ferryClass,
+                                                ferryClassId:ferryClassId};
                                     
                                         ajaxcall(baseurl + 'get-withoutcargo-booking', data, function(data) {
                                             var returnOutput=JSON.parse(data);
@@ -780,12 +782,13 @@ var Home = function() {
                             var vehicalId = $('.vehical option:selected').attr('data-vehiclecategoryid');
                            
                             var ferryClass = $('.ferryClass option:selected').text();
+                            var ferryClassId = $('.ferryClass option:selected').val();
                             var ferryTime = $('.ferryTime option:selected').text();
                             var noPassanger = $(".noPassanger option:selected").val();
                             var sum = Number(noPassanger);
                             
                             var data = {tripId:tripId,vehicalId:vehicalId,
-                                        ferryClass:ferryClass,noPassanger:sum};
+                                        ferryClass:ferryClass,noPassanger:sum,ferryClassId:ferryClassId};
                                 ajaxcall(baseurl + 'get-cargo-booking', data, function(data) {
                                     var returnOutput=JSON.parse(data);
                                     
